@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader, Section } from "@/components/primitives";
+import { channels, intent, principles } from "@/data/accessibility";
 import { boundary, site } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -104,6 +105,37 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+      </Section>
+
+      <Section
+        title="Interfaces should be multimodal"
+        description={intent}
+      >
+        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {channels.map((channel) => (
+            <div key={channel.name} className="bg-surface p-6">
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="text-base font-medium">{channel.name}</h3>
+                <span className="font-mono text-[0.625rem] uppercase tracking-widest text-faint">
+                  {channel.status}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{channel.body}</p>
+            </div>
+          ))}
+        </div>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {principles.map((principle) => (
+            <li key={principle} className="flex gap-3 text-sm leading-relaxed text-muted">
+              <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-accent/40" />
+              {principle}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-faint">
+          None of these input devices exists. They are design intent, and ME makes no
+          medical or health claim about any of them.
+        </p>
       </Section>
 
       <Section title="Public and internal">

@@ -49,10 +49,13 @@ npm run lint       # eslint, including the Next.js rules
 | Route | Purpose |
 | --- | --- |
 | `/` | Mission, what ME is, technology areas, selected projects, links deeper |
-| `/products` | ME OS, Holoprojector, Carl, Employee Bracers, Research Tools, each with a status label |
+| `/products` | The five products, each with a status label and what that label means |
+| `/products/<slug>` | One product in detail: purpose, current milestone, long term direction, related products, availability |
 | `/research` | Nine research branches with their current priority and open threads |
-| `/roadmap` | How execution works, and selected current milestones |
-| `/about` | Mission, long horizon philosophy, why ME is broad, shared systems |
+| `/manufacturing` | The manufacturing model, the first proof of concept part, and the factory planning room concept |
+| `/operations` | How ME intends to run critical functions: shifts, breaks, incident handling, alert principles |
+| `/roadmap` | How execution works, and every published milestone |
+| `/about` | Mission, long horizon philosophy, multimodal interfaces, shared systems |
 | `/feedback` | How to send criticism, linking the open community feedback document |
 | `/updates` | Progress log, newest first |
 | `/founder` | A mission control style public view of what the founder is working on |
@@ -82,6 +85,23 @@ Rules that keep the boundary real:
 When the internal command center is built, it goes in a separate repository on a
 separate host. It does not share this frontend.
 
+## Status vocabulary
+
+ME has no physical hardware prototypes. The site says so on the homepage, on the
+products page, on every product detail page, and on the founder console. Product
+status is a TypeScript union of five careful values:
+
+| Label | Means |
+| --- | --- |
+| Verified Software Milestone | A stated success condition is met and checked automatically. Software only. |
+| Software Prototype | Runs as software. No hardware exists. |
+| Planned Prototype | Designed to be built, not built yet. |
+| Research | Open questions being worked on. Nothing has been built. |
+| Concept | Written down as a direction. Not being built yet. |
+
+The words operational, deployed, in production and hardware prototype are not
+used, because none of them is true of anything ME has.
+
 ## Where content lives
 
 All copy that is data rather than layout lives in `data/`:
@@ -93,6 +113,10 @@ All copy that is data rather than layout lives in `data/`:
 | `data/research.ts` | Research branches, priorities, and threads |
 | `data/roadmap.ts` | The execution model and selected milestones |
 | `data/updates.ts` | The progress log |
+| `data/research-tools.ts` | The research tool family and the research loop |
+| `data/manufacturing.ts` | Manufacturing model, proof of concept, factory planning room |
+| `data/operations.ts` | Shifts, breaks, incident handling, alert principles |
+| `data/accessibility.ts` | Multimodal input intent and channels |
 | `data/founder.ts` | Founder page cards, panels, and interests |
 
 Pages import from `data/`, so a fact appears once. That is also what makes it
@@ -102,6 +126,9 @@ rewriting the pages.
 Components live in `components/`, with `primitives.tsx` for layout and typography,
 `cards.tsx` for the repeated card shapes, and `status.tsx` for status labels.
 
+More detail: [docs/content-model.md](docs/content-model.md) and
+[docs/public-private-boundary.md](docs/public-private-boundary.md).
+
 Design tokens, the grid backdrop, focus styles, and reduced motion handling live
 in `app/globals.css`.
 
@@ -109,12 +136,13 @@ in `app/globals.css`.
 
 - Semantic landmarks, one `h1` per page, and a skip link to `#main`.
 - Visible focus outline on every interactive element.
-- Text contrast checked against the actual rendered backgrounds. The worst ratio
-  on any page is 5.7:1, above the 4.5:1 AA threshold for small text.
+- Text contrast checked against the actual rendered backgrounds on every route.
+  No text on any page falls below the 4.5:1 AA threshold for small text.
 - The mobile menu is a `<details>` disclosure, so it works without JavaScript.
 - `prefers-reduced-motion` disables the entrance animation, the status pulse, and
   smooth scrolling.
-- No horizontal scrolling at 360, 390, 768, 1024, or 1440 pixels wide.
+- No horizontal scrolling on any route at 360, 768, 1024 or 1440 pixels wide,
+  checked by measuring every page at every width.
 
 ## Future deployment notes
 

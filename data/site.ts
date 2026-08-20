@@ -7,6 +7,8 @@ export const site = {
     "Maximize humanity's long-term ability to understand, build, survive, and flourish.",
   summary:
     "ME is a research, engineering, and product organization. We work across computing, robotics, energy, space, manufacturing, materials, medicine, and frontier physics, and we build the shared systems those fields keep needing: an operating system, an agent layer, research tools, and volumetric displays.",
+  hardwareNote:
+    "Everything ME has built so far is software. No physical hardware prototype exists yet, and this site labels every product with how far along it actually is.",
   principle: "Broad roadmap, narrow active scope.",
   founded: 2026,
 } as const;
@@ -16,6 +18,8 @@ export type NavItem = { href: string; label: string; description?: string };
 export const primaryNav: NavItem[] = [
   { href: "/products", label: "Products", description: "What ME is building" },
   { href: "/research", label: "Research", description: "Branches and open questions" },
+  { href: "/manufacturing", label: "Manufacturing", description: "How ME intends to build things" },
+  { href: "/operations", label: "Operations", description: "Running critical systems safely" },
   { href: "/roadmap", label: "Roadmap", description: "Milestone gated execution" },
   { href: "/updates", label: "Updates", description: "Recent progress" },
   { href: "/about", label: "About", description: "Mission and method" },

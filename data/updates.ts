@@ -11,6 +11,20 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-20",
+    title: "ME OS reads the keyboard",
+    area: "ME OS",
+    body:
+      "M2 is met. A polled PS/2 keyboard driver reports the last key pressed on a line below the boot message, and the boot message itself is untouched. It is checked without a person watching: the test boots the image headlessly, injects a key press through the emulator, and inspects the framebuffer that comes back. Two clean builds of the kernel and the ISO are now byte identical, and the boot log goes to a real serial port as well as the emulator's debug port. Still software only, still in an emulator.",
+  },
+  {
+    date: "2026-08-20",
+    title: "Holoprojector simulator holds several objects at once",
+    area: "Holoprojector",
+    body:
+      "M2 is met. The scene now contains a pyramid, a cube and a sphere, each with its own transform, visibility and rotation state. One object is selected at a time and untargeted commands act on it, so the same instruction works from a key press or from a typed phrase. The command set became data: one table names every command and its required parameters, the router validates against it, and the simulator's help panel is that same table. 106 tests, none of which need a GPU. There is still no display hardware.",
+  },
+  {
+    date: "2026-08-20",
     title: "ME OS boots",
     area: "ME OS",
     body:

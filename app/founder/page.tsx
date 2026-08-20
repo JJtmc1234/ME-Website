@@ -70,8 +70,8 @@ export default function FounderPage() {
             <dl className="grid grid-cols-3 gap-px border border-line bg-line font-mono text-xs">
               {[
                 { k: "Active", v: activeProjects.filter((p) => p.state === "Active").length },
-                { k: "Queued", v: activeProjects.filter((p) => p.state === "Queued").length },
-                { k: "Tracked", v: tracked.length },
+                { k: "Research", v: activeProjects.filter((p) => p.state === "Research").length },
+                { k: "Hardware", v: 0 },
               ].map((stat) => (
                 <div key={stat.k} className="bg-surface px-5 py-3 text-center">
                   <dt className="text-[0.625rem] uppercase tracking-widest text-faint">
@@ -96,7 +96,13 @@ export default function FounderPage() {
               <li key={project.name} className="border border-line bg-surface-2 p-4">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <StatusDot
-                    tone={project.state === "Active" ? "ok" : "idle"}
+                    tone={
+                      project.state === "Active"
+                        ? "ok"
+                        : project.state === "Research"
+                          ? "warn"
+                          : "idle"
+                    }
                     label={`${project.name} is ${project.state.toLowerCase()}`}
                   />
                   <h3 className="text-sm font-medium">{project.name}</h3>
@@ -209,6 +215,16 @@ export default function FounderPage() {
               </li>
             ))}
           </ul>
+        </Panel>
+
+        <Panel title="Hardware reality check" meta="read this one" className="lg:col-span-3">
+          <p className="max-w-4xl text-sm leading-relaxed text-muted">
+            ME has no physical hardware prototypes. No holoprojector, no bracer, no
+            factory cell, no research bench, no sensor tile. ME OS boots in an emulator
+            and has never run on a physical machine. Everything on this console that
+            shows progress is progress on software, and the counters above say
+            &quot;hardware: 0&quot; because that is the true number.
+          </p>
         </Panel>
 
         <Panel title="Disclosure" className="lg:col-span-3">

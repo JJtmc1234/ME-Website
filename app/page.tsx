@@ -11,8 +11,9 @@ const featured = ["me-os", "holoprojector", "carl"];
 
 export default function HomePage() {
   const selected = products.filter((p) => featured.includes(p.slug));
+  const completed = milestones.filter((m) => m.state === "Complete");
   const activeMilestones = milestones.filter(
-    (m) => m.state === "In progress" || m.state === "Complete",
+    (m) => m.state === "In progress" || m.state === "Complete" || m.state === "Next",
   );
 
   return (
@@ -28,6 +29,9 @@ export default function HomePage() {
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
               {site.summary}
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-faint">
+              {site.hardwareNote}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -50,7 +54,7 @@ export default function HomePage() {
           <aside className="rise panel hidden p-5 lg:block" aria-label="Current state">
             <p className="label border-b border-line pb-3">Current state</p>
             <ul className="divide-y divide-line">
-              {activeMilestones.map((milestone) => (
+              {activeMilestones.slice(0, 4).map((milestone) => (
                 <li key={milestone.id} className="py-3">
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="font-mono text-[0.6875rem] text-faint">
@@ -77,8 +81,8 @@ export default function HomePage() {
               {[
                 { k: "Research branches", v: String(branches.length) },
                 { k: "Products in development", v: String(products.length) },
-                { k: "Active milestones", v: String(activeMilestones.length) },
-                { k: "Operating principle", v: "Narrow active scope" },
+                { k: "Milestones met", v: String(completed.length) },
+                { k: "Hardware prototypes", v: "None yet" },
               ].map((stat) => (
                 <div key={stat.k} className="px-1 py-5 sm:px-6 sm:first:pl-0">
                   <dt className="label">{stat.k}</dt>
@@ -164,7 +168,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
           {primaryNav.map((item) => (
             <LinkCard
               key={item.href}

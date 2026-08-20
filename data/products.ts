@@ -1,98 +1,175 @@
 /** Product concepts and their honest current status.
- *  Nothing here is commercially available. Status labels say where each one
- *  actually is, and they are the only claim the site makes about readiness. */
+ *
+ *  ME has no physical hardware prototypes. Nothing here is commercially
+ *  available, nothing is deployed, and nothing is operating anywhere. The
+ *  status label on each product is the only claim this site makes about how
+ *  far along it is, and the labels are deliberately conservative.
+ */
 
-export type Status = "Concept" | "Research" | "Prototype" | "Early development";
+export type Status =
+  | "Concept"
+  | "Research"
+  | "Planned Prototype"
+  | "Software Prototype"
+  | "Verified Software Milestone";
 
 export type Product = {
   slug: string;
   name: string;
   tagline: string;
   status: Status;
+  kind: "Software" | "Hardware concept" | "Software and hardware";
   summary: string;
+  purpose: string;
   points: string[];
   now: string;
+  currentMilestone: string;
+  longTerm: string;
+  related: string[];
+  availability: string;
 };
 
 export const statusOrder: Status[] = [
-  "Early development",
-  "Prototype",
+  "Verified Software Milestone",
+  "Software Prototype",
+  "Planned Prototype",
   "Research",
   "Concept",
 ];
+
+export const statusMeaning: Record<Status, string> = {
+  "Verified Software Milestone":
+    "A stated success condition is met and checked automatically. Software only.",
+  "Software Prototype": "Runs as software. No hardware exists.",
+  "Planned Prototype": "Designed to be built, not built yet.",
+  Research: "Open questions being worked on. Nothing has been built.",
+  Concept: "Written down as a direction. Not being built yet.",
+};
 
 export const products: Product[] = [
   {
     slug: "me-os",
     name: "ME OS",
     tagline: "An agent native operating system",
-    status: "Early development",
+    status: "Verified Software Milestone",
+    kind: "Software",
     summary:
       "A general purpose x86-64 operating system written from scratch, where agents are first class system components rather than programs bolted on top. Execution, permissions, memory, task routing, recovery, and human oversight are meant to be OS level concepts.",
+    purpose:
+      "Every other ME system needs somewhere to run that treats agents as normal citizens and keeps a person in charge of them. Building on an OS that was designed before agents existed means fighting it forever.",
     points: [
       "Standard Linux and Unix file formats, filesystem layout, and executable formats wherever practical",
       "No ME specific wrapper or package format required of applications",
       "Desktop organized around agents, tasks, memory, and live system state",
       "Reliability and recovery treated as core features, not add ons",
     ],
-    now: "Advancing through small, individually testable milestones. M1 is a boot proof: boot in a virtual machine and print one line of text.",
+    now: "Boots in QEMU over UEFI. It has never been booted on a physical machine, and that is a later step.",
+    currentMilestone:
+      "M1 boot proof and M2 keyboard input are both met and checked automatically in QEMU: the machine boots, draws its message, and reports the key it was sent. M3 draws a rectangle.",
+    longTerm:
+      "A general purpose desktop system with agent execution, permissions and recovery built in, compatible with ordinary Linux applications and file formats.",
+    related: ["carl", "research-tools"],
+    availability: "Not available. Source only, and it runs in an emulator.",
   },
   {
     slug: "holoprojector",
     name: "Holoprojector",
     tagline: "A shared open air volumetric display",
-    status: "Prototype",
+    status: "Software Prototype",
+    kind: "Software and hardware",
     summary:
-      "A ceiling mounted volumetric display. The unit lives overhead so the shared workspace below stays physically clear, which suits desks, meetings, and collaborative engineering work.",
+      "A ceiling mounted volumetric display. The unit would live overhead so the shared workspace below stays physically clear, which suits desks, meetings, and collaborative engineering work.",
+    purpose:
+      "Engineering work is three dimensional and shared. Screens make people take turns looking at a flat picture of a solid thing. A volume in the middle of a room does not.",
     points: [
-      "Fixed external chassis with replaceable internal modules, so emitters, sensors, and compute can be serviced independently",
+      "Fixed external chassis with replaceable internal modules, so emitters, sensors, and compute could be serviced independently",
       "Capability improvements shift into software: calibration, scene generation, control logic, and agent driven updates",
       "Control software is display method agnostic, so the physical mechanism can change without a rewrite",
       "Intended control surfaces include agents, bracers, a holo pencil, hand tracking, and ordinary engineering software",
     ],
-    now: "The control software runs against a 3D simulator on ordinary computers. The first software milestone, a rotating pyramid driven entirely through the command layer, is complete. No display hardware exists yet.",
+    now: "The control software runs against a 3D simulator on ordinary computers. No display hardware exists, and the physical display method is not decided.",
+    currentMilestone:
+      "M2 is complete: several independent objects in one scene, with selection and per object commands, all driven through one command layer. M3 adds pointer based selection.",
+    longTerm:
+      "A ceiling mounted unit whose capability grows through software, controlled by the same command path as every other ME surface.",
+    related: ["carl", "employee-bracers"],
+    availability:
+      "Not available. There is no hardware. The simulator is a development tool, not a product.",
   },
   {
     slug: "carl",
     name: "Carl",
     tagline: "The agent layer across ME systems",
-    status: "Early development",
+    status: "Research",
+    kind: "Software",
     summary:
       "Carl is the agentic system ME products are built to talk to. The design goal is one command path shared by every surface, so an instruction from a person, a wearable, or a piece of engineering software travels the same route and is checked the same way.",
+    purpose:
+      "If every product invents its own way of being told what to do, every product invents its own way of being wrong. One path can be reviewed, bounded, and overridden.",
     points: [
       "Model agnostic by design. ME expects to rely mainly on strong external models rather than train a frontier model from scratch",
       "Products integrate against a Carl interface boundary, never against a specific model SDK",
       "Human override is a first class requirement. If Carl is suspected compromised, people revoke its authority through independent systems",
     ],
-    now: "Interface boundaries and command routing are being built inside individual products before any centralized deployment.",
+    now: "Interface boundaries and command routing exist inside individual products. There is no centralized Carl deployment and no live agent behind this website.",
+    currentMilestone:
+      "Each product builds its own interface boundary first. The Holoprojector already routes a local, offline text adapter through the same command path a real Carl would use.",
+    longTerm:
+      "One agent layer across ME systems, with per surface permissions and an override path that does not depend on Carl being available or correct.",
+    related: ["me-os", "holoprojector", "employee-bracers"],
+    availability: "Not available, and not reachable from this site.",
   },
   {
     slug: "employee-bracers",
     name: "Employee Bracers",
     tagline: "Multipurpose wearable forearm devices",
     status: "Research",
+    kind: "Hardware concept",
     summary:
-      "Wearable forearm units for ME staff. Intended roles include precise hand and arm tracking for holographic interaction, identity, local agent access, notifications, sensing, and context aware controls.",
+      "Wearable forearm units for ME staff. Intended roles include hand and arm tracking for holographic interaction, identity, local agent access, notifications, sensing, and context aware controls.",
+    purpose:
+      "A volumetric display needs to know where your hands are, and a person moving between workstations needs their identity and their agent to come with them. A forearm is a place both can live without occupying a hand.",
     points: [
-      "Meant to augment normal work rather than replace keyboards, screens, and standard interfaces",
+      "Hologram control: hand and arm tracking accurate enough to select and move objects in a display volume",
+      "Carl access from wherever the wearer is, through the same command path every other surface uses",
+      "Identity and authentication, so a shared machine can tell who is standing at it",
+      "Inertial and optical tracking first. Surface electromyography for finer control is a research question, not a plan",
       "Modular, so different departments can add specialized capabilities",
-      "Tracking research covers surface electromyography and inertial sensing for hand and finger intent",
+      "Calibration at first use and continuous adaptation afterwards, because bodies and wear positions differ",
+      "Accessibility: another input channel for people for whom a keyboard and mouse are not the best fit",
     ],
-    now: "Research stage. Sensor approach and tracking accuracy are open questions, and no wearable hardware has been built.",
+    now: "Research only. No bracer has been built, no sensor choice is settled, and no tracking accuracy has been demonstrated.",
+    currentMilestone:
+      "Establish whether inertial and optical sensing, and later surface electromyography, can resolve hand and finger intent well enough for holographic interaction, before any device is designed.",
+    longTerm:
+      "A modular wearable that carries identity, agent access and precise input between workstations and shared display volumes.",
+    related: ["holoprojector", "carl"],
+    availability:
+      "Not available. No prototype exists. ME makes no medical or health claims about this device.",
   },
   {
     slug: "research-tools",
     name: "Research Tools",
-    tagline: "Shared instrumentation and simulation platform",
+    tagline: "Shared instrumentation, simulation and notebooks",
     status: "Concept",
+    kind: "Software and hardware",
     summary:
-      "A common platform for the tools every ME branch keeps rebuilding: simulation, measurement, data capture, experiment tracking, and the scientific computing that sits under all of them.",
+      "A common platform for the tools every ME branch keeps rebuilding: simulation, measurement, data capture, experiment tracking, and the scientific computing under all of them.",
+    purpose:
+      "Every branch, from energy to biotech, ends up needing the same loop: ask a question, simulate it, run it, measure it, write down what happened, and decide what to do next. Building that loop once is the difference between research that accumulates and research that restarts.",
     points: [
       "One toolchain shared across computing, energy, robotics, materials, and biotech work",
-      "Designed so results and instrument data carry provenance rather than living in scattered files",
+      "Results and instrument data carry provenance rather than living in scattered files",
       "Agent access through the same interface boundary products use",
+      "A closed loop: question, simulation, experiment, sensing, analysis, notebook, next experiment",
     ],
-    now: "Platform design. Scope is deliberately being kept small until a branch genuinely needs it.",
+    now: "Concept. Nothing has been built, and the tool family below is a description of intent.",
+    currentMilestone:
+      "Define the shared simulation, measurement and experiment tracking layer other branches would build against. Scope is deliberately shallow until a branch is blocked without it.",
+    longTerm:
+      "A research platform where an experiment's question, simulation, raw data, analysis and conclusion stay attached to each other.",
+    related: ["me-os", "carl"],
+    availability: "Not available. Concept stage.",
   },
 ];
 

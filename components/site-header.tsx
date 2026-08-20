@@ -38,7 +38,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="ml-auto hidden items-center gap-6 md:flex">
+        <nav aria-label="Primary" className="ml-auto hidden items-center gap-5 lg:flex">
           {primaryNav.map((item) => (
             <Link
               key={item.href}
@@ -51,7 +51,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/founder"
-            className={`${linkClass("/founder")} border-l border-line pl-6`}
+            className={`${linkClass("/founder")} border-l border-line pl-5`}
             aria-current={isActive(pathname, "/founder") ? "page" : undefined}
           >
             Founder
@@ -59,7 +59,7 @@ export function SiteHeader() {
         </nav>
 
         {/* Zero JavaScript mobile menu. */}
-        <details className="group relative ml-auto md:hidden">
+        <details className="group relative ml-auto lg:hidden">
           <summary
             className="flex cursor-pointer list-none items-center gap-2 rounded-sm border border-line px-3 py-1.5 text-sm text-muted marker:content-none"
             aria-label="Toggle navigation menu"

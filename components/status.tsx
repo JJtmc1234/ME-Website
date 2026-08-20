@@ -2,8 +2,9 @@ import type { Status } from "@/data/products";
 import type { MilestoneState } from "@/data/roadmap";
 
 const productTone: Record<Status, string> = {
-  "Early development": "text-status-early border-status-early/35 bg-status-early/8",
-  Prototype: "text-status-prototype border-status-prototype/35 bg-status-prototype/8",
+  "Verified Software Milestone": "text-status-early border-status-early/35 bg-status-early/8",
+  "Software Prototype": "text-status-active border-status-active/35 bg-status-active/8",
+  "Planned Prototype": "text-status-prototype border-status-prototype/35 bg-status-prototype/8",
   Research: "text-status-research border-status-research/35 bg-status-research/8",
   Concept: "text-status-concept border-status-concept/35 bg-status-concept/8",
 };

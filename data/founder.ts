@@ -8,7 +8,7 @@
 export type ProjectCard = {
   name: string;
   focus: string;
-  state: "Active" | "Paused" | "Queued";
+  state: "Active" | "Waiting" | "Research" | "Concept";
   progress: number; // rough share of the current milestone, 0 to 100
   note: string;
 };
@@ -28,52 +28,64 @@ export const founder = {
 
 export const activeProjects: ProjectCard[] = [
   {
-    name: "Holoprojector",
-    focus: "Simulator milestone 1",
+    name: "ME OS",
+    focus: "M2 keyboard input, verified in QEMU",
     state: "Active",
     progress: 100,
-    note: "Rotating pyramid, full command layer, tests passing",
+    note: "Boots, draws, reads the keyboard. Software only, never on real hardware",
   },
   {
-    name: "ME OS",
-    focus: "M1 boot proof",
+    name: "Holoprojector",
+    focus: "M2 multiple scene objects",
     state: "Active",
     progress: 100,
-    note: "Boots over UEFI and draws the line, verified in QEMU",
+    note: "Simulator holds three objects with selection. No projector exists",
   },
   {
     name: "Carl",
     focus: "Agent interface boundaries",
-    state: "Active",
+    state: "Research",
     progress: 40,
     note: "Command routing inside products before any central deployment",
   },
   {
     name: "Employee Bracers",
-    focus: "sEMG and inertial tracking research",
-    state: "Queued",
+    focus: "Tracking feasibility",
+    state: "Research",
     progress: 5,
-    note: "Feasibility questions open, no hardware designed",
+    note: "Open questions, no sensor choice settled, no hardware designed",
   },
   {
     name: "Research Tools",
     focus: "Platform design",
-    state: "Queued",
+    state: "Waiting",
     progress: 5,
-    note: "Deliberately shallow until a branch needs it",
+    note: "Deliberately shallow until a branch is blocked without it",
+  },
+  {
+    name: "Manufacturing",
+    focus: "Factory cell model and first part",
+    state: "Concept",
+    progress: 3,
+    note: "Written down only. No cell, no line, no part made",
   },
 ];
 
 export const systemPanels = [
-  { label: "Public site", value: "Online", tone: "ok" as const },
+  { label: "Public site", value: "Static, published", tone: "ok" as const },
   { label: "Carl link", value: "Not connected", tone: "idle" as const },
+  { label: "ME OS", value: "Runs in QEMU", tone: "ok" as const },
+  { label: "ME OS on real hardware", value: "Never booted", tone: "idle" as const },
   { label: "Holoprojector backend", value: "Simulator", tone: "ok" as const },
-  { label: "Projector hardware", value: "None attached", tone: "idle" as const },
-  { label: "Milestones complete", value: "2", tone: "ok" as const },
+  { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
+  { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
+  { label: "Factory cells", value: "Concept only", tone: "idle" as const },
+  { label: "Verified software milestones", value: "4", tone: "ok" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];
 
 export const researchInterests = [
+  "Distributed automated manufacturing",
   "Agent native operating system design",
   "Volumetric display control and calibration",
   "Command routing shared across many control surfaces",
