@@ -1,0 +1,130 @@
+# Multiverse Enterprises public website
+
+The public facing website for Multiverse Enterprises (ME). It explains what ME is,
+what it is building, what it is researching, how it executes, and how to send
+feedback. It is a static, read only site. It holds no accounts, no internal data,
+and no connection to any ME system.
+
+Mission: maximize humanity's long-term ability to understand, build, survive, and
+flourish.
+
+## Stack
+
+| Piece | Choice | Why |
+| --- | --- | --- |
+| Framework | Next.js 16, App Router | Static generation per route, file based routing, first class TypeScript |
+| Language | TypeScript 5 | Content data is typed, so a bad status label fails the build |
+| Styling | Tailwind CSS 4 | Design tokens live in one CSS file, no runtime cost |
+| Fonts | Geist Sans and Geist Mono via next/font | Self hosted at build time, no external font request at runtime |
+| Runtime | Node 22 | Whatever the machine already had |
+
+No UI kit, no animation library, no analytics, no tracking. Every route is
+prerendered as static HTML.
+
+## Local setup
+
+```
+cd ~/Projects/ME-Website
+npm install
+```
+
+## Run
+
+```
+npm run dev
+```
+
+Then open http://localhost:3000. Use `npm run dev -- --port 3111` for another port.
+
+## Build and check
+
+```
+npm run build      # production build, all routes prerendered
+npm run start      # serve the production build
+npm run lint       # eslint, including the Next.js rules
+```
+
+## Site structure
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Mission, what ME is, technology areas, selected projects, links deeper |
+| `/products` | ME OS, Holoprojector, Carl, Employee Bracers, Research Tools, each with a status label |
+| `/research` | Nine research branches with their current priority and open threads |
+| `/roadmap` | How execution works, and selected current milestones |
+| `/about` | Mission, long horizon philosophy, why ME is broad, shared systems |
+| `/feedback` | How to send criticism, linking the open community feedback document |
+| `/updates` | Progress log, newest first |
+| `/founder` | A mission control style public view of what the founder is working on |
+
+The founder page is deliberately styled differently from the rest of the site:
+denser panels, monospace labels, status dots, and progress bars. It is still a
+public page.
+
+## Public and internal boundary
+
+This repository is the public site only.
+
+```
+www          → this site. Static. No accounts, no internal data, no admin routes.
+command.*    → a future authenticated internal command center. Not built.
+```
+
+Rules that keep the boundary real:
+
+- No authentication, no session handling, no API routes, and no server actions.
+- No hidden admin functionality behind a URL or a query parameter.
+- No credentials, hostnames, IP addresses, logs, message contents, or
+  infrastructure details anywhere in the repository, including the founder page.
+- Founder page status values are illustrative summaries of published project
+  state, not a live feed. Nothing on the site reads from an ME system.
+
+When the internal command center is built, it goes in a separate repository on a
+separate host. It does not share this frontend.
+
+## Where content lives
+
+All copy that is data rather than layout lives in `data/`:
+
+| File | Contents |
+| --- | --- |
+| `data/site.ts` | Company facts, mission, navigation, feedback document URL, boundary notes |
+| `data/products.ts` | Products, status labels, and where each one stands |
+| `data/research.ts` | Research branches, priorities, and threads |
+| `data/roadmap.ts` | The execution model and selected milestones |
+| `data/updates.ts` | The progress log |
+| `data/founder.ts` | Founder page cards, panels, and interests |
+
+Pages import from `data/`, so a fact appears once. That is also what makes it
+possible later to feed the same shapes from a sanitized live source without
+rewriting the pages.
+
+Components live in `components/`, with `primitives.tsx` for layout and typography,
+`cards.tsx` for the repeated card shapes, and `status.tsx` for status labels.
+
+Design tokens, the grid backdrop, focus styles, and reduced motion handling live
+in `app/globals.css`.
+
+## Accessibility
+
+- Semantic landmarks, one `h1` per page, and a skip link to `#main`.
+- Visible focus outline on every interactive element.
+- Text contrast checked against the actual rendered backgrounds. The worst ratio
+  on any page is 5.7:1, above the 4.5:1 AA threshold for small text.
+- The mobile menu is a `<details>` disclosure, so it works without JavaScript.
+- `prefers-reduced-motion` disables the entrance animation, the status pulse, and
+  smooth scrolling.
+- No horizontal scrolling at 360, 390, 768, 1024, or 1440 pixels wide.
+
+## Future deployment notes
+
+Every route is static, so the build output can be served by any static host or by
+`npm run start` behind a reverse proxy. Nothing needs a database or a server
+runtime. Two things to decide before going live:
+
+- Set the real domain, then add a `metadataBase` in `app/layout.tsx` so social
+  previews resolve absolute URLs.
+- Add `app/sitemap.ts` and `app/robots.ts` if search indexing matters.
+
+`next/font` downloads Geist at build time, so the build machine needs network
+access once. The served site makes no external requests.

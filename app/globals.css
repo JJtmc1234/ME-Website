@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* Multiverse Enterprises public site.
+   Dark by default. One accent colour, used sparingly. Hairline borders and a
+   quiet grid do the work that gradients would otherwise do. */
+
+@theme {
+  --color-bg: #06080b;
+  --color-bg-raised: #0a0d13;
+  --color-surface: #0c1017;
+  --color-surface-2: #11161f;
+  --color-line: #1c222c;
+  --color-line-strong: #2b3542;
+  --color-text: #e9eef5;
+  --color-muted: #a8b4c4;
+  --color-faint: #8592a5;
+  --color-accent: #5ad2e6;
+  --color-accent-deep: #1d7d8e;
+
+  --color-status-concept: #a3b1c4;
+  --color-status-research: #b3a4f5;
+  --color-status-prototype: #f0b45c;
+  --color-status-early: #62d3a4;
+  --color-status-active: #5ad2e6;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    color: var(--color-text);
+  }
+}
+
+@layer utilities {
+  /* Faint engineering grid. Fades out so it never competes with text. */
+  .grid-backdrop {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 78%);
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  .rule {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .panel {
+    border: 1px solid var(--color-line);
+    background-color: var(--color-surface);
+  }
+
+  .panel-quiet {
+    border: 1px solid var(--color-line);
+    background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  }
+
+  .rise {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .scanline {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-line) 40%, transparent) 0px,
+      color-mix(in srgb, var(--color-line) 40%, transparent) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.live-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
