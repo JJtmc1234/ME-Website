@@ -1,0 +1,84 @@
+# Publishes the public ME website to GitHub Pages.
+#
+# GitHub Pages is temporary hosting, used because it is free, static, and
+# needs no infrastructure while ME does not have a permanent domain. When a
+# domain is confirmed, see docs/deployment.md: the application does not change,
+# only this file and BASE_PATH.
+#
+# There are no secrets here. The only credential used is the token GitHub
+# issues to the workflow itself.
+name: Deploy public site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and never cancel one that is already publishing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build static export
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on for the repository if it is not on already.
+          enablement: true
+
+      - name: Install dependencies
+        # ci, not install: the lockfile decides, so a build here matches a
+        # build anywhere else.
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        # base_path comes from the Pages configuration, so the project
+        # subdirectory is never written down in this repository.
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
+      - name: Check the export produced pages
+        run: |
+          test -f out/index.html || { echo "no out/index.html" >&2; exit 1; }
+          test -f out/.nojekyll || { echo "no out/.nojekyll" >&2; exit 1; }
+          echo "exported $(find out -name 'index.html' | wc -l) pages"
+
+      - name: Upload the artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    name: Deploy to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

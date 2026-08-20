@@ -149,15 +149,30 @@ in `app/globals.css`.
 - No horizontal scrolling on any route at 360, 768, 1024 or 1440 pixels wide,
   checked by measuring every page at every width.
 
-## Future deployment notes
+## Deployment
 
-Every route is static, so the build output can be served by any static host or by
-`npm run start` behind a reverse proxy. Nothing needs a database or a server
-runtime. Two things to decide before going live:
+The site is a static export. `npm run build` writes the whole site to `out/`,
+which any static host can serve.
 
-- Set the real domain, then add a `metadataBase` in `app/layout.tsx` so social
-  previews resolve absolute URLs.
-- Add `app/sitemap.ts` and `app/robots.ts` if search indexing matters.
+**Today it is on GitHub Pages, temporarily**, because ME does not have a
+permanent domain yet. Pages serves a project site from a subdirectory, so the
+build needs a path prefix:
+
+```
+BASE_PATH=/ME-Website npm run build    # what the deploy workflow does
+npm run build                           # a root domain, or a local preview
+```
+
+`deployment.config.mjs` is the only place that knows about any of this. Next
+applies the prefix to every link, route and asset itself, so no page, component
+or data file mentions the host and the temporary address is not part of the
+brand. `.github/workflows/pages.yml` builds and deploys on every push to `main`,
+with no secrets in the repository.
+
+When ME has a domain, the application does not change: drop `BASE_PATH`, point
+DNS, and set `metadataBase` in `app/layout.tsx`. The full procedure, including
+how to check an export locally under the subdirectory, is in
+[docs/deployment.md](docs/deployment.md).
 
 `next/font` downloads Geist at build time, so the build machine needs network
 access once. The served site makes no external requests.
