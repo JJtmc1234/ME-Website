@@ -35,9 +35,9 @@ export const milestones: Milestone[] = [
     id: "meos-m1",
     project: "ME OS",
     title: "M1: boot proof",
-    state: "In progress",
+    state: "Complete",
     detail:
-      "Boot in a virtual machine to a black screen reading IF YOU SEE THIS IT WORKED. Nothing else. The point is proving the boot path is real.",
+      "Boot in a virtual machine to a black screen reading IF YOU SEE THIS IT WORKED. Nothing else. The point was proving the boot path is real. A freestanding x86-64 kernel now boots over UEFI, draws the line, and halts without crashing.",
   },
   {
     id: "holo-sim",
@@ -67,7 +67,7 @@ export const milestones: Milestone[] = [
     id: "meos-m2",
     project: "ME OS",
     title: "M2 to M7: input, graphics, arithmetic, conditionals",
-    state: "Planned",
+    state: "Next",
     detail:
       "Keyboard input, a drawn primitive, a mouse cursor, a moving object, integer arithmetic, and branching logic. Each is separately demonstrable.",
   },

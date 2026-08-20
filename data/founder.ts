@@ -38,8 +38,8 @@ export const activeProjects: ProjectCard[] = [
     name: "ME OS",
     focus: "M1 boot proof",
     state: "Active",
-    progress: 25,
-    note: "Boot path first, nothing else until it prints",
+    progress: 100,
+    note: "Boots over UEFI and draws the line, verified in QEMU",
   },
   {
     name: "Carl",
@@ -69,7 +69,7 @@ export const systemPanels = [
   { label: "Carl link", value: "Not connected", tone: "idle" as const },
   { label: "Holoprojector backend", value: "Simulator", tone: "ok" as const },
   { label: "Projector hardware", value: "None attached", tone: "idle" as const },
-  { label: "Active milestones", value: "3", tone: "ok" as const },
+  { label: "Milestones complete", value: "2", tone: "ok" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];
 
@@ -84,6 +84,7 @@ export const researchInterests = [
 ];
 
 export const recentProgress = [
+  { when: "Aug 20", what: "ME OS M1 boot proof verified in QEMU" },
   { when: "Aug 19", what: "Holoprojector simulator milestone finished and committed" },
   { when: "Aug 19", what: "Product registry written, ME OS milestone ladder defined" },
   { when: "Aug 19", what: "Community feedback document opened to the public" },

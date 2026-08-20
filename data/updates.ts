@@ -10,6 +10,13 @@ export type Update = {
 
 export const updates: Update[] = [
   {
+    date: "2026-08-20",
+    title: "ME OS boots",
+    area: "ME OS",
+    body:
+      "M1 is met. A freestanding x86-64 kernel, loaded by Limine over UEFI, draws IF YOU SEE THIS IT WORKED in white on black and halts without crashing or rebooting. It is verified headlessly: the build boots in QEMU with OVMF and the framebuffer is captured, so the milestone can be checked without a display. Next is keyboard input.",
+  },
+  {
     date: "2026-08-19",
     title: "Holoprojector control software reaches its first milestone",
     area: "Holoprojector",
