@@ -16,6 +16,8 @@ drifting apart.
 | `data/manufacturing.ts` | The manufacturing model, the first proof of concept, the factory planning room concept | Manufacturing |
 | `data/operations.ts` | Shift model, breaks, incident handling, alert principles | Operations |
 | `data/accessibility.ts` | Multimodal input intent, channels and principles | About |
+| `data/campus.ts` | HQ shape, zones, separate buildings, campus bikes | Campus |
+| `data/energy.ts` | What power distribution has to deal with, and the smart DC bus concept | Research |
 | `data/roadmap.ts` | The execution model and every published milestone | Home, roadmap, product detail, founder |
 | `data/updates.ts` | The progress log | Updates |
 | `data/founder.ts` | Founder console cards, panels, interests, recent progress | Founder |

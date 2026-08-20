@@ -148,6 +148,62 @@ export const products: Product[] = [
       "Not available. No prototype exists. ME makes no medical or health claims about this device.",
   },
   {
+    slug: "lab-suit",
+    name: "Lab Suit",
+    tagline: "Modular protection with sensing built in",
+    status: "Concept",
+    kind: "Hardware concept",
+    summary:
+      "A modular protective suit for lab and prototyping work. The base suit carries identity and connects to an Employee Bracer; standardized locking rails let modules be added for the work actually being done.",
+    purpose:
+      "Protective equipment is chosen once, at the start of a task, and then stops being able to tell you anything. A suit with rails and a sensor pod can be configured for the hazard in front of you, and can notice conditions changing while you work.",
+    points: [
+      "Modular protection rather than one suit for every job",
+      "Base suit integrates with Employee Bracers for identity and authentication",
+      "Standardized locking rails, so modules attach the same way every time",
+      "First module: an upper chest sensor pod measuring temperature, humidity, basic air quality, ambient light, and motion and orientation from an inertial unit",
+      "Modular visor. V1 is anti fog with glare control and no electronics",
+      "A later visor could show a heads up display: safety state and the current task first, measurements and agent output only after that earns its place",
+      "The bracer is the intended input: a future neural band style channel for hands free control",
+      "First workflow: navigating a checklist without using your hands",
+      "Important actions require confirmation, and dismissing a safety warning takes a deliberate physical tap on the bracer",
+    ],
+    now: "Concept and research. No suit, no module, no visor and no bracer exists. Nothing has been prototyped, and no protective claim is made or implied.",
+    currentMilestone:
+      "Decide what the sensor pod would need to measure usefully, and whether a bracer can drive a checklist reliably enough that a person would trust it with their hands full.",
+    longTerm:
+      "Protective equipment that is configured for the task, aware of the conditions around it, and controllable without putting anything down.",
+    related: ["employee-bracers", "carl", "research-tools"],
+    availability:
+      "Not available. No prototype exists. This is not certified protective equipment, and ME makes no safety, protective or medical claim about it.",
+  },
+  {
+    slug: "smart-driver",
+    name: "ME Smart Driver",
+    tagline: "A precision driver that knows the job it is doing",
+    status: "Concept",
+    kind: "Hardware concept",
+    summary:
+      "A precision powered screwdriver, first of an eventual multi tool family. Torque accuracy comes first; interchangeable bits and further tool heads come later.",
+    purpose:
+      "Most fastening mistakes are invisible until something fails: a bolt at the wrong torque, a cross threaded fastener, the wrong screw for the hole. A driver that knows which fastener the task expects can catch those while the person is still holding the tool.",
+    points: [
+      "Torque accuracy is the first priority, before any other feature",
+      "Interchangeable bits later, other tool heads later still",
+      "Carl and the task context supply which fastener is expected, and the driver checks that against what it is doing",
+      "Automatic stop at the target torque, with a haptic confirmation the hand can feel",
+      "An abnormally fast torque rise stops the driver immediately and warns of a likely jam, cross thread or wrong fastener, with a concrete next action rather than an error code",
+      "The result eventually attaches to the task record, so what was tightened, to what, and when, is not a memory",
+    ],
+    now: "Concept. No driver exists, no torque measurement has been designed, and nothing has been built or tested.",
+    currentMilestone:
+      "Work out what torque accuracy is actually needed for the work ME expects to do, and what a driver has to sense to tell a jam from a fastener that has simply seated.",
+    longTerm:
+      "A family of tools that know the task, verify what they are working on, and record what they did.",
+    related: ["carl", "lab-suit"],
+    availability: "Not available. Concept stage, no prototype.",
+  },
+  {
     slug: "research-tools",
     name: "Research Tools",
     tagline: "Shared instrumentation, simulation and notebooks",

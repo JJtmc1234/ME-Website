@@ -26,6 +26,8 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const secondaryNav: NavItem[] = [
+  { href: "/hardware", label: "Hardware status" },
+  { href: "/campus", label: "Campus concept" },
   { href: "/feedback", label: "Community feedback" },
   { href: "/founder", label: "Founder" },
 ];

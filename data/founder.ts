@@ -29,17 +29,17 @@ export const founder = {
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
-    focus: "M2 keyboard input, verified in QEMU",
+    focus: "M3 rectangle, verified in QEMU",
     state: "Active",
     progress: 100,
-    note: "Boots, draws, reads the keyboard. Software only, never on real hardware",
+    note: "Boots, draws, reads the keyboard, draws a shape. Never on real hardware",
   },
   {
     name: "Holoprojector",
-    focus: "M2 multiple scene objects",
+    focus: "M3 pointer interaction",
     state: "Active",
     progress: 100,
-    note: "Simulator holds three objects with selection. No projector exists",
+    note: "Hover, select, grab, drag with a mouse. No projector exists",
   },
   {
     name: "Carl",
@@ -80,7 +80,8 @@ export const systemPanels = [
   { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Factory cells", value: "Concept only", tone: "idle" as const },
-  { label: "Verified software milestones", value: "4", tone: "ok" as const },
+  { label: "Verified software milestones", value: "6", tone: "ok" as const },
+  { label: "Lab suit and tools", value: "Concept only", tone: "idle" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];
 

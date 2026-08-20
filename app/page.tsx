@@ -31,7 +31,11 @@ export default function HomePage() {
               {site.summary}
             </p>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-faint">
-              {site.hardwareNote}
+              {site.hardwareNote}{" "}
+              <Link href="/hardware" className="text-accent underline underline-offset-4">
+                Hardware status
+              </Link>
+              .
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link

@@ -55,9 +55,17 @@ export const milestones: Milestone[] = [
     id: "meos-m3",
     project: "ME OS",
     title: "M3: draw a rectangle",
+    state: "Complete",
+    detail:
+      "One static filled rectangle, with the boot message and the key line untouched. Checked automatically: the captured framebuffer must contain a solid rectangle of the expected size, centred and clear of the text, alongside both lines of text. Framebuffer clipping is also checked on the development machine with guard regions around a fake framebuffer.",
+  },
+  {
+    id: "meos-m4",
+    project: "ME OS",
+    title: "M4: mouse cursor",
     state: "Next",
     detail:
-      "A filled rectangle at chosen coordinates in a chosen colour. After it: a mouse cursor, a moving rectangle, arithmetic, conditionals, variables, then keyboard and pointer control of the rectangle.",
+      "A cursor drawn on the framebuffer that moves with a pointing device. After it: a moving rectangle, arithmetic, conditionals, variables, then keyboard and pointer control of the rectangle.",
   },
   {
     id: "holo-m1",
@@ -78,10 +86,18 @@ export const milestones: Milestone[] = [
   {
     id: "holo-m3",
     project: "Holoprojector",
-    title: "M3: pointer selection",
+    title: "M3: pointer interaction",
+    state: "Complete",
+    detail:
+      "A device neutral pointer: hover, select, grab, drag and release. A pointer sample is a ray plus a pressed flag, so a mouse, a holo pencil, a bracer or a hand tracker could each produce one. Only the mouse works; the others are named stubs that refuse to poll. Dragging goes through a command that safety checks, so a drag out of the display volume is refused.",
+  },
+  {
+    id: "holo-m4",
+    project: "Holoprojector",
+    title: "M4: simulated Holo Pencil",
     state: "Next",
     detail:
-      "Picking an object with a pointer rather than by name, as the first step towards a device neutral pointer and drag model that a bracer or holo pencil could drive.",
+      "A second pointer source, simulated in software, so the interaction path is exercised by something other than a mouse long before any pencil hardware could exist.",
   },
   {
     id: "bracer-research",
@@ -98,6 +114,14 @@ export const milestones: Milestone[] = [
     state: "Planned",
     detail:
       "Define the shared simulation, measurement and experiment tracking layer other branches would build against.",
+  },
+  {
+    id: "energy-dc-bus",
+    project: "Energy",
+    title: "Smart DC bus study",
+    state: "Planned",
+    detail:
+      "Study a shared DC distribution bus for a lab bench or factory cell, with monitoring and protection built in. Paper study only. Nothing has been built or energised.",
   },
   {
     id: "factory-poc",

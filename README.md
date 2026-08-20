@@ -53,7 +53,9 @@ npm run lint       # eslint, including the Next.js rules
 | `/products/<slug>` | One product in detail: purpose, current milestone, long term direction, related products, availability |
 | `/research` | Nine research branches with their current priority and open threads |
 | `/manufacturing` | The manufacturing model, the first proof of concept part, and the factory planning room concept |
-| `/operations` | How ME intends to run critical functions: shifts, breaks, incident handling, alert principles |
+| `/operations` | How ME intends to run critical functions: shifts, breaks, handoff logs, camera and machine safety, alert principles |
+| `/campus` | The HQ and campus concept: core, wings, separate buildings, borrowed bikes |
+| `/hardware` | The hardware status page: zero physical prototypes, stated plainly |
 | `/roadmap` | How execution works, and every published milestone |
 | `/about` | Mission, long horizon philosophy, multimodal interfaces, shared systems |
 | `/feedback` | How to send criticism, linking the open community feedback document |
@@ -88,7 +90,8 @@ separate host. It does not share this frontend.
 ## Status vocabulary
 
 ME has no physical hardware prototypes. The site says so on the homepage, on the
-products page, on every product detail page, and on the founder console. Product
+products page, on every product detail page, on the founder console, and on a
+page of its own at `/hardware`. Product
 status is a TypeScript union of five careful values:
 
 | Label | Means |
@@ -117,6 +120,8 @@ All copy that is data rather than layout lives in `data/`:
 | `data/manufacturing.ts` | Manufacturing model, proof of concept, factory planning room |
 | `data/operations.ts` | Shifts, breaks, incident handling, alert principles |
 | `data/accessibility.ts` | Multimodal input intent and channels |
+| `data/campus.ts` | HQ and campus concept |
+| `data/energy.ts` | Power electronics realities and the smart DC bus concept |
 | `data/founder.ts` | Founder page cards, panels, and interests |
 
 Pages import from `data/`, so a fact appears once. That is also what makes it

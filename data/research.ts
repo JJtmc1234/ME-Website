@@ -31,6 +31,8 @@ export const branches: Branch[] = [
       "Initial focus is power electronics: efficient conversion, control, and distribution. That is the layer compute, robotics, labs, vehicles, satellites, and storage all depend on.",
     threads: [
       "Power electronics for high density compute and laboratory loads",
+      "A smart DC bus for lab benches and factory cells, as the first concrete system to study",
+      "Protection coordination: which device disconnects first, and how fast, on a fault",
       "Storage and grid interaction",
       "Longer horizon generation systems",
     ],

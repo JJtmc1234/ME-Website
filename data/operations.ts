@@ -51,10 +51,36 @@ export const breaks = {
   why: "Tired people miss things. Treating rest as optional is how an organisation converts goodwill into incidents.",
 };
 
+export const handoffLog = {
+  title: "What a written handoff contains",
+  intro:
+    "A handoff is a document, not a conversation someone remembers. The incoming shift should be able to read it and know what they have inherited.",
+  items: [
+    "Active incidents, and who currently holds command of each",
+    "Unfinished tasks, with where they were left",
+    "Unusual system behaviour, including things that looked odd and were not chased",
+    "Decisions made during the shift, and why",
+    "Risks and watch items for the next shift",
+    "Follow up owners, by name, for anything that outlives the shift",
+  ],
+};
+
+export const cameraPolicy = {
+  title: "Cameras and machine safety",
+  status: "Design intent. No camera system is installed, and nothing is watching anything.",
+  points: [
+    "Broad camera coverage in operationally relevant areas: production floors, labs, plant, loading, and other places where machines and people share space",
+    "No cameras in private spaces. Bathrooms and changing areas are not covered, and no exception makes them covered",
+    "The primary purpose is safety, not surveillance of people's work",
+    "Carl may eventually stop an affected machine or cell when it detects a clear hazard, because a machine that keeps running through a hazard is the problem",
+    "Restarting takes two things: Carl verifying the hazard is gone, and a person authorising the restart. Neither alone is enough",
+  ],
+};
+
 export const incidentHandling = [
   {
     title: "Written handoff",
-    body: "Shift changes carry a structured written handoff. What is broken, what was tried, what is expected next.",
+    body: "Shift changes carry a structured written handoff, covering active incidents, unfinished tasks, unusual behaviour, decisions, risks and follow up owners.",
   },
   {
     title: "Overlap, extended when needed",

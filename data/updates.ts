@@ -11,6 +11,20 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-20",
+    title: "ME OS draws a rectangle, and gains a test that cannot be fooled",
+    area: "ME OS",
+    body:
+      "M3 is met: one static filled rectangle below the key line, with the boot message and keyboard line untouched. The automated check now asserts the rectangle is present, solid with no holes, the expected size for the screen, centred, and clear of the text, alongside both lines of text. A second, faster test builds the framebuffer code on an ordinary machine against a fake framebuffer with guard regions on both sides, then tries to draw off every edge: any write outside the visible area changes a sentinel byte and fails the run. Still software in an emulator, never booted on a physical machine.",
+  },
+  {
+    date: "2026-08-20",
+    title: "Pointing at objects in the Holoprojector simulator",
+    area: "Holoprojector",
+    body:
+      "M3 is met. A pointer is a ray through the display volume plus a pressed flag, which means a mouse, a holo pencil, a bracer or a hand tracker could each produce one without the rest of the system knowing which. Hovering highlights, clicking selects and grabs, dragging moves an object, releasing lets go. Dragging goes through the same command path as everything else, so safety checks the destination and a drag that would push an object out of the calibrated volume is refused with the reason shown on screen. Only the mouse source exists; the other three are named stubs that refuse to poll. 135 tests, none needing a GPU.",
+  },
+  {
+    date: "2026-08-20",
     title: "ME OS reads the keyboard",
     area: "ME OS",
     body:

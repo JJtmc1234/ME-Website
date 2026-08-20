@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container, PageHeader, Section } from "@/components/primitives";
-import { alerts, breaks, incidentHandling, shiftModel } from "@/data/operations";
+import { alerts, breaks, cameraPolicy, handoffLog, incidentHandling,
+         shiftModel } from "@/data/operations";
 
 export const metadata: Metadata = {
   title: "Operations",
@@ -62,6 +63,29 @@ export default function OperationsPage() {
             </li>
           ))}
         </ol>
+      </Section>
+
+      <Section title={handoffLog.title} description={handoffLog.intro}>
+        <ul className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {handoffLog.items.map((item) => (
+            <li key={item} className="bg-surface px-5 py-4 text-sm leading-relaxed text-muted">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title={cameraPolicy.title} description={cameraPolicy.status}>
+        <div className="panel p-6 sm:p-8">
+          <ul className="space-y-3">
+            {cameraPolicy.points.map((point) => (
+              <li key={point} className="flex gap-3 text-sm leading-relaxed text-muted">
+                <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-accent/40" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Section>
 
       <Section title={alerts.title} description={alerts.status}>
