@@ -63,9 +63,17 @@ export const milestones: Milestone[] = [
     id: "meos-m4",
     project: "ME OS",
     title: "M4: mouse cursor",
+    state: "Complete",
+    detail:
+      "A cursor drawn on the framebuffer that follows the mouse, keeps its shape, and stays on screen. Checked automatically: the emulator moves the mouse and the captured framebuffer must show the cursor moved by exactly that much, with the message, key line and rectangle all untouched.",
+  },
+  {
+    id: "meos-m5",
+    project: "ME OS",
+    title: "M5: move the rectangle",
     state: "Next",
     detail:
-      "A cursor drawn on the framebuffer that moves with a pointing device. After it: a moving rectangle, arithmetic, conditionals, variables, then keyboard and pointer control of the rectangle.",
+      "The rectangle moves across the screen over time. After it: arithmetic, conditionals, variables, then keyboard and pointer control of the rectangle.",
   },
   {
     id: "holo-m1",
@@ -95,9 +103,17 @@ export const milestones: Milestone[] = [
     id: "holo-m4",
     project: "Holoprojector",
     title: "M4: simulated Holo Pencil",
+    state: "Complete",
+    detail:
+      "A second pointer source, simulated in software: a tip in the display volume that the keyboard walks around. It selects, grabs, drags and releases through the same controller, commands and safety checks as the mouse, and a drag begun with one source can be finished with the other. No physical pencil exists.",
+  },
+  {
+    id: "holo-m5",
+    project: "Holoprojector",
+    title: "M5: bracer input adapter",
     state: "Next",
     detail:
-      "A second pointer source, simulated in software, so the interaction path is exercised by something other than a mouse long before any pencil hardware could exist.",
+      "An adapter shaped like a bracer would be, feeding the same pointer and command path in software, so the interaction model is tested against a third kind of input before any wearable is designed.",
   },
   {
     id: "bracer-research",

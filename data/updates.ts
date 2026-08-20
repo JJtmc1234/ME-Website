@@ -11,6 +11,27 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-20",
+    title: "The public site is live, temporarily on GitHub Pages",
+    area: "Company",
+    body:
+      "The site is published while ME does not have a permanent domain. It is a static export with no server behind it, so the hosting question is small: the build produces a directory of files that any host can serve. One configuration file knows where the site is deployed, and nothing in the content mentions the host, so moving to a permanent ME domain later means changing that file and pointing DNS, not rewriting pages.",
+  },
+  {
+    date: "2026-08-20",
+    title: "ME OS has a mouse cursor",
+    area: "ME OS",
+    body:
+      "M4 is met. A polled PS/2 mouse moves a cursor that keeps its shape, puts back whatever it covered, and stays on screen. Input is split three ways so later milestones can change one part without the others: one module talks to the hardware, one holds the position, one draws. The emulator now moves the mouse during the automated check, and the captured framebuffer has to show the cursor moved by exactly that much with the message, key line and rectangle untouched. Nothing follows the cursor yet, and nothing can be dragged.",
+  },
+  {
+    date: "2026-08-20",
+    title: "A simulated holo pencil, to prove the pointer layer is not a mouse",
+    area: "Holoprojector",
+    body:
+      "M4 is met. A second pointer source, entirely in software: a pencil tip somewhere in the display volume, walked around with the keyboard, whose ray starts behind the tip so what it touches is what gets picked. It hovers, selects, grabs, drags and releases through the same controller, commands and safety checks as the mouse, and a drag begun with one can be finished with the other. That was the point: to find out whether the interaction layer had quietly been built around a mouse. It had not. No physical pencil exists, and the source for one still refuses to run.",
+  },
+  {
+    date: "2026-08-20",
     title: "ME OS draws a rectangle, and gains a test that cannot be fooled",
     area: "ME OS",
     body:

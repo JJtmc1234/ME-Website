@@ -134,6 +134,12 @@ Components live in `components/`, with `primitives.tsx` for layout and typograph
 More detail: [docs/content-model.md](docs/content-model.md) and
 [docs/public-private-boundary.md](docs/public-private-boundary.md).
 
+Company level documents also live here, because there is no separate ME
+documentation repository: [docs/me-change-log.md](docs/me-change-log.md) records
+ME decisions and milestones, and [docs/me-doc-style.md](docs/me-doc-style.md)
+records how ME documents are formatted. Both are public safe and written so they
+can be mirrored into Drive without editing.
+
 Design tokens, the grid backdrop, focus styles, and reduced motion handling live
 in `app/globals.css`.
 
