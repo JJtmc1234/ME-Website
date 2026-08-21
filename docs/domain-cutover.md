@@ -1,6 +1,6 @@
 # Moving to the permanent domain
 
-ME owns `multiverseenterprises.com`. It is **not live**: the account transfer
+ME owns `multiverse-enterprises.com`. It is **not live**: the account transfer
 and DNS are still to be done, no record points anywhere, and nothing in this
 repository builds against it. The site is on temporary GitHub Pages hosting
 until that changes.
@@ -17,11 +17,11 @@ The application does not know where it is deployed. Two values in
 | Value | Today | After cutover |
 | --- | --- | --- |
 | `BASE_PATH` | `/ME-Website` | empty |
-| `SITE_URL` | `https://jjtmc1234.github.io/ME-Website` | `https://multiverseenterprises.com` |
+| `SITE_URL` | `https://jjtmc1234.github.io/ME-Website` | `https://multiverse-enterprises.com` |
 
 `SITE_URL` already feeds `metadataBase`, every page's canonical link, the Open
 Graph URLs, `sitemap.xml` and `robots.txt`. This has been tested: building with
-`SITE_URL=https://multiverseenterprises.com` produces canonical links, sitemap
+`SITE_URL=https://multiverse-enterprises.com` produces canonical links, sitemap
 entries and a robots sitemap line on the permanent domain, with assets served
 from the root, and no page source changes.
 
@@ -42,7 +42,7 @@ DNS:
 
 - [ ] Choose where DNS is hosted: the registrar, or a separate DNS provider.
       Write the choice down, because everything after this depends on it
-- [ ] Pick one canonical form, apex (`multiverseenterprises.com`) or `www`, and
+- [ ] Pick one canonical form, apex (`multiverse-enterprises.com`) or `www`, and
       redirect the other to it. Two live forms means split search results and
       confusing links
 - [ ] Add the records the chosen host needs. For GitHub Pages that is four `A`
@@ -59,7 +59,7 @@ Hosting:
       one yet: adding it before DNS exists breaks the working site
 - [ ] Enable HTTPS and enforce it. On Pages, tick "Enforce HTTPS" once the
       certificate has been issued
-- [ ] Build with `SITE_URL=https://multiverseenterprises.com` and no
+- [ ] Build with `SITE_URL=https://multiverse-enterprises.com` and no
       `BASE_PATH`, by editing `.github/workflows/pages.yml`
 
 Verify, in this order:

@@ -14,7 +14,7 @@ export const updates: Update[] = [
     title: "A permanent ME domain, and a site ready to move to it",
     area: "Company",
     body:
-      "ME acquired multiverseenterprises.com. It does not resolve yet: the account transfer and DNS are still to be done, and nothing builds against it. The site was prepared for the move instead. One value now sets the canonical origin, feeding page metadata, canonical links, social preview URLs, the sitemap and robots.txt, and building against the permanent domain was tried as a dry run: everything came out correct with no page changed. Until DNS is ready, GitHub Pages remains temporary hosting.",
+      "ME acquired multiverse-enterprises.com. It does not resolve yet: the account transfer and DNS are still to be done, and nothing builds against it. The site was prepared for the move instead. One value now sets the canonical origin, feeding page metadata, canonical links, social preview URLs, the sitemap and robots.txt, and building against the permanent domain was tried as a dry run: everything came out correct with no page changed. Until DNS is ready, GitHub Pages remains temporary hosting.",
   },
   {
     date: "2026-08-20",

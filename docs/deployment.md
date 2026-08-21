@@ -33,7 +33,7 @@ credential is the token GitHub issues to the workflow.
 
 ## Later: a permanent ME domain
 
-ME owns `multiverseenterprises.com`. It is not live: the account transfer and
+ME owns `multiverse-enterprises.com`. It is not live: the account transfer and
 DNS are still pending, and nothing here builds against it. The step by step
 procedure is in [domain-cutover.md](domain-cutover.md).
 
@@ -50,7 +50,7 @@ When DNS is ready, the application does not change. Three things do:
    There is deliberately no `CNAME` file today, because no domain is confirmed.
 3. **Set `SITE_URL`** to the new origin. `metadataBase`, canonical links, Open
    Graph URLs, the sitemap and robots.txt all follow from it. Building with
-   `SITE_URL=https://multiverseenterprises.com` has been tried, and produces a
+   `SITE_URL=https://multiverse-enterprises.com` has been tried, and produces a
    correct site for the permanent domain with no source changes.
 
 Nothing else is host specific. If a fourth thing turns out to be, it belongs in

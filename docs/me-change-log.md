@@ -20,7 +20,7 @@ without editing.
 - ME confirmed it currently has zero custom physical hardware prototypes. The
   public site states this on a page of its own, and every product carries a
   status label saying how far along it actually is.
-- ME acquired the domain `multiverseenterprises.com`. The domain transfer,
+- ME acquired the domain `multiverse-enterprises.com`. The domain transfer,
   account setup and DNS configuration are still pending, so it does not resolve
   and the site does not build against it.
 - GitHub Pages remains temporary public website hosting until permanent domain

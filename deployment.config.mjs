@@ -8,7 +8,7 @@
  *              root, so this is "/ME-Website" today and "" later.
  *   siteUrl    the canonical origin, used for metadata, canonical links, the
  *              sitemap and robots.txt. Today the temporary Pages address,
- *              later https://multiverseenterprises.com.
+ *              later https://multiverse-enterprises.com.
  *
  * Nothing in the application reads either one directly. Next applies basePath
  * to every Link, route and asset itself, and metadata goes through
@@ -16,7 +16,7 @@
  * file, not a change in any page.
  *
  *   BASE_PATH=/ME-Website npm run build      # GitHub Pages, today
- *   SITE_URL=https://multiverseenterprises.com npm run build   # once DNS works
+ *   SITE_URL=https://multiverse-enterprises.com npm run build   # once DNS works
  *   npm run build                            # local preview
  */
 
@@ -34,7 +34,7 @@ if (basePath && !basePath.startsWith("/")) {
  * nothing builds against it yet and no page claims it works. When DNS is
  * ready, see docs/domain-cutover.md.
  */
-export const plannedDomain = "multiverseenterprises.com";
+export const plannedDomain = "multiverse-enterprises.com";
 export const plannedOrigin = `https://${plannedDomain}`;
 
 /** Where this build will actually be reachable. */
