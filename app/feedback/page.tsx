@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { communityFeedbackDoc } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Community feedback",
   description:
     "ME welcomes outside criticism, questions, risks, and ideas. Feedback is collected in an open document.",
-};
+  path: "/feedback",
+});
 
 const areas = [
   "Company strategy",

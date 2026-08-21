@@ -1,31 +1,62 @@
 /**
  * Where this site is deployed, in one place.
  *
- * Today: GitHub Pages, under a project path, which means every URL and asset
- * needs a prefix. Later: a permanent ME domain at the root, which means no
- * prefix at all. That difference is the only thing this file exists to hold,
- * so migrating is a change here and in one workflow file, not in the app.
+ * Two things vary between hosts, and only these two:
  *
- * Set BASE_PATH when building for a subdirectory:
+ *   basePath   the prefix every route and asset needs. GitHub Pages serves a
+ *              project site from a subdirectory, a real domain serves from the
+ *              root, so this is "/ME-Website" today and "" later.
+ *   siteUrl    the canonical origin, used for metadata, canonical links, the
+ *              sitemap and robots.txt. Today the temporary Pages address,
+ *              later https://multiverseenterprises.com.
  *
- *   BASE_PATH=/ME-Website npm run build     # GitHub Pages
- *   npm run build                           # a root domain, or local preview
+ * Nothing in the application reads either one directly. Next applies basePath
+ * to every Link, route and asset itself, and metadata goes through
+ * app/layout.tsx. Moving hosts is a change here plus a change in one workflow
+ * file, not a change in any page.
  *
- * BASE_PATH must start with a slash and must not end with one.
+ *   BASE_PATH=/ME-Website npm run build      # GitHub Pages, today
+ *   SITE_URL=https://multiverseenterprises.com npm run build   # once DNS works
+ *   npm run build                            # local preview
  */
 
-const raw = process.env.BASE_PATH ?? "";
-const basePath = raw === "/" ? "" : raw.replace(/\/$/, "");
+const rawBase = process.env.BASE_PATH ?? "";
+const basePath = rawBase === "/" ? "" : rawBase.replace(/\/$/, "");
 
 if (basePath && !basePath.startsWith("/")) {
-  throw new Error(`BASE_PATH must start with a slash, got ${JSON.stringify(raw)}`);
+  throw new Error(`BASE_PATH must start with a slash, got ${JSON.stringify(rawBase)}`);
 }
 
+/**
+ * The domain ME owns and intends to serve this site from.
+ *
+ * Acquired, but not live: the account transfer and DNS are not done, so
+ * nothing builds against it yet and no page claims it works. When DNS is
+ * ready, see docs/domain-cutover.md.
+ */
+export const plannedDomain = "multiverseenterprises.com";
+export const plannedOrigin = `https://${plannedDomain}`;
+
+/** Where this build will actually be reachable. */
+function defaultSiteUrl() {
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL.replace(/\/$/, "");
+  }
+  // A subdirectory build is the temporary GitHub Pages one.
+  if (basePath) {
+    return `https://jjtmc1234.github.io${basePath}`;
+  }
+  return "http://localhost:3000";
+}
+
+const siteUrl = defaultSiteUrl();
+
 export const deployment = {
-  /** Prefix every route and asset needs. Empty on a root domain. */
   basePath,
-  /** True while the site is served from a project subdirectory. */
   isSubdirectory: basePath !== "",
+  siteUrl,
+  /** True once a build is actually pointed at the permanent domain. */
+  onPermanentDomain: siteUrl.startsWith(plannedOrigin),
   /**
    * Export static HTML rather than run a server. The site has no API routes,
    * no server actions and no request time data, so this changes nothing about
@@ -34,5 +65,12 @@ export const deployment = {
    */
   staticExport: true,
 };
+
+/** Absolute URL for a route, for canonical links and the sitemap. */
+export function absoluteUrl(path = "/") {
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  const withSlash = clean.endsWith("/") ? clean : `${clean}/`;
+  return `${siteUrl}${withSlash === "//" ? "/" : withSlash}`;
+}
 
 export default deployment;

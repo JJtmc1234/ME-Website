@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { MilestoneRow } from "@/components/cards";
 import { executionModel, milestones } from "@/data/roadmap";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Roadmap",
   description:
     "How ME executes: a broad long term map, a small active project set, milestone gates, and shared infrastructure across products.",
-};
+  path: "/roadmap",
+});
 
 export default function RoadmapPage() {
   return (

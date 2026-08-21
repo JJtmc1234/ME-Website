@@ -17,9 +17,14 @@ or data file mentions the host, and the temporary address is not part of the
 brand.
 
 ```
-BASE_PATH=/ME-Website npm run build   # what the workflow does
-npm run build                          # a root domain, or a local preview
+BASE_PATH=/ME-Website npm run build    # what the workflow does today
+npm run build                           # a root domain, or a local preview
 ```
+
+`SITE_URL` sets the canonical origin used by `metadataBase`, every page's
+canonical link, the Open Graph URLs, `sitemap.xml` and `robots.txt`. It defaults
+to the temporary Pages address for a subdirectory build and to localhost
+otherwise.
 
 `.github/workflows/pages.yml` runs on every push to `main`: install with `npm
 ci`, lint, build with the `base_path` that GitHub reports, check the export
@@ -28,7 +33,11 @@ credential is the token GitHub issues to the workflow.
 
 ## Later: a permanent ME domain
 
-When a domain is confirmed, the application does not change. Three things do:
+ME owns `multiverseenterprises.com`. It is not live: the account transfer and
+DNS are still pending, and nothing here builds against it. The step by step
+procedure is in [domain-cutover.md](domain-cutover.md).
+
+When DNS is ready, the application does not change. Three things do:
 
 1. **Drop the prefix.** A root domain serves from `/`, so `BASE_PATH` becomes
    empty. In the workflow that means removing the `env: BASE_PATH` line, or
@@ -39,8 +48,10 @@ When a domain is confirmed, the application does not change. Three things do:
    Pages settings. If it moves to ordinary production hosting, the build output
    in `out/` is a directory of static files that any web server or CDN can serve.
    There is deliberately no `CNAME` file today, because no domain is confirmed.
-3. **Set `metadataBase`** in `app/layout.tsx` to the real origin, so social
-   preview URLs resolve absolutely.
+3. **Set `SITE_URL`** to the new origin. `metadataBase`, canonical links, Open
+   Graph URLs, the sitemap and robots.txt all follow from it. Building with
+   `SITE_URL=https://multiverseenterprises.com` has been tried, and produces a
+   correct site for the permanent domain with no source changes.
 
 Nothing else is host specific. If a fourth thing turns out to be, it belongs in
 `deployment.config.mjs` with the rest.

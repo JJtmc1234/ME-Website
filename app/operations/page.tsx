@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { alerts, breaks, cameraPolicy, handoffLog, incidentHandling,
          shiftModel } from "@/data/operations";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Operations",
   description:
     "How ME intends to run critical functions: continuous staffing, mandatory paid breaks, structured handoffs, and alerts that go to the people who can act.",
-};
+  path: "/operations",
+});
 
 export default function OperationsPage() {
   return (

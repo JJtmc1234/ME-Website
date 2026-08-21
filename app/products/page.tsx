@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { ProductCard } from "@/components/cards";
 import { products, statusMeaning, statusOrder } from "@/data/products";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Products",
   description:
     "ME product concepts: ME OS, Holoprojector, Carl, Employee Bracers, and the research tools platform, each with its honest current status.",
-};
+  path: "/products",
+});
 
 export default function ProductsPage() {
   return (

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { products, statusMeaning, statusOrder } from "@/data/products";
 import { milestones } from "@/data/roadmap";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Hardware status",
   description:
     "ME has zero custom physical hardware prototypes. What exists is software: ME OS in an emulator and the Holoprojector simulator. Everything else is concept or research.",
-};
+  path: "/hardware",
+});
 
 const software = [
   {

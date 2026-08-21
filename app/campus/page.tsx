@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { bikes, disclaimer, separateBuildings, shape, zones } from "@/data/campus";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Campus concept",
   description:
     "How an ME headquarters and campus might be laid out: a central tower with research wings, separate buildings where separation helps, and borrowed campus bikes. Concept only, nothing exists.",
-};
+  path: "/campus",
+});
 
 export default function CampusPage() {
   return (

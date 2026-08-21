@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { updates } from "@/data/updates";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Updates",
   description:
     "Project milestones, prototypes, experiments, and major design decisions at Multiverse Enterprises.",
-};
+  path: "/updates",
+});
 
 function formatDate(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {

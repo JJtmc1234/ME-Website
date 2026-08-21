@@ -20,10 +20,15 @@ without editing.
 - ME confirmed it currently has zero custom physical hardware prototypes. The
   public site states this on a page of its own, and every product carries a
   status label saying how far along it actually is.
-- ME began investigating a permanent domain.
-- GitHub Pages was selected as temporary public website hosting until a
-  permanent domain is confirmed. The deployment is deliberately structured so
-  moving off it does not require changing the site itself.
+- ME acquired the domain `multiverseenterprises.com`. The domain transfer,
+  account setup and DNS configuration are still pending, so it does not resolve
+  and the site does not build against it.
+- GitHub Pages remains temporary public website hosting until permanent domain
+  setup is complete. The deployment is deliberately structured so moving off it
+  does not require changing the site itself: one environment value sets the
+  canonical origin, and it has been tested against the permanent domain without
+  editing a single page. The cutover procedure is in
+  [domain-cutover.md](domain-cutover.md).
 - The company name was discussed, including Multiverse Engineering as an
   alternative. **Multiverse Enterprises remains the current name**, pending the
   domain and name decision. Nothing has been renamed.

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { deployment } from "@/deployment.config.mjs";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/data/site";
@@ -9,12 +11,24 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  // One origin for canonical links, Open Graph and the sitemap. It is the
+  // temporary host today and the permanent domain later, and no page has to
+  // know which.
+  metadataBase: new URL(deployment.siteUrl),
   title: {
     default: `${site.name} — research, engineering, and products`,
     template: `%s — ${site.short}`,
   },
   description: site.mission,
   applicationName: site.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${site.name} — research, engineering, and products`,
+    description: site.mission,
+    url: "/",
+    siteName: site.name,
+    type: "website",
+  },
   robots: { index: true, follow: true },
 };
 

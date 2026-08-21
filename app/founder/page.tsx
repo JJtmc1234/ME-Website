@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import { StatusDot } from "@/components/status";
 import {
@@ -10,11 +12,12 @@ import {
 } from "@/data/founder";
 import { milestones } from "@/data/roadmap";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Founder",
   description:
     "A public mission control view of what ME's founder is working on: active projects, current milestones, and research interests. Sanitized, no internal data.",
-};
+  path: "/founder",
+});
 
 function Panel({
   title,

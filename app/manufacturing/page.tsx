@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { holoRoom, model, proofOfConcept } from "@/data/manufacturing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Manufacturing",
   description:
     "ME's manufacturing direction: distributed automated production, standardized factory cells, and a first proof of concept part. Concept and planning only, nothing has been built.",
-};
+  path: "/manufacturing",
+});
 
 export default function ManufacturingPage() {
   return (

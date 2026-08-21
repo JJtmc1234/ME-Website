@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
+import { pageMeta } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { PageHeader, Section } from "@/components/primitives";
 import { StatusBadge } from "@/components/status";
@@ -15,10 +17,11 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   const { slug } = await params;
   const product = productBySlug(slug);
   if (!product) return {};
-  return {
+  return pageMeta({
     title: product.name,
     description: `${product.tagline}. Status: ${product.status}. ${product.availability}`,
-  };
+    path: `/products/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {

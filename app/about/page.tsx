@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import { PageHeader, Section } from "@/components/primitives";
 import { channels, intent, principles } from "@/data/accessibility";
 import { boundary, site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description:
     "ME's mission, long horizon philosophy, why the company works across many fields, and how shared systems connect its projects.",
-};
+  path: "/about",
+});
 
 const sharedSystems = [
   {

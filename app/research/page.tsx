@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { BranchCard } from "@/components/cards";
 import { branches } from "@/data/research";
 import { firstSystem, focus, realities } from "@/data/energy";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Research",
   description:
     "ME research branches: computing and AI, energy, space and satellites, robotics, manufacturing, materials, medicine and biotech, transportation, and frontier research.",
-};
+  path: "/research",
+});
 
 export default function ResearchPage() {
   return (
