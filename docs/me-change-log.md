@@ -48,8 +48,9 @@ without editing.
   longer canonical.
 - HTTPS on the domain is not finished: the certificate has not been issued, so
   the site answers on http until it is.
-- ME OS reached M6, whole number arithmetic typed on the keyboard, and M7, one
-  conditional expression. Still QEMU only, never booted on a physical machine.
+- ME OS reached M6, whole number arithmetic typed on the keyboard, M7, one
+  conditional expression, and M8, values that can be given names. Still QEMU
+  only, never booted on a physical machine.
 
 ## How to add an entry
 

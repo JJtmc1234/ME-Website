@@ -29,10 +29,10 @@ export const founder = {
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
-    focus: "M5 moving rectangle, verified in QEMU",
+    focus: "M8 variables, verified in QEMU",
     state: "Active",
     progress: 100,
-    note: "Boots, reads input, draws, keeps time. Never on real hardware",
+    note: "Boots, reads input, draws, keeps time, works sums out. Never on real hardware",
   },
   {
     name: "Holoprojector",
@@ -82,7 +82,7 @@ export const systemPanels = [
   { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Factory cells", value: "Concept only", tone: "idle" as const },
-  { label: "Verified software milestones", value: "10", tone: "ok" as const },
+  { label: "Verified software milestones", value: "13", tone: "ok" as const },
   { label: "Lab suit and tools", value: "Concept only", tone: "idle" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];
@@ -99,9 +99,9 @@ export const researchInterests = [
 ];
 
 export const recentProgress = [
-  { when: "Aug 20", what: "ME OS M1 boot proof verified in QEMU" },
-  { when: "Aug 19", what: "Holoprojector simulator milestone finished and committed" },
-  { when: "Aug 19", what: "Product registry written, ME OS milestone ladder defined" },
-  { when: "Aug 19", what: "Community feedback document opened to the public" },
-  { when: "Aug 19", what: "Public ME site brought up" },
+  { when: "Aug 21", what: "Public site moved to its own domain, HTTPS still pending" },
+  { when: "Aug 20", what: "ME OS M8: values can be given names and used again" },
+  { when: "Aug 20", what: "ME OS M7: one conditional, taking either branch" },
+  { when: "Aug 20", what: "ME OS M6: sums typed on the keyboard, answered on screen" },
+  { when: "Aug 20", what: "Holoprojector M5: a bracer shaped input on the same path" },
 ];

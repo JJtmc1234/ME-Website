@@ -79,9 +79,33 @@ export const milestones: Milestone[] = [
     id: "meos-m6",
     project: "ME OS",
     title: "M6: basic arithmetic",
+    state: "Complete",
+    detail:
+      "Type a sum and press enter, and a line above the boot message shows the answer. Addition, subtraction, multiplication, whole number division and powers, with the precedence they have on paper. Overflow, division by zero and fractional powers are refused and shown as an error rather than producing a wrong answer, which matters in a kernel with no interrupt table to catch a fault.",
+  },
+  {
+    id: "meos-m7",
+    project: "ME OS",
+    title: "M7: conditionals",
+    state: "Complete",
+    detail:
+      "One conditional expression on the same line: IF one value compared to another THEN this ELSE that, with =, <  or > as the comparison, and a sum allowed in all three places. Checked by typing both a condition that holds and one that does not, and reading the two different answers off the framebuffer.",
+  },
+  {
+    id: "meos-m8",
+    project: "ME OS",
+    title: "M8: variables",
+    state: "Complete",
+    detail:
+      "A value can be given a name and used on any later line. Eight names fit, each an uppercase letter and up to three more characters. Reading a name that was never set is an error rather than zero, because a typo that quietly reads as zero gives a wrong answer and says nothing about it. One table, no scope, and nothing survives a reboot.",
+  },
+  {
+    id: "meos-m9",
+    project: "ME OS",
+    title: "M9: keyboard controlled rectangle",
     state: "Next",
     detail:
-      "Evaluate simple integer addition and subtraction and show the result. After it: conditionals, variables, then keyboard and pointer control of the rectangle.",
+      "Keys move the rectangle, which until now has only moved on its own. After it: wrapping at the screen edges, then picking the rectangle up with the pointer.",
   },
   {
     id: "holo-m1",

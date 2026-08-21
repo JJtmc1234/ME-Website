@@ -11,6 +11,13 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-21",
+    title: "ME OS can work things out",
+    area: "ME OS",
+    body:
+      "Three milestones, each small on its own. M6: type a sum and press enter, and a line above the boot message shows the answer, with the precedence arithmetic has on paper and every operation refusing to overflow rather than wrapping. M7: one conditional, IF one value compared to another THEN this ELSE that, verified by typing both a condition that holds and one that does not and reading the two different answers off the screen. M8: a value can be given a name and used on a later line, with eight names, no scope, and an error rather than a zero when a name was never set. 386 checks now run without an emulator, and the emulator itself types on the keyboard and reads the framebuffer back. Still software: ME OS has never booted on a physical machine.",
+  },
+  {
+    date: "2026-08-21",
     title: "The site moves to its own domain",
     area: "Company",
     body:
