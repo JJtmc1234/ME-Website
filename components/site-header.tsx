@@ -49,13 +49,6 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/founder"
-            className={`${linkClass("/founder")} border-l border-line pl-5`}
-            aria-current={isActive(pathname, "/founder") ? "page" : undefined}
-          >
-            Founder
-          </Link>
         </nav>
 
         {/* Zero JavaScript mobile menu. */}

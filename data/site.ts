@@ -29,8 +29,18 @@ export const secondaryNav: NavItem[] = [
   { href: "/hardware", label: "Hardware status" },
   { href: "/campus", label: "Campus concept" },
   { href: "/feedback", label: "Community feedback" },
-  { href: "/founder", label: "Founder" },
 ];
+
+/** Unlisted. Reachable by anybody who has the address, and advertised nowhere.
+ *
+ *  Kept out of `secondaryNav` rather than deleted, because that array is what
+ *  the footer, the mobile menu and the sitemap all read, so being absent from
+ *  it is what unlisted means in one place instead of three.
+ *
+ *  This is not access control and must not be described as any. The site is
+ *  static files on a CDN: there is nobody to ask who a visitor is. The page is
+ *  simply not linked and asks search engines not to index it. */
+export const unlisted: NavItem[] = [{ href: "/founder", label: "Founder" }];
 
 /** Live Google Doc from the ME Drive folder. Anyone may add feedback. */
 export const communityFeedbackDoc =

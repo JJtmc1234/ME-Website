@@ -14,12 +14,25 @@ export type PageMetaInput = {
   description: string;
   /** Route path, as written in the app. "/" for the homepage. */
   path: string;
+  /** Asks search engines not to list the page, for a route that is reachable
+   *  but deliberately not advertised.
+   *
+   *  A request, not a restriction. It keeps the page out of results for
+   *  crawlers that honour it and stops nothing else, so nothing sensitive
+   *  should sit behind it. */
+  unlisted?: boolean;
 };
 
-export function pageMeta({ title, description, path }: PageMetaInput): Metadata {
+export function pageMeta({
+  title,
+  description,
+  path,
+  unlisted = false,
+}: PageMetaInput): Metadata {
   return {
     title,
     description,
+    ...(unlisted ? { robots: { index: false, follow: false } } : {}),
     // Relative: Next resolves it against metadataBase, which is the canonical
     // origin for this deployment.
     alternates: { canonical: path },

@@ -17,6 +17,10 @@ export const metadata: Metadata = pageMeta({
   description:
     "A public mission control view of what ME's founder is working on: active projects, current milestones, and research interests. Sanitized, no internal data.",
   path: "/founder",
+  // Unlisted: linked from nowhere and kept out of the sitemap. Everything on
+  // this page is already sanitized and public, so this is tidiness rather than
+  // protection. A static site cannot tell who is asking.
+  unlisted: true,
 });
 
 function Panel({
