@@ -39,9 +39,9 @@ if (basePath && !basePath.startsWith("/")) {
  * The public ME domain. DNS points here and GitHub Pages serves it, which is
  * why production builds from the root rather than from a project path.
  *
- * HTTPS is a separate matter and is not settled by anything in this file: the
- * certificate is issued by the host, and until it exists the domain answers on
- * http only. See docs/domain-cutover.md.
+ * HTTPS is a separate matter and is not settled by anything in this file. It is
+ * issued and enforced by the host, which now redirects http to https and www to
+ * the apex. See docs/domain-cutover.md.
  */
 export const canonicalDomain = "multiverse-enterprises.com";
 export const canonicalOrigin = `https://${canonicalDomain}`;

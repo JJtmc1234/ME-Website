@@ -21,7 +21,7 @@ export const updates: Update[] = [
     title: "The site moves to its own domain",
     area: "Company",
     body:
-      "multiverse-enterprises.com now serves the public site. GitHub Pages still hosts it, so nothing about the site itself changed: it is the same static export, built from the root instead of from a project path. That distinction turned out to matter. The first deployment on the domain asked for its stylesheet at the old project path, which does not exist there, so every page arrived as unformatted text. The build now states its path and origin rather than inferring them, and fails outright if the old path reappears anywhere in the output. HTTPS is not finished: the certificate for the domain has not been issued yet, so the site answers on http for now.",
+      "multiverse-enterprises.com now serves the public site. GitHub Pages still hosts it, so nothing about the site itself changed: it is the same static export, built from the root instead of from a project path. That distinction turned out to matter. The first deployment on the domain asked for its stylesheet at the old project path, which does not exist there, so every page arrived as unformatted text. The build now states its path and origin rather than inferring them, and fails outright if the old path reappears anywhere in the output. HTTPS followed shortly afterwards: the certificate covers the domain and its www form, http redirects to https, and www redirects to the plain domain.",
   },
   {
     date: "2026-08-20",

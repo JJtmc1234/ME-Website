@@ -46,8 +46,9 @@ without editing.
   canonical public address. GitHub Pages remains the host, serving from the
   root rather than a project path. The old github.io project address is no
   longer canonical.
-- HTTPS on the domain is not finished: the certificate has not been issued, so
-  the site answers on http until it is.
+- HTTPS is issued and enforced on the domain, covering both the plain and www
+  forms. http redirects to https, www redirects to the plain domain, and the old
+  github.io project address redirects to the domain.
 - ME OS reached M6, whole number arithmetic typed on the keyboard, M7, one
   conditional expression, and M8, values that can be given names. Still QEMU
   only, never booted on a physical machine.

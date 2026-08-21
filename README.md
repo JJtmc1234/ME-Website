@@ -174,8 +174,8 @@ or data file mentions the host. `.github/workflows/pages.yml` builds and deploys
 on every push to `main`, with no secrets in the repository, and fails the build
 if the old project path appears anywhere in the output.
 
-HTTPS on the domain is still pending its certificate, so the site answers on
-`http` today. Details, and what is left, are in
+HTTPS is issued and enforced: `http` redirects to `https`, `www` redirects to
+the apex, and the old project address redirects to the domain. Details are in
 [docs/deployment.md](docs/deployment.md) and
 [docs/domain-cutover.md](docs/domain-cutover.md).
 

@@ -74,7 +74,7 @@ export const activeProjects: ProjectCard[] = [
 export const systemPanels = [
   { label: "Public site", value: "Static, published", tone: "ok" as const },
   { label: "Site hosting", value: "GitHub Pages", tone: "ok" as const },
-  { label: "Public domain", value: "Live, HTTPS pending", tone: "warn" as const },
+  { label: "Public domain", value: "Live over HTTPS", tone: "ok" as const },
   { label: "Carl link", value: "Not connected", tone: "idle" as const },
   { label: "ME OS", value: "Runs in QEMU", tone: "ok" as const },
   { label: "ME OS on real hardware", value: "Never booted", tone: "idle" as const },
