@@ -5,20 +5,30 @@ there are no API routes, no server actions and no request time data. That is a
 deliberate property, not an optimisation, and it is what makes the hosting
 question small.
 
-## Today: GitHub Pages, temporarily
+## Today: GitHub Pages, on the public domain
 
-GitHub Pages hosts the site while ME does not have a permanent domain. It is
-free, it serves static files, and it needs no infrastructure to look after.
+GitHub Pages hosts the site, and DNS points **multiverse-enterprises.com** at
+it. That domain is the canonical public address. The old project address under
+`github.io` is no longer canonical: nothing is built for it, and no metadata
+names it.
 
-Pages serves a project site from a subdirectory, so every route and asset needs
-a prefix. `BASE_PATH` supplies it, `deployment.config.mjs` interprets it, and
-Next applies it to every `Link`, route and asset by itself. No page, component
-or data file mentions the host, and the temporary address is not part of the
-brand.
+A custom domain serves from the root, so there is **no path prefix**.
+`BASE_PATH` is empty in production and `SITE_URL` is the domain, both set in the
+deploy workflow and interpreted by `deployment.config.mjs`. No page, component
+or data file mentions the host.
+
+This is the part that broke once and is worth remembering. The workflow used to
+take its base path from `actions/configure-pages`, which kept reporting the
+repository's project path after the custom domain was configured. Every page
+then asked for its stylesheet at `/ME-Website/_next/...`, which does not exist
+on the domain, so the HTML arrived and rendered as unformatted text. The values
+are now stated in the workflow rather than inferred, and the build fails if the
+project path appears anywhere in the output.
 
 ```
-BASE_PATH=/ME-Website npm run build    # what the workflow does today
-npm run build                           # a root domain, or a local preview
+BASE_PATH= SITE_URL=https://multiverse-enterprises.com npm run build   # production
+BASE_PATH=/ME-Website npm run build    # the old project site under github.io
+npm run build                           # local preview
 ```
 
 `SITE_URL` sets the canonical origin used by `metadataBase`, every page's
@@ -58,18 +68,17 @@ Nothing else is host specific. If a fourth thing turns out to be, it belongs in
 
 ## Checking an export locally
 
-`out/` is the whole site. To check it the way Pages will serve it, put it behind
-the same subdirectory:
+`out/` is the whole site, and production serves it from the root, so a plain
+static server over that directory is the same shape as the real thing:
 
 ```
-BASE_PATH=/ME-Website npm run build
-mkdir -p /tmp/pages-root && ln -s "$PWD/out" /tmp/pages-root/ME-Website
-cd /tmp/pages-root && python3 -m http.server 3311
+BASE_PATH= SITE_URL=https://multiverse-enterprises.com npm run build
+cd out && python3 -m http.server 3411
 ```
 
-Then open `http://localhost:3311/ME-Website/`. Check a few routes, a product
-detail page, the stylesheet and a font, since those are what a wrong prefix
-breaks first.
+Then open `http://localhost:3411/`. Check a few routes, a product detail page,
+the stylesheet and a font, since those are what a wrong prefix breaks first. If
+the page arrives as unstyled text, the base path is wrong.
 
 ## What Pages hosts
 

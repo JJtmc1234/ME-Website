@@ -40,6 +40,17 @@ without editing.
 - ME Docs formatting changed from oversized 22 pt body text to 12 pt body text
   with larger headings. See [me-doc-style.md](me-doc-style.md).
 
+## 2026-08-21
+
+- The public website moved to **multiverse-enterprises.com**, which is now the
+  canonical public address. GitHub Pages remains the host, serving from the
+  root rather than a project path. The old github.io project address is no
+  longer canonical.
+- HTTPS on the domain is not finished: the certificate has not been issued, so
+  the site answers on http until it is.
+- ME OS reached M6, whole number arithmetic typed on the keyboard, and M7, one
+  conditional expression. Still QEMU only, never booted on a physical machine.
+
 ## How to add an entry
 
 One dated heading per day that had a decision worth remembering. Short lines,

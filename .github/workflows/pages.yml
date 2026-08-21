@@ -1,9 +1,8 @@
 # Publishes the public ME website to GitHub Pages.
 #
-# GitHub Pages is temporary hosting, used because it is free, static, and
-# needs no infrastructure while ME does not have a permanent domain. When a
-# domain is confirmed, see docs/deployment.md: the application does not change,
-# only this file and BASE_PATH.
+# GitHub Pages hosts the site, and it is served from multiverse-enterprises.com,
+# so the build has to come out of the root rather than a project path. Those two
+# values are set here and nowhere else. See docs/deployment.md.
 #
 # There are no secrets here. The only credential used is the token GitHub
 # issues to the workflow itself.
@@ -42,7 +41,10 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
         with:
-          # Turns Pages on for the repository if it is not on already.
+          # Turns Pages on for the repository if it is not on already. Its
+          # base_path output is deliberately not used: it reported the project
+          # path after the custom domain was configured, which is what broke
+          # every stylesheet on the domain.
           enablement: true
 
       - name: Install dependencies
@@ -54,17 +56,32 @@ jobs:
         run: npm run lint
 
       - name: Build
-        # base_path comes from the Pages configuration, so the project
-        # subdirectory is never written down in this repository.
+        # The site is served from a custom domain at the root, so there is no
+        # path prefix. Empty on purpose, and stated rather than inferred.
         env:
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          BASE_PATH: ""
+          SITE_URL: https://multiverse-enterprises.com
         run: npm run build
 
       - name: Check the export produced pages
         run: |
           test -f out/index.html || { echo "no out/index.html" >&2; exit 1; }
           test -f out/.nojekyll || { echo "no out/.nojekyll" >&2; exit 1; }
+          test -f out/CNAME || { echo "no out/CNAME" >&2; exit 1; }
           echo "exported $(find out -name 'index.html' | wc -l) pages"
+
+      - name: Check nothing carries the old project path
+        # The failure this guards against is quiet: the HTML arrives, the
+        # stylesheet 404s, and the site reads as plain text. Better to fail here.
+        run: |
+          if grep -rl "/ME-Website/" out --include="*.html" --include="*.css" \
+               --include="*.txt" --include="*.xml" | head -5 | grep .; then
+            echo "the build contains the old project path" >&2
+            exit 1
+          fi
+          grep -q "multiverse-enterprises.com" out/sitemap.xml \
+            || { echo "sitemap does not use the public domain" >&2; exit 1; }
+          echo "no project path in the output, sitemap on the public domain"
 
       - name: Upload the artifact
         uses: actions/upload-pages-artifact@v3

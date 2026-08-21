@@ -1,9 +1,15 @@
-# Moving to the permanent domain
+# The permanent domain
 
-ME owns `multiverse-enterprises.com`. It is **not live**: the account transfer
-and DNS are still to be done, no record points anywhere, and nothing in this
-repository builds against it. The site is on temporary GitHub Pages hosting
-until that changes.
+**Done.** `multiverse-enterprises.com` resolves, GitHub Pages serves it, and
+production builds against it from the root. The steps below are kept as the
+record of what was needed, with what is finished marked, and what is not.
+
+**Not done: HTTPS.** The certificate for the domain has not been issued yet, so
+the site answers on `http` and `https` presents GitHub's own `*.github.io`
+certificate, which browsers reject. That is a host and DNS matter, settled in
+the repository's Pages settings once the certificate appears, not by anything in
+this repository. Until then, treat `http://multiverse-enterprises.com` as the
+working address and do not advertise the `https` one.
 
 Nothing here should be done from this repository. Registrar, DNS and hosting
 settings are account level changes a person makes, deliberately, with the
@@ -14,7 +20,7 @@ account in front of them.
 The application does not know where it is deployed. Two values in
 `deployment.config.mjs` decide, and both come from the environment:
 
-| Value | Today | After cutover |
+| Value | Before | Now |
 | --- | --- | --- |
 | `BASE_PATH` | `/ME-Website` | empty |
 | `SITE_URL` | `https://jjtmc1234.github.io/ME-Website` | `https://multiverse-enterprises.com` |
@@ -29,7 +35,7 @@ from the root, and no page source changes.
 
 Registrar, before anything else:
 
-- [ ] Confirm the domain sits in the correct GoDaddy account, and that the
+- [x] Confirm the domain sits in the correct GoDaddy account, and that the
       account is the one ME intends to keep
 - [ ] Turn on two factor authentication on that account
 - [ ] Turn on auto renew, and check the card on file is one that will still work
@@ -40,12 +46,12 @@ Registrar, before anything else:
 
 DNS:
 
-- [ ] Choose where DNS is hosted: the registrar, or a separate DNS provider.
+- [x] Choose where DNS is hosted: the registrar, or a separate DNS provider.
       Write the choice down, because everything after this depends on it
 - [ ] Pick one canonical form, apex (`multiverse-enterprises.com`) or `www`, and
       redirect the other to it. Two live forms means split search results and
       confusing links
-- [ ] Add the records the chosen host needs. For GitHub Pages that is four `A`
+- [x] Add the records the chosen host needs. For GitHub Pages that is four `A`
       records for the apex, or a `CNAME` for `www` pointing at
       `jjtmc1234.github.io`. For another host, whatever that host documents.
       Take the values from the host's own documentation on the day, not from
@@ -54,22 +60,23 @@ DNS:
 
 Hosting:
 
-- [ ] Set the custom domain in the host's settings. On GitHub Pages that adds a
-      `CNAME` file to the repository, which is why this repository does not have
-      one yet: adding it before DNS exists breaks the working site
-- [ ] Enable HTTPS and enforce it. On Pages, tick "Enforce HTTPS" once the
-      certificate has been issued
-- [ ] Build with `SITE_URL=https://multiverse-enterprises.com` and no
+- [x] Set the custom domain in the host's settings. `public/CNAME` now carries
+      it, so every deployment states the domain rather than relying on a setting
+      that a later deployment might not carry forward
+- [ ] **Outstanding.** Enable HTTPS and enforce it. On Pages, tick "Enforce
+      HTTPS" once the certificate has been issued. Today `https` serves GitHub's
+      `*.github.io` certificate, which browsers reject
+- [x] Build with `SITE_URL=https://multiverse-enterprises.com` and no
       `BASE_PATH`, by editing `.github/workflows/pages.yml`
 
 Verify, in this order:
 
 - [ ] The apex and `www` both resolve, and the non canonical one redirects
 - [ ] HTTPS works, with no mixed content and no certificate warning
-- [ ] Every route loads: the homepage, each section, and each product detail page
-- [ ] Stylesheets, fonts and the icon load, which is what a wrong prefix breaks
+- [x] Every route loads: the homepage, each section, and each product detail page
+- [x] Stylesheets, fonts and the icon load, which is what a wrong prefix breaks
       first
-- [ ] Canonical links, Open Graph URLs, `sitemap.xml` and `robots.txt` all name
+- [x] Canonical links, Open Graph URLs, `sitemap.xml` and `robots.txt` all name
       the new domain
 - [ ] The old Pages address either redirects or is retired deliberately, not
       left serving a stale copy
@@ -83,10 +90,10 @@ Separately:
       command center, when it exists, is a separate host with its own
       authentication
 
-## What not to do yet
+## Still to do
 
-- Do not add a `CNAME` file to this repository until the custom domain is
-  actually being configured with DNS access in hand.
-- Do not put the permanent domain in any page as though it works.
-- Do not point DNS at a host before that host is set up to answer for the
-  domain, or visitors get an error page with ME's name on it.
+- Enforce HTTPS once the certificate is issued, then confirm `https` works with
+  no warning and no mixed content.
+- Decide the canonical form, apex or `www`, and redirect the other to it.
+- Decide what the old `github.io` project address should do: redirect, or be
+  retired deliberately. It currently still serves an older copy.

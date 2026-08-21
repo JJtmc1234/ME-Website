@@ -160,25 +160,24 @@ in `app/globals.css`.
 The site is a static export. `npm run build` writes the whole site to `out/`,
 which any static host can serve.
 
-**Today it is on GitHub Pages, temporarily**, because ME does not have a
-permanent domain yet. Pages serves a project site from a subdirectory, so the
-build needs a path prefix:
+**GitHub Pages hosts it, on multiverse-enterprises.com.** A custom domain
+serves from the root, so production builds with no path prefix:
 
 ```
-BASE_PATH=/ME-Website npm run build    # what the deploy workflow does
-npm run build                           # a root domain, or a local preview
+BASE_PATH= SITE_URL=https://multiverse-enterprises.com npm run build   # production
+npm run build                                                          # local preview
 ```
 
 `deployment.config.mjs` is the only place that knows about any of this. Next
 applies the prefix to every link, route and asset itself, so no page, component
-or data file mentions the host and the temporary address is not part of the
-brand. `.github/workflows/pages.yml` builds and deploys on every push to `main`,
-with no secrets in the repository.
+or data file mentions the host. `.github/workflows/pages.yml` builds and deploys
+on every push to `main`, with no secrets in the repository, and fails the build
+if the old project path appears anywhere in the output.
 
-When ME has a domain, the application does not change: drop `BASE_PATH`, point
-DNS, and set `metadataBase` in `app/layout.tsx`. The full procedure, including
-how to check an export locally under the subdirectory, is in
-[docs/deployment.md](docs/deployment.md).
+HTTPS on the domain is still pending its certificate, so the site answers on
+`http` today. Details, and what is left, are in
+[docs/deployment.md](docs/deployment.md) and
+[docs/domain-cutover.md](docs/domain-cutover.md).
 
 `next/font` downloads Geist at build time, so the build machine needs network
 access once. The served site makes no external requests.

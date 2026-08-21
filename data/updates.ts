@@ -10,6 +10,13 @@ export type Update = {
 
 export const updates: Update[] = [
   {
+    date: "2026-08-21",
+    title: "The site moves to its own domain",
+    area: "Company",
+    body:
+      "multiverse-enterprises.com now serves the public site. GitHub Pages still hosts it, so nothing about the site itself changed: it is the same static export, built from the root instead of from a project path. That distinction turned out to matter. The first deployment on the domain asked for its stylesheet at the old project path, which does not exist there, so every page arrived as unformatted text. The build now states its path and origin rather than inferring them, and fails outright if the old path reappears anywhere in the output. HTTPS is not finished: the certificate for the domain has not been issued yet, so the site answers on http for now.",
+  },
+  {
     date: "2026-08-20",
     title: "A permanent ME domain, and a site ready to move to it",
     area: "Company",
