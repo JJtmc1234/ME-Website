@@ -11,6 +11,27 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-20",
+    title: "A permanent ME domain, and a site ready to move to it",
+    area: "Company",
+    body:
+      "ME acquired multiverseenterprises.com. It does not resolve yet: the account transfer and DNS are still to be done, and nothing builds against it. The site was prepared for the move instead. One value now sets the canonical origin, feeding page metadata, canonical links, social preview URLs, the sitemap and robots.txt, and building against the permanent domain was tried as a dry run: everything came out correct with no page changed. Until DNS is ready, GitHub Pages remains temporary hosting.",
+  },
+  {
+    date: "2026-08-20",
+    title: "ME OS moves the rectangle, on a real clock",
+    area: "ME OS",
+    body:
+      "M5 is met. The rectangle crosses the screen at sixty pixels a second and turns around at each edge. Doing that properly meant giving the kernel a sense of time: it reads a hardware counter that wraps about every 55 milliseconds and adds up the differences, so the rectangle moves at a rate rather than at whatever speed the machine happens to run its loop. The wrap arithmetic and the movement are pure functions, tested on an ordinary machine over thousands of steps, because time that jumps backwards once per wrap and a rectangle that creeps off screen after ten minutes are exactly the faults a short look at an emulator misses.",
+  },
+  {
+    date: "2026-08-20",
+    title: "A bracer shaped input, and what it taught the simulator",
+    area: "Holoprojector",
+    body:
+      "M5 is met. A third input for the Holoprojector simulator, shaped like a wearable rather than a pointing device: a hand pose in its own coordinate space, an alignment that maps it into the display volume, and a grip. Calibrating it is one gesture, holding a hand somewhere and declaring it the middle. It can also lose tracking, and when that happens mid drag it lets go of what it was holding rather than leaving it stuck to a hand nobody can see. Neither of those needed a change to the interaction layer, the command router or the safety checks, which is the result the milestone was looking for. No bracer exists, and nothing here reads or models a sensor.",
+  },
+  {
+    date: "2026-08-20",
     title: "The public site is live, temporarily on GitHub Pages",
     area: "Company",
     body:

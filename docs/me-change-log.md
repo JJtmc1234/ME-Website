@@ -32,6 +32,11 @@ without editing.
 - The company name was discussed, including Multiverse Engineering as an
   alternative. **Multiverse Enterprises remains the current name**, pending the
   domain and name decision. Nothing has been renamed.
+- ME OS reached M4, a mouse cursor, and M5, a rectangle that crosses the screen
+  on a hardware timer. Still QEMU only, never booted on a physical machine.
+- The Holoprojector simulator reached M4, a simulated holo pencil, and M5, a
+  bracer shaped input adapter with its own alignment. Still simulator only, and
+  no bracer, pencil or projector hardware exists.
 - ME Docs formatting changed from oversized 22 pt body text to 12 pt body text
   with larger headings. See [me-doc-style.md](me-doc-style.md).
 

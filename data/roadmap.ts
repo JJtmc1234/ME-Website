@@ -71,9 +71,17 @@ export const milestones: Milestone[] = [
     id: "meos-m5",
     project: "ME OS",
     title: "M5: move the rectangle",
+    state: "Complete",
+    detail:
+      "The rectangle crosses the screen at sixty pixels a second and turns around at each edge. It moves at a rate rather than at whatever speed the machine runs its loop, because the kernel now reads a hardware timer. Checked automatically across four captures: the rectangle is whole, on screen, and somewhere different each time.",
+  },
+  {
+    id: "meos-m6",
+    project: "ME OS",
+    title: "M6: basic arithmetic",
     state: "Next",
     detail:
-      "The rectangle moves across the screen over time. After it: arithmetic, conditionals, variables, then keyboard and pointer control of the rectangle.",
+      "Evaluate simple integer addition and subtraction and show the result. After it: conditionals, variables, then keyboard and pointer control of the rectangle.",
   },
   {
     id: "holo-m1",
@@ -111,9 +119,17 @@ export const milestones: Milestone[] = [
     id: "holo-m5",
     project: "Holoprojector",
     title: "M5: bracer input adapter",
+    state: "Complete",
+    detail:
+      "An adapter shaped like a wearable: a hand pose in its own tracking space, an alignment that maps it into the scene, and a grip. It can also lose tracking, which lets go of whatever was being held instead of leaving it attached to a hand nobody can see. None of that needed a change in the interaction layer, the commands or safety. No bracer exists, and nothing reads or models a sensor.",
+  },
+  {
+    id: "holo-m6",
+    project: "Holoprojector",
+    title: "M6: richer Carl adapter",
     state: "Next",
     detail:
-      "An adapter shaped like a bracer would be, feeding the same pointer and command path in software, so the interaction model is tested against a third kind of input before any wearable is designed.",
+      "Broader phrasing and multi step instructions through the same command path, still model agnostic and still offline.",
   },
   {
     id: "bracer-research",

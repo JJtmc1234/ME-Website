@@ -29,17 +29,17 @@ export const founder = {
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
-    focus: "M4 mouse cursor, verified in QEMU",
+    focus: "M5 moving rectangle, verified in QEMU",
     state: "Active",
     progress: 100,
-    note: "Boots, reads the keyboard, draws, moves a cursor. Never on real hardware",
+    note: "Boots, reads input, draws, keeps time. Never on real hardware",
   },
   {
     name: "Holoprojector",
-    focus: "M4 simulated holo pencil",
+    focus: "M5 bracer shaped input adapter",
     state: "Active",
     progress: 100,
-    note: "Two software pointer sources on one path. No projector exists",
+    note: "Three software input shapes on one path. No projector exists",
   },
   {
     name: "Carl",
@@ -74,6 +74,7 @@ export const activeProjects: ProjectCard[] = [
 export const systemPanels = [
   { label: "Public site", value: "Static, published", tone: "ok" as const },
   { label: "Site hosting", value: "Temporary", tone: "warn" as const },
+  { label: "Permanent domain", value: "Acquired, not live", tone: "warn" as const },
   { label: "Carl link", value: "Not connected", tone: "idle" as const },
   { label: "ME OS", value: "Runs in QEMU", tone: "ok" as const },
   { label: "ME OS on real hardware", value: "Never booted", tone: "idle" as const },
@@ -81,7 +82,7 @@ export const systemPanels = [
   { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Factory cells", value: "Concept only", tone: "idle" as const },
-  { label: "Verified software milestones", value: "8", tone: "ok" as const },
+  { label: "Verified software milestones", value: "10", tone: "ok" as const },
   { label: "Lab suit and tools", value: "Concept only", tone: "idle" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];

@@ -19,7 +19,7 @@ const software = [
     what: "A from scratch x86-64 operating system",
     where: "Boots in QEMU, an emulator, on an ordinary computer",
     verified:
-      "M1 boot message, M2 keyboard input, M3 a drawn rectangle and M4 a cursor that follows the mouse, each checked automatically by inspecting the captured framebuffer",
+      "M1 boot message, M2 keyboard input, M3 a drawn rectangle, M4 a cursor that follows the mouse and M5 a rectangle that crosses the screen on a hardware timer, each checked automatically by inspecting the captured framebuffer",
     notYet: "Has never been booted on a physical machine",
   },
   {
@@ -27,7 +27,7 @@ const software = [
     what: "The control layer a volumetric display would eventually need",
     where: "Runs against a 3D simulator in a window on an ordinary computer",
     verified:
-      "M1 a rotating object, M2 several independent objects with selection, M3 pointer hover, select, grab and drag, M4 a second software pointer source, covered by 154 automated tests",
+      "M1 a rotating object, M2 several independent objects with selection, M3 pointer hover, select, grab and drag, M4 a second software pointer source, M5 a bracer shaped input with its own alignment, covered by 176 automated tests",
     notYet: "There is no projector. The physical display method is not decided",
   },
 ];
