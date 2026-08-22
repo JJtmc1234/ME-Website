@@ -54,7 +54,12 @@ function Panel({
 }
 
 export default function FounderPage() {
-  const tracked = milestones.filter((m) => m.state !== "Planned");
+  // Only what is running or immediately next. Finished work is a count, and a
+  // long term direction is not something anybody is tracking.
+  const tracked = milestones.filter(
+    (m) => m.state === "In progress" || m.state === "Next",
+  );
+  const done = milestones.filter((m) => m.state === "Complete").length;
 
   return (
     <div className="bg-bg-raised">
@@ -80,7 +85,7 @@ export default function FounderPage() {
                 { k: "Research", v: activeProjects.filter((p) => p.state === "Research").length },
                 { k: "Hardware", v: 0 },
               ].map((stat) => (
-                <div key={stat.k} className="bg-surface px-5 py-3 text-center">
+                <div key={stat.k} className="bg-surface px-3 py-3 text-center sm:px-5">
                   <dt className="text-[0.625rem] uppercase tracking-widest text-faint">
                     {stat.k}
                   </dt>
@@ -121,24 +126,33 @@ export default function FounderPage() {
                   </span>
                 </div>
                 <p className="mt-2 text-sm text-muted">{project.note}</p>
-                <div className="mt-3 flex items-center gap-3">
-                  <div
-                    role="progressbar"
-                    aria-valuenow={project.progress}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label={`${project.name} milestone progress`}
-                    className="h-1 flex-1 bg-line"
-                  >
+                {project.progress === undefined ? (
+                  /* No bar. There is no milestone ladder behind these, so a percentage would
+                     be a number nobody could check, sitting next to a note that says nothing
+                     has been built. The note is the honest version. */
+                  <p className="mt-3 font-mono text-[0.6875rem] text-faint">
+                    NO MILESTONE LADDER YET
+                  </p>
+                ) : (
+                  <div className="mt-3 flex items-center gap-3">
                     <div
-                      className="h-full bg-accent/70"
-                      style={{ width: `${project.progress}%` }}
-                    />
+                      role="progressbar"
+                      aria-valuenow={project.progress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={`${project.name} milestone progress`}
+                      className="h-1 flex-1 bg-line"
+                    >
+                      <div
+                        className="h-full bg-accent/70"
+                        style={{ width: `${project.progress}%` }}
+                      />
+                    </div>
+                    <span className="font-mono text-[0.6875rem] text-faint">
+                      {project.progress}%
+                    </span>
                   </div>
-                  <span className="font-mono text-[0.6875rem] text-faint">
-                    {project.progress}%
-                  </span>
-                </div>
+                )}
               </li>
             ))}
           </ul>
@@ -159,8 +173,7 @@ export default function FounderPage() {
 
           <Panel title="Carl status" meta="placeholder">
             <p className="font-mono text-xs leading-relaxed text-muted">
-              No agent link is exposed on the public site. Carl runs behind ME&apos;s own
-              systems and is never reachable from this page.
+              No agent link on the public site. Carl is never reachable from this page.
             </p>
             <p className="mt-3 flex items-center gap-2 font-mono text-xs">
               <StatusDot tone="idle" />
@@ -170,7 +183,7 @@ export default function FounderPage() {
           </Panel>
         </div>
 
-        <Panel title="Current milestones" meta="public subset" className="lg:col-span-2">
+        <Panel title="Current milestones" meta={`${done} verified`} className="lg:col-span-2">
           <ul className="divide-y divide-line">
             {tracked.map((milestone) => (
               <li key={milestone.id} className="flex flex-wrap items-center gap-3 py-2.5">
@@ -226,23 +239,22 @@ export default function FounderPage() {
 
         <Panel title="Hardware reality check" meta="read this one" className="lg:col-span-3">
           <p className="max-w-4xl text-sm leading-relaxed text-muted">
-            ME has no physical hardware prototypes. No holoprojector, no bracer, no
-            factory cell, no research bench, no sensor tile. ME OS boots in an emulator
-            and has never run on a physical machine. Everything on this console that
-            shows progress is progress on software, and the counters above say
-            &quot;hardware: 0&quot; because that is the true number.
+            ME has zero physical hardware prototypes. No holoprojector, no bracer, no
+            factory cell, no bench, no sensor tile. ME OS is QEMU only and has never booted
+            on physical hardware. Every meter here measures software.
           </p>
         </Panel>
 
         <Panel title="Disclosure" className="lg:col-span-3">
           <p className="max-w-4xl text-sm leading-relaxed text-muted">
-            This console is public and deliberately sanitized. The values shown are
-            illustrative summaries of published project state, not a live feed. No
-            credentials, hostnames, addresses, logs, messages, or infrastructure details
-            appear here or anywhere on this site. The internal command center is a separate
-            system that has not been built yet.{" "}
+            Public and deliberately sanitized. Illustrative summaries of published project
+            state, not a live feed.
+          </p>
+          <p className="mt-2 max-w-4xl text-sm leading-relaxed text-muted">
+            No credentials, hostnames or logs anywhere. The internal command center has not
+            been built.{" "}
             <Link href="/roadmap" className="text-accent underline underline-offset-4">
-              See the public roadmap
+              The public roadmap
             </Link>
             .
           </p>

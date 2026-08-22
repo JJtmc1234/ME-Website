@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   // know which.
   metadataBase: new URL(deployment.siteUrl),
   title: {
-    default: `${site.name} — research, engineering, and products`,
-    template: `%s — ${site.short}`,
+    default: site.brand,
+    template: `%s | ${site.brand}`,
   },
   description: site.mission,
   applicationName: site.name,
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${site.name} — research, engineering, and products`,
+    title: site.brand,
     description: site.mission,
     url: "/",
     siteName: site.name,

@@ -7,8 +7,7 @@ export default function NotFound() {
       <p className="label">Error 404</p>
       <h1 className="mt-4 text-4xl font-medium">This route does not exist.</h1>
       <p className="mt-4 max-w-xl text-muted">
-        The page you asked for is not part of the public site. It may have been renamed, or
-        it may never have been built.
+        Renamed, or never built.
       </p>
       <Link
         href="/"

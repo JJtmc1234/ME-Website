@@ -3,12 +3,13 @@
 export const site = {
   name: "Multiverse Enterprises",
   short: "ME",
+  /** The brand string used in every tab title. Owner's exact wording. */
+  brand: "ME - Multiverse Enterprises",
   mission:
     "Maximize humanity's long-term ability to understand, build, survive, and flourish.",
   summary:
-    "ME is a research, engineering, and product organization. We work across computing, robotics, energy, space, manufacturing, materials, medicine, and frontier physics, and we build the shared systems those fields keep needing: an operating system, an agent layer, research tools, and volumetric displays.",
-  hardwareNote:
-    "Everything ME has built so far is software. No physical hardware prototype exists yet, and this site labels every product with how far along it actually is.",
+    "A very early research and engineering organization. Nine subject areas on the map. Three software projects actually being built.",
+  hardwareNote: "Everything built so far is software. Zero physical hardware prototypes.",
   principle: "Broad roadmap, narrow active scope.",
   founded: 2026,
 } as const;
@@ -49,7 +50,6 @@ export const communityFeedbackDoc =
 /** The public site never touches internal systems. Recorded here so the
  *  boundary is documented in code as well as in the README. */
 export const boundary = {
-  publicSite: "This site. Static, read only, no accounts, no internal data.",
-  internal:
-    "A separate authenticated command center, planned but not built. It will live on its own host and share nothing with this frontend.",
+  publicSite: "Static files. No accounts, no internal data, no live feed.",
+  internal: "A separate command center, planned but not built. Own host, nothing shared.",
 } as const;

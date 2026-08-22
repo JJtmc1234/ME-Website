@@ -37,7 +37,7 @@ export function pageMeta({
     // origin for this deployment.
     alternates: { canonical: path },
     openGraph: {
-      title: `${title} — ${site.short}`,
+      title: `${title} | ${site.brand}`,
       description,
       url: path,
       siteName: site.name,

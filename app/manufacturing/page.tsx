@@ -17,28 +17,27 @@ export default function ManufacturingPage() {
       <PageHeader
         eyebrow="Manufacturing"
         title="Standard cells, distributed production, one simple part first."
-        lead="A written plan for how ME intends to build physical things. No factory cell, conveyor, inserter or line exists. Nothing here is operating, and nothing has been produced."
+        lead="A written plan. No factory cell, conveyor, inserter or line exists, and nothing has been produced."
       />
 
       <Container>
-        <aside className="panel-quiet mt-10 p-6">
+        <aside className="panel-quiet mt-10 p-5">
           <p className="label">Status</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            <span className="text-text">Concept and planning.</span> ME owns no factory,
-            no cell and no production equipment. Everything below describes intended
-            design, not capability.
+            <span className="text-text">Concept and planning.</span> No factory, no cell,
+            no production equipment. Intended design, not capability.
           </p>
         </aside>
       </Container>
 
       <Section title="The model">
-        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {model.map((item, index) => (
-            <div key={item.title} className="bg-surface p-6">
+            <div key={item.title} className="bg-surface p-5">
               <span className="font-mono text-xs text-faint">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-base font-medium">{item.title}</h3>
+              <h3 className="mt-2 text-sm font-medium">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
             </div>
           ))}
@@ -81,11 +80,8 @@ export default function ManufacturingPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-muted">
-              Quality control is camera and weight based. A part that fails is quarantined
-              rather than thrown away, because a rejected part is the only direct evidence
-              of what went wrong. When Carl detects a significant failure pattern it pauses
-              the affected cell, and a person decides what happens next.
+            <p className="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-faint">
+              A rejected part is the only direct evidence of what went wrong, so it is kept.
             </p>
           </div>
         </div>
@@ -105,12 +101,12 @@ export default function ManufacturingPage() {
 
           <ol className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-4">
             {holoRoom.workflow.map((stage, index) => (
-              <li key={stage.step} className="bg-surface-2 p-5">
+              <li key={stage.step} className="bg-surface-2 p-4">
                 <span className="font-mono text-xs text-faint">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-2 text-sm font-medium text-accent">{stage.step}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{stage.body}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted">{stage.body}</p>
               </li>
             ))}
           </ol>

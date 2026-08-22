@@ -4,33 +4,24 @@ import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import { PageHeader, Section } from "@/components/primitives";
 import { StrategySection } from "@/components/strategy";
+import { EarlyStageSection, WhatExistsSection } from "@/components/status-overview";
+import { SharedStack } from "@/components/stack";
 import { channels, intent, principles } from "@/data/accessibility";
+import { roadmapNote } from "@/data/strategy";
 import { boundary, site } from "@/data/site";
 
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "ME's mission, long horizon philosophy, why the company works across many fields, and how shared systems connect its projects.",
+    "What ME is, how early it actually is, what exists today, and the runway to a current target of around 2035.",
   path: "/about",
 });
 
-const sharedSystems = [
-  {
-    name: "ME OS",
-    role: "The computing base. Agent execution, permissions, memory, and recovery belong to the operating system rather than to each application.",
-  },
-  {
-    name: "Carl",
-    role: "The agent layer. Products integrate against an interface boundary, so the model behind it can change without rewriting anything.",
-  },
-  {
-    name: "Research tools",
-    role: "Simulation, measurement, data capture, and experiment tracking, shared by every branch instead of rebuilt per project.",
-  },
-  {
-    name: "Manufacturing",
-    role: "Distributed automated production. Commodity inputs are bought, not made, when making them adds no strategic value.",
-  },
+/** Why one organisation holds nine branches. Chips, not paragraphs. */
+const whyBroad = [
+  "Blockers are elsewhere: a display needs materials",
+  "Results transfer: wearable sensing feeds prosthetics",
+  "Understand, build, survive, flourish is not one discipline",
 ];
 
 export default function AboutPage() {
@@ -39,89 +30,36 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title={site.mission}
-        lead="That sentence is the whole brief. Understand, build, survive, flourish. Each verb rules out a different failure: ignorance, helplessness, extinction, and a species that merely persists."
+        lead="Four verbs, four failures ruled out: ignorance, helplessness, extinction, mere persistence."
       />
 
-      <Section title="Long horizon by default">
-        <div className="grid gap-8 lg:grid-cols-2">
-          <p className="text-sm leading-relaxed text-muted sm:text-base">
-            Most of what ME cares about does not pay back inside a quarter. An operating
-            system, a volumetric display, power electronics, and orbital observation all
-            take years before they are worth anything. Planning for that horizon means
-            accepting slow milestones and refusing to inflate what exists today.
-          </p>
-          <p className="text-sm leading-relaxed text-muted sm:text-base">
-            It also means planning shallowly on purpose. ME writes down the branch, the
-            question, and the next demonstrable step, then stops. Deeper design happens when
-            a branch is genuinely blocked without it, not because a document template asked
-            for a five year plan.
-          </p>
-        </div>
-      </Section>
+      <EarlyStageSection />
 
-      <Section
-        title="Why so many fields"
-        description="Breadth is not ambition for its own sake. The problems ME wants to solve keep crossing branch lines."
-      >
-        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
-          {[
-            {
-              t: "The blockers are elsewhere",
-              b: "A display needs materials. A robot needs power electronics. A satellite service needs compute. Narrowing to one field means waiting on the others forever.",
-            },
-            {
-              t: "Results transfer",
-              b: "Sensing work for a wearable feeds prosthetics. Command routing built for a projector is the same routing a robot needs. Work done once should count more than once.",
-            },
-            {
-              t: "The mission is not narrow",
-              b: "Understanding, building, surviving, and flourishing are not one discipline's job. A company scoped to one field would be scoped to a fraction of the mission.",
-            },
-          ].map((item) => (
-            <div key={item.t} className="bg-surface p-6">
-              <h3 className="text-base font-medium">{item.t}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.b}</p>
-            </div>
+      <WhatExistsSection />
+
+      <Section title="Why the map is wide" description={roadmapNote.body}>
+        <ul className="mb-5 flex flex-wrap gap-2">
+          {whyBroad.map((item) => (
+            <li key={item} className="border border-line px-2.5 py-1 text-xs text-muted">
+              {item}
+            </li>
           ))}
-        </div>
-      </Section>
-
-      <Section
-        title="Broad roadmap, narrow active scope"
-        description="The principle that keeps breadth from becoming chaos."
-      >
-        <div className="panel p-6 sm:p-8">
-          <p className="max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-            The roadmap is allowed to cover everything ME intends to reach. The active set is
-            allowed to hold only what a small team can actually finish. A project enters the
-            active set when its next milestone is small enough to demonstrate, and leaves it
-            when that milestone is met or the question turns out to be premature. Everything
-            else stays on the map, written down, waiting, and costing nothing.
-          </p>
-          <div className="mt-6 grid gap-5 border-t border-line pt-6 sm:grid-cols-2">
-            {sharedSystems.map((system) => (
-              <div key={system.name}>
-                <h3 className="font-mono text-xs uppercase tracking-widest text-accent">
-                  {system.name}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{system.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        </ul>
+        <SharedStack />
+        <p className="mt-4 max-w-2xl text-sm text-faint">
+          {site.principle} A project goes active when its next milestone is small enough to
+          show.
+        </p>
       </Section>
 
       <StrategySection />
 
-      <Section
-        title="Interfaces should be multimodal"
-        description={intent}
-      >
+      <Section title="Interfaces should be multimodal" description={intent}>
         <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {channels.map((channel) => (
-            <div key={channel.name} className="bg-surface p-6">
+            <div key={channel.name} className="bg-surface p-5">
               <div className="flex items-baseline justify-between gap-3">
-                <h3 className="text-base font-medium">{channel.name}</h3>
+                <h3 className="text-sm font-medium">{channel.name}</h3>
                 <span className="font-mono text-[0.625rem] uppercase tracking-widest text-faint">
                   {channel.status}
                 </span>
@@ -130,7 +68,7 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+        <ul className="mt-5 grid gap-2 sm:grid-cols-2">
           {principles.map((principle) => (
             <li key={principle} className="flex gap-3 text-sm leading-relaxed text-muted">
               <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-accent/40" />
@@ -138,25 +76,21 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
-        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-faint">
-          None of these input devices exists. They are design intent, and ME makes no
-          medical or health claim about any of them.
-        </p>
       </Section>
 
       <Section title="Public and internal">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div className="panel p-6">
-            <h3 className="text-base font-medium">This site</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{boundary.publicSite}</p>
+        <dl className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+          <div className="bg-surface p-5">
+            <dt className="text-sm font-medium">This site</dt>
+            <dd className="mt-2 text-sm leading-relaxed text-muted">{boundary.publicSite}</dd>
           </div>
-          <div className="panel p-6">
-            <h3 className="text-base font-medium">Internal systems</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{boundary.internal}</p>
+          <div className="bg-surface p-5">
+            <dt className="text-sm font-medium">Internal systems</dt>
+            <dd className="mt-2 text-sm leading-relaxed text-muted">{boundary.internal}</dd>
           </div>
-        </div>
-        <p className="mt-6 text-sm text-muted">
-          Criticism is welcome and useful.{" "}
+        </dl>
+        <p className="mt-5 text-sm text-muted">
+          Criticism is welcome.{" "}
           <Link href="/feedback" className="text-accent underline underline-offset-4">
             Tell ME what is wrong with this
           </Link>

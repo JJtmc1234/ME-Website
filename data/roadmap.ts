@@ -1,38 +1,27 @@
-/** How ME executes: a broad map, a small active set, and milestone gates.
- *  Only milestones safe to state publicly appear here. */
+/** Published milestones. Only milestones safe to state publicly appear here.
+ *
+ *  A completed milestone says what was verified and where, in as few words as
+ *  that takes. Everything not complete carries a tier, because "Planned" on
+ *  its own has been read as "coming soon" and that is not what it means. */
+import type { Tier } from "@/data/tiers";
 
-export type MilestoneState = "Complete" | "In progress" | "Next" | "Planned";
+export type MilestoneState =
+  | "Complete"
+  | "In progress"
+  | "Next"
+  | "Planned"
+  | "Long term";
 
 export type Milestone = {
   id: string;
   project: string;
   title: string;
   state: MilestoneState;
+  /** Set on everything that is not complete. See data/tiers.ts. */
+  tier?: Tier;
+  /** A fragment. Nine words beats a paragraph. */
   detail: string;
 };
-
-export const executionModel = [
-  {
-    title: "Broad roadmap",
-    body: "The map covers computing, robotics, energy, space, manufacturing, materials, medicine, transportation and frontier physics. Keeping the map wide is cheap. It is what lets one branch borrow from another.",
-  },
-  {
-    title: "Narrow active scope",
-    body: "Only a few projects are active at once. Planning stays shallow until a branch genuinely needs deeper design, rather than pretending every subsystem needs a five year plan today.",
-  },
-  {
-    title: "Milestone gates",
-    body: "Each project advances through small milestones that can be individually demonstrated. A milestone is done when it runs, not when it compiles.",
-  },
-  {
-    title: "Projects earn expansion",
-    body: "Scope is granted, not assumed. A project widens after it has shown a working milestone, which is why the active list is short and the map is long.",
-  },
-  {
-    title: "Shared infrastructure",
-    body: "ME OS, Carl, the research tools platform and manufacturing are shared across products, so work done once is reused instead of rebuilt per project.",
-  },
-];
 
 export const milestones: Milestone[] = [
   {
@@ -40,175 +29,197 @@ export const milestones: Milestone[] = [
     project: "ME OS",
     title: "M1: boot proof",
     state: "Complete",
-    detail:
-      "Boot in a virtual machine to a black screen reading IF YOU SEE THIS IT WORKED. Nothing else. A freestanding x86-64 kernel boots over UEFI, draws the line, and does not crash. Checked automatically by inspecting the framebuffer.",
+    detail: "Boots over UEFI to one line. Framebuffer checked in QEMU.",
   },
   {
     id: "meos-m2",
     project: "ME OS",
     title: "M2: keyboard input",
     state: "Complete",
-    detail:
-      "The boot message stays where it was and a line below it reports the last key pressed. Verified in QEMU by injecting a key press and inspecting what was drawn. Not yet run on a physical machine.",
+    detail: "Last key pressed, below the boot line. Injected in QEMU, framebuffer read back.",
   },
   {
     id: "meos-m3",
     project: "ME OS",
     title: "M3: draw a rectangle",
     state: "Complete",
-    detail:
-      "One static filled rectangle, with the boot message and the key line untouched. Checked automatically: the captured framebuffer must contain a solid rectangle of the expected size, centred and clear of the text, alongside both lines of text. Framebuffer clipping is also checked on the development machine with guard regions around a fake framebuffer.",
+    detail: "One filled rectangle. Size, centring and clipping checked.",
   },
   {
     id: "meos-m4",
     project: "ME OS",
     title: "M4: mouse cursor",
     state: "Complete",
-    detail:
-      "A cursor drawn on the framebuffer that follows the mouse, keeps its shape, and stays on screen. Checked automatically: the emulator moves the mouse and the captured framebuffer must show the cursor moved by exactly that much, with the message, key line and rectangle all untouched.",
+    detail: "Cursor follows the mouse. Movement measured in QEMU.",
   },
   {
     id: "meos-m5",
     project: "ME OS",
     title: "M5: move the rectangle",
     state: "Complete",
-    detail:
-      "The rectangle crosses the screen at sixty pixels a second and turns around at each edge. It moves at a rate rather than at whatever speed the machine runs its loop, because the kernel now reads a hardware timer. Checked automatically across four captures: the rectangle is whole, on screen, and somewhere different each time.",
+    detail: "Sixty pixels a second off a hardware timer. Four captures checked.",
   },
   {
     id: "meos-m6",
     project: "ME OS",
     title: "M6: basic arithmetic",
     state: "Complete",
-    detail:
-      "Type a sum and press enter, and a line above the boot message shows the answer. Addition, subtraction, multiplication, whole number division and powers, with the precedence they have on paper. Overflow, division by zero and fractional powers are refused and shown as an error rather than producing a wrong answer, which matters in a kernel with no interrupt table to catch a fault.",
+    detail: "Type a sum, get the answer. Overflow and divide by zero refused.",
   },
   {
     id: "meos-m7",
     project: "ME OS",
     title: "M7: conditionals",
     state: "Complete",
-    detail:
-      "One conditional expression on the same line: IF one value compared to another THEN this ELSE that, with =, <  or > as the comparison, and a sum allowed in all three places. Checked by typing both a condition that holds and one that does not, and reading the two different answers off the framebuffer.",
+    detail: "IF, THEN, ELSE on one line. Both branches typed and read back.",
   },
   {
     id: "meos-m8",
     project: "ME OS",
     title: "M8: variables",
     state: "Complete",
-    detail:
-      "A value can be given a name and used on any later line. Eight names fit, each an uppercase letter and up to three more characters. Reading a name that was never set is an error rather than zero, because a typo that quietly reads as zero gives a wrong answer and says nothing about it. One table, no scope, and nothing survives a reboot.",
+    detail: "Eight named values. An unset name is an error, not a quiet zero.",
   },
   {
     id: "meos-m9",
     project: "ME OS",
     title: "M9: keyboard controlled rectangle",
     state: "Complete",
-    detail:
-      "The arrow keys move the rectangle sixteen pixels at a time, and the first press stops it drifting so steering is exact rather than approximate. Arrows rather than letters, because since M8 every letter is part of a typed sum. Checked automatically: three presses down must move it exactly forty eight pixels and eight presses left exactly one hundred and twenty eight, with the text and the turning triangle untouched.",
-  },
-  {
-    id: "meos-m10",
-    project: "ME OS",
-    title: "M10: edge wrapping",
-    state: "Next",
-    detail:
-      "The rectangle wraps around the screen edges instead of stopping at them. After it, picking the rectangle up with the pointer.",
+    detail: "Arrow keys steer it. Three presses down measured at exactly 48 pixels.",
   },
   {
     id: "meos-m12",
     project: "ME OS",
     title: "M12: rotating triangle and floating point",
     state: "Complete",
-    detail:
-      "Floating point turned on deliberately, and the smallest thing worth doing with it. One file is allowed to do floating point arithmetic and everything it exposes takes and returns whole numbers, and the build refuses to link if any other file contains a floating point instruction. A triangle turns about its own centre on the same clock the rectangle uses. It was numbered after M11 rather than inserted before M9, because renumbering milestones people have already read is worse than taking them out of order, so it was built early while M9, M10 and M11 keep their original places in the ladder.",
+    detail: "Floating point confined to one file, enforced at link time.",
+  },
+  {
+    id: "meos-m10",
+    project: "ME OS",
+    title: "M10: edge wrapping",
+    state: "In progress",
+    tier: "BUILDING NOW",
+    detail: "Started. Nothing verified until the QEMU check passes.",
+  },
+  {
+    id: "meos-m11",
+    project: "ME OS",
+    title: "M11: click and drag the rectangle",
+    state: "Planned",
+    tier: "PLANNED",
+    detail: "Written down with a success condition. Not started.",
+  },
+  {
+    id: "meos-factorio",
+    project: "ME OS",
+    title: "Proof point: Factorio running on ME OS",
+    state: "Long term",
+    tier: "LONG-TERM",
+    detail: "Factorio does not run on ME OS. No processes, no filesystem, no memory management.",
   },
   {
     id: "holo-m1",
     project: "Holoprojector",
     title: "M1: rotating pyramid",
     state: "Complete",
-    detail:
-      "A pyramid in a 3D simulator, rotating on elapsed time, with pause, resume, reverse, axis, speed and reset, all driven through the command layer rather than the renderer.",
+    detail: "A pyramid in a 3D simulator, driven through the command layer.",
   },
   {
     id: "holo-m2",
     project: "Holoprojector",
     title: "M2: multiple scene objects",
     state: "Complete",
-    detail:
-      "Several independent objects in one scene, each with its own transform, visibility and rotation, plus selection and per object commands. Still a simulator. No display hardware exists.",
+    detail: "Several objects, each with its own transform. No display hardware.",
   },
   {
     id: "holo-m3",
     project: "Holoprojector",
     title: "M3: pointer interaction",
     state: "Complete",
-    detail:
-      "A device neutral pointer: hover, select, grab, drag and release. A pointer sample is a ray plus a pressed flag, so a mouse, a holo pencil, a bracer or a hand tracker could each produce one. Only the mouse works; the others are named stubs that refuse to poll. Dragging goes through a command that safety checks, so a drag out of the display volume is refused.",
+    detail: "Hover, select, grab, drag, release. Only the mouse works, the rest are stubs.",
   },
   {
     id: "holo-m4",
     project: "Holoprojector",
     title: "M4: simulated Holo Pencil",
     state: "Complete",
-    detail:
-      "A second pointer source, simulated in software: a tip in the display volume that the keyboard walks around. It selects, grabs, drags and releases through the same controller, commands and safety checks as the mouse, and a drag begun with one source can be finished with the other. No physical pencil exists.",
+    detail: "A software pointer on the same commands. No physical pencil exists.",
   },
   {
     id: "holo-m5",
     project: "Holoprojector",
     title: "M5: bracer input adapter",
     state: "Complete",
-    detail:
-      "An adapter shaped like a wearable: a hand pose in its own tracking space, an alignment that maps it into the scene, and a grip. It can also lose tracking, which lets go of whatever was being held instead of leaving it attached to a hand nobody can see. None of that needed a change in the interaction layer, the commands or safety. No bracer exists, and nothing reads or models a sensor.",
+    detail: "Hand pose, alignment, grip, losing tracking. No bracer exists, no sensor is read.",
   },
   {
     id: "holo-m6",
     project: "Holoprojector",
     title: "M6: richer Carl adapter",
     state: "Complete",
-    detail:
-      "Broader phrasing, multipliers in words or digits, and one sentence carrying several instructions joined by and, then or a semicolon. A later step can depend on an earlier one, so select the cube then pause it pauses the cube. A step that is not understood stops the whole sentence and names itself rather than being dropped silently. Still keyword matching, still offline, no model and no network.",
+    detail: "Several instructions per sentence. Offline keyword matching, no model, no network.",
   },
   {
     id: "holo-m7",
     project: "Holoprojector",
     title: "M7: multi user interaction model",
     state: "Next",
-    detail:
-      "More than one control surface acting on one scene at the same time, with clear ownership of whatever is being held. Still a simulator, and still no display hardware.",
+    tier: "PLANNED",
+    detail: "Several control surfaces on one scene. Still a simulator.",
+  },
+  {
+    id: "carl-panel-v1",
+    project: "Carl",
+    title: "Command Panel v1, frozen and verified",
+    state: "Complete",
+    detail: "Event ordering proved against the real binaries. Nothing hosted.",
+  },
+  {
+    id: "carl-army-runtime",
+    project: "Carl",
+    title: "Agent runtime, first slice",
+    state: "Complete",
+    detail: "Identity, session and process as three lifetimes. A restart is not a new agent.",
+  },
+  {
+    id: "carl-deployment",
+    project: "Carl",
+    title: "A deployed agent group",
+    state: "Long term",
+    tier: "LONG-TERM",
+    detail: "Not installed. No server, nothing anybody outside can reach.",
   },
   {
     id: "bracer-research",
     project: "Employee Bracers",
     title: "Hand tracking feasibility",
     state: "Planned",
-    detail:
-      "Establish whether inertial and optical sensing, and later surface electromyography, can resolve hand and finger intent accurately enough for holographic interaction, before any wearable is designed.",
+    tier: "PLANNED",
+    detail: "Can sensing resolve finger intent? Asked before anything is designed.",
   },
   {
     id: "tools-platform",
     project: "Research Tools",
     title: "Platform design",
     state: "Planned",
-    detail:
-      "Define the shared simulation, measurement and experiment tracking layer other branches would build against.",
+    tier: "PLANNED",
+    detail: "Define the shared simulation and measurement layer.",
   },
   {
     id: "energy-dc-bus",
     project: "Energy",
     title: "Smart DC bus study",
-    state: "Planned",
-    detail:
-      "Study a shared DC distribution bus for a lab bench or factory cell, with monitoring and protection built in. Paper study only. Nothing has been built or energised.",
+    state: "Long term",
+    tier: "LONG-TERM",
+    detail: "Paper study only. Nothing built, nothing energised.",
   },
   {
     id: "factory-poc",
     project: "Manufacturing",
     title: "First production proof of concept",
-    state: "Planned",
-    detail:
-      "End to end automated production of one simple non safety critical automotive clip, using additive manufacturing, with camera and weight quality control and full traceability for rejected parts. Nothing has been built.",
+    state: "Long term",
+    tier: "LONG-TERM",
+    detail: "One clip, printed, checked by camera and weight. Nothing built.",
   },
 ];

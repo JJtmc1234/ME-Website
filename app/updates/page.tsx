@@ -28,7 +28,7 @@ export default function UpdatesPage() {
       <PageHeader
         eyebrow="Updates"
         title="Progress, posted when it works."
-        lead="Milestones, prototypes, experiments, and design decisions worth recording. Entries go up when something runs, not when it is announced."
+        lead="Entries go up when something runs, not when it is announced."
       />
 
       <Section>
@@ -36,7 +36,7 @@ export default function UpdatesPage() {
           {sorted.map((update) => (
             <li
               key={`${update.date}-${update.title}`}
-              className="grid gap-3 border-b border-line py-7 sm:grid-cols-[11rem_1fr] sm:gap-8"
+              className="grid gap-2 border-b border-line py-5 sm:grid-cols-[11rem_1fr] sm:gap-8"
             >
               <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-2">
                 <time dateTime={update.date} className="font-mono text-xs text-faint">
@@ -46,9 +46,9 @@ export default function UpdatesPage() {
                   {update.area}
                 </span>
               </div>
-              <div>
-                <h2 className="text-base font-medium">{update.title}</h2>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">
+              <div className="min-w-0">
+                <h2 className="text-sm font-medium">{update.title}</h2>
+                <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">
                   {update.body}
                 </p>
               </div>
@@ -58,11 +58,10 @@ export default function UpdatesPage() {
       </Section>
 
       <Container>
-        <aside className="panel-quiet mb-8 p-6">
-          <h2 className="text-base font-medium">No feed, no tracking</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            This page is static. There is no newsletter, no analytics, and nothing on this
-            site watches who reads it.
+        <aside className="panel-quiet mb-8 p-5">
+          <h2 className="text-sm font-medium">No feed, no tracking</h2>
+          <p className="mt-2 text-sm text-muted">
+            Static page. No newsletter, no analytics, nothing watching who reads it.
           </p>
         </aside>
       </Container>

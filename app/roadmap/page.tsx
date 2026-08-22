@@ -2,16 +2,26 @@ import type { Metadata } from "next";
 
 import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
-import { MilestoneRow } from "@/components/cards";
-import { executionModel, milestones } from "@/data/roadmap";
+import { MilestoneLadders } from "@/components/milestones";
+import { TierLegend } from "@/components/tiers";
+import { RunwayPanel } from "@/components/runway";
+import { ProjectMatrix } from "@/components/matrix";
+import { MilestoneMeters } from "@/components/meter";
+import { FactorioGap } from "@/components/gap";
+import { SharedStack } from "@/components/stack";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = pageMeta({
   title: "Roadmap",
   description:
-    "How ME executes: a broad long term map, a small active project set, milestone gates, and shared infrastructure across products.",
+    "What ME is building now, what is planned next, and what is only a direction. Four status tiers, a milestone ladder, and the runway to a target of around 2035.",
   path: "/roadmap",
 });
+
+const meterNotes = {
+  "ME OS": "QEMU only. Never on physical hardware.",
+  Holoprojector: "Simulator only. No projector.",
+};
 
 export default function RoadmapPage() {
   return (
@@ -19,43 +29,43 @@ export default function RoadmapPage() {
       <PageHeader
         eyebrow="Roadmap"
         title={site.principle}
-        lead="A wide map costs almost nothing to keep. Doing many things at once costs everything. ME holds the first and refuses the second."
+        lead="A wide map is cheap. Doing everything at once is not."
       />
 
-      <Section title="How execution works">
-        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
-          {executionModel.map((item, index) => (
-            <div key={item.title} className="bg-surface p-6">
-              <span className="font-mono text-xs text-faint">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 text-base font-medium">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
-            </div>
-          ))}
+      <Section>
+        <RunwayPanel />
+      </Section>
+
+      <Section title="What the labels mean">
+        <TierLegend />
+      </Section>
+
+      <Section title="Each project">
+        <ProjectMatrix />
+        <div className="mt-8">
+          <MilestoneMeters notes={meterNotes} />
         </div>
       </Section>
 
+      <Section title="Why the map is wide">
+        <SharedStack />
+      </Section>
+
       <Section
-        title="Selected current milestones"
-        description="A milestone is done when it runs and can be demonstrated, not when it compiles."
+        title="Milestones"
+        description="Complete means it runs and a check says so."
       >
-        <ul className="border-t border-line">
-          {milestones.map((milestone) => (
-            <MilestoneRow key={milestone.id} milestone={milestone} />
-          ))}
-        </ul>
+        <MilestoneLadders />
+      </Section>
+
+      <Section title="Proof point">
+        <FactorioGap />
       </Section>
 
       <Container>
-        <aside className="panel-quiet mb-8 p-6">
-          <h2 className="text-base font-medium">What is not listed</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            This page shows selected milestones only. Internal scheduling, infrastructure
-            details, and unannounced work are not published here, and this site holds no
-            connection to any internal system.
-          </p>
-        </aside>
+        <p className="mb-8 text-xs text-faint">
+          Selected milestones only. This site reads from no ME system.
+        </p>
       </Container>
     </>
   );

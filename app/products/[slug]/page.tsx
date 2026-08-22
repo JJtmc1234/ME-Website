@@ -4,22 +4,31 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { PageHeader, Section } from "@/components/primitives";
-import { StatusBadge } from "@/components/status";
+import { StatusBadge, TierBadge } from "@/components/status";
+import { MilestoneMeter } from "@/components/meter";
+import { ResearchToolFamily } from "@/components/research-tools";
 import { products, productBySlug, statusMeaning } from "@/data/products";
+import { tierShort } from "@/data/tiers";
 import { milestones } from "@/data/roadmap";
-import { loop, tools } from "@/data/research-tools";
+
+const meterNotes: Record<string, string> = {
+  "ME OS": "Verified in QEMU. Never booted on physical hardware.",
+  Holoprojector: "Verified against a simulator. No projector exists.",
+};
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/products/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const product = productBySlug(slug);
   if (!product) return {};
   return pageMeta({
     title: product.name,
-    description: `${product.tagline}. Status: ${product.status}. ${product.availability}`,
+    description: `${product.tagline}. ${product.tier}. Status: ${product.status}. ${product.availability}`,
     path: `/products/${product.slug}`,
   });
 }
@@ -35,6 +44,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
   const projectMilestones = milestones.filter(
     (milestone) => milestone.project.toLowerCase() === product.name.toLowerCase(),
   );
+  const meterNote = meterNotes[product.name];
 
   return (
     <>
@@ -43,14 +53,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       <Section>
         <div className="grid gap-5 lg:grid-cols-[1.6fr_1fr]">
           <div className="space-y-5">
-            <div className="panel p-6">
-              <h2 className="text-lg font-medium">Why it exists</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{product.purpose}</p>
-            </div>
-
-            <div className="panel p-6">
-              <h2 className="text-lg font-medium">What it is meant to be</h2>
-              <ul className="mt-4 space-y-2">
+            <div className="panel p-5 sm:p-6">
+              <h2 className="text-base font-medium">Why it exists</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{product.purpose}</p>
+              <p className="label mt-5 border-t border-line pt-4">What it is meant to be</p>
+              <ul className="mt-3 space-y-1.5">
                 {product.points.map((point) => (
                   <li key={point} className="flex gap-3 text-sm leading-relaxed text-muted">
                     <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-line-strong" />
@@ -60,16 +67,25 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </ul>
             </div>
 
-            <div className="panel p-6">
-              <h2 className="text-lg font-medium">Current milestone</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+            <div className="panel p-5 sm:p-6">
+              <h2 className="text-base font-medium">Current milestone</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 {product.currentMilestone}
               </p>
+              {meterNote ? (
+                <div className="mt-5 border-t border-line pt-4">
+                  <MilestoneMeter project={product.name} note={meterNote} />
+                </div>
+              ) : null}
               {projectMilestones.length > 0 ? (
-                <ul className="mt-5 divide-y divide-line border-t border-line">
+                <ul className="mt-4 divide-y divide-line border-t border-line">
                   {projectMilestones.map((milestone) => (
-                    <li key={milestone.id} className="flex flex-wrap items-center gap-3 py-3">
-                      <StatusBadge status={milestone.state} kind="milestone" />
+                    <li key={milestone.id} className="flex flex-wrap items-center gap-3 py-2.5">
+                      {milestone.tier ? (
+                        <TierBadge tier={milestone.tier} />
+                      ) : (
+                        <StatusBadge status={milestone.state} kind="milestone" />
+                      )}
                       <span className="text-sm">{milestone.title}</span>
                     </li>
                   ))}
@@ -77,23 +93,26 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               ) : null}
             </div>
 
-            <div className="panel p-6">
-              <h2 className="text-lg font-medium">Long term direction</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{product.longTerm}</p>
+            <div className="panel p-5 sm:p-6">
+              <h2 className="text-base font-medium">Long term direction</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{product.longTerm}</p>
             </div>
 
             {product.slug === "research-tools" ? <ResearchToolFamily /> : null}
           </div>
 
           <aside className="space-y-5">
-            <div className="panel p-6">
-              <p className="label">Status</p>
-              <div className="mt-3">
-                <StatusBadge status={product.status} />
+            <div className="panel p-5 sm:p-6">
+              <p className="label">Is anybody building this</p>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <TierBadge tier={product.tier} />
+                <span className="text-sm text-muted">{tierShort[product.tier]}</span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {statusMeaning[product.status]}
-              </p>
+              <p className="label mt-5 border-t border-line pt-4">How far along</p>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <StatusBadge status={product.status} />
+                <span className="text-sm text-muted">{statusMeaning[product.status]}</span>
+              </div>
               <dl className="mt-5 space-y-3 border-t border-line pt-4 text-sm">
                 <div>
                   <dt className="label">Kind</dt>
@@ -111,19 +130,19 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             </div>
 
             {related.length > 0 ? (
-              <div className="panel p-6">
+              <div className="panel p-5 sm:p-6">
                 <p className="label">Related</p>
-                <ul className="mt-3 space-y-2">
+                <ul className="mt-2 space-y-1.5">
                   {related.map((item) => (
-                    <li key={item.slug}>
+                    <li key={item.slug} className="flex flex-wrap items-baseline gap-2">
                       <Link
                         href={`/products/${item.slug}`}
                         className="text-sm text-accent underline underline-offset-4"
                       >
                         {item.name}
                       </Link>
-                      <span className="ml-2 font-mono text-[0.6875rem] text-faint">
-                        {item.status}
+                      <span className="font-mono text-[0.6875rem] text-faint">
+                        {item.tier}
                       </span>
                     </li>
                   ))}
@@ -131,14 +150,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               </div>
             ) : null}
 
-            <div className="panel-quiet p-6">
+            <div className="panel-quiet p-5 sm:p-6">
               <p className="text-sm leading-relaxed text-muted">
-                ME has no physical hardware prototypes. Anything described here as a
-                device is a concept or a research question, not something that exists.
+                ME has no physical hardware prototypes. Anything here described as a device
+                is a concept, not a thing that exists.
               </p>
               <Link
                 href="/products"
-                className="mt-4 inline-block text-sm text-accent underline underline-offset-4"
+                className="mt-3 inline-block text-sm text-accent underline underline-offset-4"
               >
                 All products
               </Link>
@@ -146,48 +165,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           </aside>
         </div>
       </Section>
-    </>
-  );
-}
-
-function ResearchToolFamily() {
-  return (
-    <>
-      <div className="panel p-6">
-        <h2 className="text-lg font-medium">The tool family</h2>
-        <p className="mt-2 text-sm text-faint">
-          Concept stage. None of these exist in software or hardware.
-        </p>
-        <ul className="mt-5 divide-y divide-line border-t border-line">
-          {tools.map((tool) => (
-            <li key={tool.name} className="py-4">
-              <div className="flex flex-wrap items-baseline gap-3">
-                <h3 className="text-base font-medium">{tool.name}</h3>
-                <span className="font-mono text-[0.6875rem] text-faint">{tool.kind}</span>
-                <span className="text-sm text-muted">{tool.role}</span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{tool.detail}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="panel p-6">
-        <h2 className="text-lg font-medium">The loop they serve</h2>
-        <ol className="mt-4 space-y-3">
-          {loop.map((stage, index) => (
-            <li key={stage.step} className="flex gap-4">
-              <span className="font-mono text-xs text-faint">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="text-sm leading-relaxed">
-                <span className="text-text">{stage.step}. </span>
-                <span className="text-muted">{stage.body}</span>
-              </span>
-            </li>
-          ))}
-        </ol>
-      </div>
     </>
   );
 }

@@ -51,7 +51,7 @@ npm run lint       # eslint, including the Next.js rules
 | `/` | Mission, what ME is, technology areas, selected projects, links deeper |
 | `/products` | The five products, each with a status label and what that label means |
 | `/products/<slug>` | One product in detail: purpose, current milestone, long term direction, related products, availability |
-| `/research` | Nine research branches with their current priority and open threads |
+| `/research` | Nine research branches with their tier and open threads |
 | `/manufacturing` | The manufacturing model, the first proof of concept part, and the factory planning room concept |
 | `/operations` | How ME intends to run critical functions: shifts, breaks, handoff logs, camera and machine safety, alert principles |
 | `/campus` | The HQ and campus concept: core, wings, separate buildings, borrowed bikes |
@@ -64,7 +64,14 @@ npm run lint       # eslint, including the Next.js rules
 
 The founder page is deliberately styled differently from the rest of the site:
 denser panels, monospace labels, status dots, and progress bars. It is still a
-public page.
+public page, reachable by anybody who has the address.
+
+It is **unlisted**, not private. It is absent from `secondaryNav`, which is what
+the footer, the mobile menu and the sitemap all read, and it asks crawlers not
+to index it. Nothing links to it. That is tidiness rather than access control,
+and it must never be described as private, protected or internal, because a
+static site cannot tell who is asking. Keeping it unlisted is also what stops a
+mission control styled page from dominating a first impression of ME.
 
 ## Public and internal boundary
 
@@ -89,6 +96,28 @@ separate host. It does not share this frontend.
 
 ## Status vocabulary
 
+Two labels, answering two different questions. The tier says **when**. The
+status says **what**. Both are TypeScript unions, so a bad label fails the
+build.
+
+### Tiers: is anybody building this
+
+Shown on every product, every subject area, and every milestone that is not
+complete. Words, not colour alone. Defined in `data/tiers.ts`.
+
+| Tier | Means |
+| --- | --- |
+| BUILDING NOW | Active implementation or verified technical work happening now. There are commits this month. |
+| PLANNED | The next step is defined and written down. Implementation has not meaningfully started. |
+| LONG-TERM | A serious direction ME intends to reach. Nobody is building it. Nothing exists. |
+| VERY LONG-TERM | An extremely ambitious idea kept on the map on purpose. Not a product, not a plan, not close. |
+
+BUILDING NOW is the only tier that claims work is happening, and it is only
+assigned after reading the project's own repository. Three projects hold it
+today: ME OS, the Holoprojector control software, and Carl.
+
+### Status: how far along it is
+
 ME has no physical hardware prototypes. The site says so on the homepage, on the
 products page, on every product detail page, on the founder console, and on a
 page of its own at `/hardware`. Product
@@ -105,6 +134,15 @@ status is a TypeScript union of five careful values:
 The words operational, deployed, in production and hardware prototype are not
 used, because none of them is true of anything ME has.
 
+### The 2035 R&D runway
+
+Around 2035 is ME's current target for a formal company launch, stated as a
+target and a working plan rather than a promise. The years before it are an R&D
+runway: build prototypes, test ideas, and find out which concepts deserve to
+become products. It appears on `/about` and `/roadmap`, and it never implies
+that everything on the roadmap will exist by then, that any branch is staffed,
+or that the company has launched. `data/strategy.ts` holds the wording.
+
 ## Where content lives
 
 All copy that is data rather than layout lives in `data/`:
@@ -114,7 +152,10 @@ All copy that is data rather than layout lives in `data/`:
 | `data/site.ts` | Company facts, mission, navigation, feedback document URL, boundary notes |
 | `data/products.ts` | Products, status labels, and where each one stands |
 | `data/research.ts` | Research branches, priorities, and threads |
-| `data/roadmap.ts` | The execution model and selected milestones |
+| `data/tiers.ts` | The four public status tiers and what each one means |
+| `data/roadmap.ts` | Selected milestones, each with a state and a tier |
+| `data/execution.ts` | How execution works, and where each project stands with the evidence for it |
+| `data/strategy.ts` | The 2035 runway, what the roadmap is, how early ME is, and what ME does not claim |
 | `data/updates.ts` | The progress log |
 | `data/research-tools.ts` | The research tool family and the research loop |
 | `data/manufacturing.ts` | Manufacturing model, proof of concept, factory planning room |

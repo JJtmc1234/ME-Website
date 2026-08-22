@@ -18,14 +18,14 @@ export default function OperationsPage() {
       <PageHeader
         eyebrow="Operations"
         title="How ME intends to run things that must not stop."
-        lead="Philosophy, not a schedule. ME operates nothing around the clock today. This page holds no staffing data, no rota, no incident record and no live system state, and it never will."
+        lead="Philosophy, not a schedule. ME operates nothing around the clock today, and this page holds no staffing, rota, incident or live system data."
       />
 
       <Section title="Running continuously">
-        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+        <div className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {shiftModel.map((item) => (
-            <div key={item.title} className="bg-surface p-6">
-              <h3 className="text-base font-medium">{item.title}</h3>
+            <div key={item.title} className="bg-surface p-5">
+              <h3 className="text-sm font-medium">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
             </div>
           ))}
@@ -33,21 +33,16 @@ export default function OperationsPage() {
       </Section>
 
       <Section title="Breaks" description={breaks.principle}>
-        <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
-          <div className="panel p-6">
-            <ul className="space-y-3">
-              {breaks.detail.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
-                  <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-line-strong" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="panel-quiet p-6">
-            <p className="label">Why</p>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{breaks.why}</p>
-          </div>
+        <div className="panel p-5 sm:p-6">
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {breaks.detail.map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
+                <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-line-strong" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 border-t border-line pt-3 text-sm text-faint">{breaks.why}</p>
         </div>
       </Section>
 
@@ -57,11 +52,11 @@ export default function OperationsPage() {
       >
         <ol className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {incidentHandling.map((item, index) => (
-            <li key={item.title} className="bg-surface p-6">
+            <li key={item.title} className="bg-surface p-5">
               <span className="font-mono text-xs text-faint">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-base font-medium">{item.title}</h3>
+              <h3 className="mt-2 text-sm font-medium">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
             </li>
           ))}
@@ -105,13 +100,22 @@ export default function OperationsPage() {
       </Section>
 
       <Container>
-        <aside className="panel-quiet mb-8 p-6">
-          <h2 className="text-base font-medium">What this page does not contain</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            No shift schedules, no names, no on call rotations, no incident logs, no
-            internal alerts, no system hostnames, and no live status of anything. This
-            site is static and reads from no ME system.
-          </p>
+        <aside className="panel-quiet mb-8 p-5">
+          <h2 className="text-sm font-medium">What this page does not contain</h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {[
+              "No schedules",
+              "No names",
+              "No rotations",
+              "No incident logs",
+              "No hostnames",
+              "No live status",
+            ].map((item) => (
+              <li key={item} className="border border-line px-2.5 py-1 text-xs text-muted">
+                {item}
+              </li>
+            ))}
+          </ul>
         </aside>
       </Container>
     </>

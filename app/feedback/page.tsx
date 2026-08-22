@@ -33,18 +33,16 @@ export default function FeedbackPage() {
       <PageHeader
         eyebrow="Community feedback"
         title="Tell ME what is wrong with this."
-        lead="Useful criticism, strange ideas, risks, questions, and things you think are genuinely exciting are all welcome. Candid is better than polite."
+        lead="Criticism, strange ideas, risks and questions all welcome. Candid beats polite."
       />
 
       <Section>
         <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
-          <div className="panel p-6 sm:p-8">
-            <h2 className="text-lg font-medium">Open feedback document</h2>
+          <div className="panel p-5 sm:p-6">
+            <h2 className="text-base font-medium">Open feedback document</h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-              Feedback is collected in a shared document rather than a form, so entries stay
-              readable, keep their context, and are not silently dropped into an inbox. Add
-              a new entry at the bottom. There is a template if you want one, and free form
-              writing is fine. Please do not delete or rewrite anyone else&apos;s feedback.
+              A shared document rather than a form, so entries keep their context. Add yours
+              at the bottom. Please do not rewrite anyone else&apos;s.
             </p>
             <a
               href={communityFeedbackDoc}
@@ -61,8 +59,8 @@ export default function FeedbackPage() {
             </p>
           </div>
 
-          <div className="panel p-6 sm:p-8">
-            <h2 className="text-lg font-medium">What to include</h2>
+          <div className="panel p-5 sm:p-6">
+            <h2 className="text-base font-medium">What to include</h2>
             <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted">
               {[
                 "Your name, if you want it attached",
@@ -101,15 +99,15 @@ export default function FeedbackPage() {
       >
         <ul className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
-            <li key={category.name} className="bg-surface p-6">
+            <li key={category.name} className="bg-surface p-5">
               <h3 className="font-mono text-xs uppercase tracking-widest text-accent">
                 {category.name}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{category.body}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{category.body}</p>
             </li>
           ))}
         </ul>
-        <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((step, index) => (
             <li key={step} className="border border-line p-4">
               <span className="font-mono text-xs text-faint">
@@ -127,7 +125,7 @@ export default function FeedbackPage() {
       >
         <ul className="divide-y divide-line border-y border-line">
           {processed.map((entry) => (
-            <li key={entry.summary} className="grid gap-3 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
+            <li key={entry.summary} className="grid gap-2 py-4 sm:grid-cols-[10rem_1fr] sm:gap-8">
               <div>
                 <span className="font-mono text-xs uppercase tracking-widest text-accent">
                   {entry.category}
@@ -146,11 +144,9 @@ export default function FeedbackPage() {
       </Section>
 
       <Container>
-        <aside className="panel-quiet mb-8 p-6">
-          <h2 className="text-base font-medium">What happens to feedback</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            {promise} There is no promise of a reply to every entry.
-          </p>
+        <aside className="panel-quiet mb-8 p-5">
+          <h2 className="text-sm font-medium">What happens to feedback</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">{promise}</p>
         </aside>
       </Container>
     </>

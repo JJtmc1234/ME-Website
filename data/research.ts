@@ -1,10 +1,16 @@
-/** Research branches. Wording follows the ME research index: broad by
- *  default, specific only where a branch has actually been thought through. */
+/** Research branches. Broad by default, specific only where a branch has
+ *  actually been thought through.
+ *
+ *  A branch is an area on a map, not a department. Nobody is staffed to any of
+ *  them. The tier says whether work is happening in a branch, which for eight
+ *  of the nine is no. Threads are chips, not sentences. */
+import type { Tier } from "@/data/tiers";
 
 export type Branch = {
   slug: string;
   name: string;
-  priority: "Primary focus" | "Active interest" | "In scope";
+  /** When, not what. See data/tiers.ts. */
+  tier: Tier;
   summary: string;
   threads: string[];
 };
@@ -13,112 +19,88 @@ export const branches: Branch[] = [
   {
     slug: "computing-ai",
     name: "Computing & AI",
-    priority: "Primary focus",
-    summary:
-      "The branch with the strongest existing knowledge base at ME, and the first one being explored in depth. Agentic systems, operating systems, distributed compute, infrastructure, robotics intelligence, and scientific computing.",
+    tier: "BUILDING NOW",
+    summary: "The strongest knowledge base at ME, and the only branch explored in depth.",
     threads: [
-      "Agent native operating system design: permissions, memory, task routing, recovery",
-      "Command routing that many control surfaces can share safely",
-      "Model infrastructure and use of strong external models rather than training a frontier model",
-      "Scientific computing and simulation as shared infrastructure",
+      "Agent native OS design",
+      "Shared command routing",
+      "External models, not a frontier model",
     ],
   },
   {
     slug: "energy",
     name: "Energy",
-    priority: "Active interest",
-    summary:
-      "Initial focus is power electronics: efficient conversion, control, and distribution. That is the layer compute, robotics, labs, vehicles, satellites, and storage all depend on.",
+    tier: "LONG-TERM",
+    summary: "Power electronics first: conversion, control, distribution. Everything else sits on it.",
     threads: [
-      "Power electronics for high density compute and laboratory loads",
-      "A smart DC bus for lab benches and factory cells, as the first concrete system to study",
-      "Protection coordination: which device disconnects first, and how fast, on a fault",
-      "Storage and grid interaction",
-      "Longer horizon generation systems",
+      "Power electronics for dense compute",
+      "A smart DC bus",
+      "Protection coordination",
     ],
   },
   {
     slug: "space",
     name: "Space & Satellites",
-    priority: "Active interest",
-    summary:
-      "Treated as a major branch rather than a subtopic. The emphasis is Earth observation delivering services governments and large organizations actually buy.",
+    tier: "LONG-TERM",
+    summary: "Earth observation, delivering services large organizations actually buy.",
     threads: [
-      "Imaging, mapping, and weather observation",
-      "Infrastructure monitoring, disaster response, agriculture, and logistics",
-      "Communications, orbital infrastructure, launch, and deeper space systems remain in scope",
+      "Imaging, mapping, weather",
+      "Infrastructure monitoring",
+      "Orbital infrastructure",
     ],
   },
   {
     slug: "robotics",
     name: "Robotics",
-    priority: "In scope",
-    summary:
-      "Industrial, mobile, laboratory, and autonomous systems, including the interfaces that let agents drive them safely.",
+    tier: "LONG-TERM",
+    summary: "Industrial, mobile and laboratory systems, and the interfaces agents drive them through.",
     threads: [
-      "Laboratory automation feeding the research tools platform",
-      "Mobile and industrial platforms",
-      "Safe autonomy boundaries between agent intent and actuator command",
+      "Laboratory automation",
+      "Mobile platforms",
+      "Safe autonomy boundaries",
     ],
   },
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    priority: "In scope",
-    summary:
-      "Automation, advanced factories, materials processing, and scalable production, organized around distributed automated production rather than one large plant.",
+    tier: "LONG-TERM",
+    summary: "Distributed automated production rather than one large plant.",
     threads: [
-      "Distributed automated production cells",
-      "Buy commodity inputs such as steel, wire, fasteners, bearings, and standard electronics where making them adds no strategic value",
-      "Materials processing tied to the materials branch",
+      "Standard production cells",
+      "Buy commodity inputs",
+      "Materials processing",
     ],
   },
   {
     slug: "materials",
     name: "Materials",
-    priority: "In scope",
-    summary:
-      "Semiconductors, composites, metamaterials, and nanomaterials, chosen by what other ME branches are blocked on.",
+    tier: "LONG-TERM",
+    summary: "Chosen by what other ME branches are blocked on.",
     threads: [
-      "Semiconductors for compute and sensing",
-      "Metamaterials relevant to displays and optics",
-      "Composites and structural materials for robotics and space hardware",
+      "Semiconductors",
+      "Metamaterials for optics",
+      "Composites for robotics and space",
     ],
   },
   {
     slug: "medicine-biotech",
     name: "Medicine & Biotech",
-    priority: "In scope",
-    summary:
-      "Emphasis on prosthetics, augmentation, and longevity, with diagnostics and synthetic biology kept in scope.",
-    threads: [
-      "Prosthetics and human augmentation, sharing sensing work with wearables",
-      "Longevity research",
-      "Diagnostics and synthetic biology",
-    ],
+    tier: "VERY LONG-TERM",
+    summary: "Prosthetics, augmentation and longevity, sharing sensing work with wearables.",
+    threads: ["Prosthetics and augmentation", "Longevity", "Diagnostics and synthetic biology"],
   },
   {
     slug: "transportation",
     name: "Transportation",
-    priority: "In scope",
-    summary:
-      "Autonomous systems, aerospace, high speed transit, and logistics.",
-    threads: [
-      "Autonomy shared with the robotics branch",
-      "Aerospace and high speed transit",
-      "Logistics as a systems problem",
-    ],
+    tier: "VERY LONG-TERM",
+    summary: "Autonomous systems, aerospace, high speed transit and logistics.",
+    threads: ["Autonomy shared with robotics", "Aerospace and transit", "Logistics as a system"],
   },
   {
     slug: "frontier",
     name: "Frontier Research",
-    priority: "In scope",
-    summary:
-      "Speculative and advanced physics, propulsion, and spacetime work. High risk, high upside, and explicitly labelled as such.",
-    threads: [
-      "Advanced propulsion concepts",
-      "Spacetime and gravitation",
-      "Work that fails honestly rather than quietly",
-    ],
+    tier: "VERY LONG-TERM",
+    summary: "Speculative physics, propulsion and spacetime. High risk, and labelled as such.",
+    threads: ["Advanced propulsion", "Spacetime and gravitation", "Failing honestly, not quietly"],
   },
 ];

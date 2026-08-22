@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { BranchCard } from "@/components/cards";
+import { TierLegend } from "@/components/tiers";
 import { branches } from "@/data/research";
 import { firstSystem, focus, realities } from "@/data/energy";
 
@@ -18,12 +19,16 @@ export default function ResearchPage() {
     <>
       <PageHeader
         eyebrow="Research"
-        title="Nine branches, kept broad on purpose."
-        lead="ME planning stays wide until a branch genuinely needs deeper design. That keeps the map useful without pretending every subsystem has a five year plan today."
+        title="Nine subject areas, kept broad on purpose."
+        lead="Areas on a map, not staffed departments. Nobody is assigned to any of them. One has work happening in it."
       />
 
+      <Section title="What the labels mean">
+        <TierLegend />
+      </Section>
+
       <Section>
-        <ul className="grid gap-5 lg:grid-cols-2">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {branches.map((branch) => (
             <li key={branch.slug} id={branch.slug} className="scroll-mt-24">
               <BranchCard branch={branch} />
@@ -32,33 +37,29 @@ export default function ResearchPage() {
         </ul>
       </Section>
 
-      <Section
-        title="Energy, in more detail"
-        description={focus}
-      >
-        <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
-          <div className="panel p-6">
-            <h3 className="text-base font-medium">What real distribution has to deal with</h3>
-            <ul className="mt-4 divide-y divide-line border-t border-line">
+      <Section title="Energy, in more detail" description={focus}>
+        <div className="grid gap-5 lg:grid-cols-[1fr_1.2fr]">
+          <div className="panel p-5 sm:p-6">
+            <p className="label">What real distribution has to deal with</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
               {realities.map((item) => (
-                <li key={item.name} className="py-2.5">
-                  <span className="text-sm text-text">{item.name}. </span>
-                  <span className="text-sm leading-relaxed text-muted">{item.body}</span>
+                <li key={item} className="border border-line px-2.5 py-1 text-xs text-muted">
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="panel p-6">
-            <div className="flex items-baseline justify-between gap-3">
-              <h3 className="text-base font-medium">{firstSystem.name}</h3>
+          <div className="panel p-5 sm:p-6">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h3 className="text-sm font-medium">{firstSystem.name}</h3>
               <span className="font-mono text-[0.625rem] uppercase tracking-widest text-status-concept">
                 {firstSystem.status}
               </span>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted">{firstSystem.body}</p>
-            <p className="label mt-5">Open questions</p>
-            <ul className="mt-2 space-y-2">
+            <p className="label mt-4">Open questions</p>
+            <ul className="mt-2 space-y-1.5">
               {firstSystem.questions.map((question) => (
                 <li key={question} className="flex gap-3 text-sm leading-relaxed text-muted">
                   <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-line-strong" />
@@ -66,7 +67,7 @@ export default function ResearchPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-5 border-t border-line pt-4 text-sm leading-relaxed text-faint">
+            <p className="mt-4 border-t border-line pt-3 text-xs leading-relaxed text-faint">
               {firstSystem.caution}
             </p>
           </div>
@@ -74,13 +75,11 @@ export default function ResearchPage() {
       </Section>
 
       <Container>
-        <aside className="panel-quiet mb-8 p-6">
-          <h2 className="text-base font-medium">How branches get chosen</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            A branch moves from in scope to active when ME has the knowledge to make real
-            progress and another project is blocked without it. Computing and AI is first
-            because it is where the existing knowledge base is strongest and because ME OS,
-            Carl, and the research tools all depend on it.
+        <aside className="panel-quiet mb-8 p-5">
+          <h2 className="text-sm font-medium">How branches get chosen</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            A branch goes active when ME has the knowledge and another project is blocked
+            without it. Nothing has been built in the other eight, and nobody works in them.
           </p>
         </aside>
       </Container>
