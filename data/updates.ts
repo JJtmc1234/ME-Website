@@ -11,6 +11,34 @@ export type Update = {
 export const updates: Update[] = [
   {
     date: "2026-08-21",
+    title: "The first feedback from outside ME",
+    area: "Company",
+    body:
+      "The open document had been sitting there since it was published. It now has entries in it, from people who are not ME. Feedback is sorted into five kinds, idea, concern, correction, question and action item, and each entry gets a line saying which part of ME it touches and whether it changed a plan. Several of them did, and the ones that did are named on the feedback page rather than quietly absorbed. The most useful entry was a question rather than a suggestion, which is roughly what was hoped for when the document was opened.",
+  },
+  {
+    date: "2026-08-21",
+    title: "A target for 2035, and a first answer to what the flagship is",
+    area: "Company",
+    body:
+      "Somebody asked what the one thing ME should be able to show in three to five years is. ME did not have an answer, which was the point of the question. The current hypothesis is Carl running on ME OS: an agent that is a normal part of the system rather than an application on top of it, with permissions, memory, recovery and a human override that works when the agent does not. It is written down as a hypothesis, not a decision, and it can be argued with. Alongside it, around 2035 is now recorded as the working target for ME becoming a formally operating company, and the years before it are for building a portfolio of software prototypes, concepts and research rather than announcing anything. Target, not promise. No investors, no customers, no ship date.",
+  },
+  {
+    date: "2026-08-21",
+    title: "ME OS turns a triangle, and hands over the rectangle",
+    area: "ME OS",
+    body:
+      "Two milestones. Floating point was turned on deliberately, and one file is allowed to use it: everything that file exposes takes and returns whole numbers, and the build refuses to link if any other file contains a floating point instruction, so the rule is checked rather than trusted. What it draws is a triangle turning about its own centre on the same clock the rectangle uses. Then the arrow keys were given the rectangle. Arrows rather than letters, because every letter is already part of a typed sum, and the first press stops the rectangle drifting so steering is exact: the automated check measures three presses down as exactly forty eight pixels and eight presses left as exactly one hundred and twenty eight. Numbering went out of order on purpose. The triangle was numbered M12 after milestones people had already read, and building it first was better than renumbering them. Still an emulator. ME OS has never booted on a physical machine.",
+  },
+  {
+    date: "2026-08-21",
+    title: "The Holoprojector understands ordinary sentences",
+    area: "Holoprojector",
+    body:
+      "M6 is met. The local Carl adapter takes more ways of saying the same thing, multipliers in words or digits, and sentences carrying several instructions joined by and, then, after that or a semicolon. A later step can depend on an earlier one, so select the cube then pause it pauses the cube rather than whatever happened to be selected when the sentence started. A step it cannot understand now stops the whole sentence and says which part failed, because half obeying a sentence is worse than refusing it: the speaker believes all three things happened and two of them did. That fault was found by a phrase quietly disappearing during this milestone's own testing. Everything still goes through the same command router and the same safety checks, so asking politely for an unsafe speed is refused exactly as a key press would be. Still keyword matching, still offline, no model and no network.",
+  },
+  {
+    date: "2026-08-21",
     title: "ME OS can work things out",
     area: "ME OS",
     body:

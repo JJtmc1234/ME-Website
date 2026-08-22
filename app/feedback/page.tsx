@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
 import { communityFeedbackDoc } from "@/data/site";
+import { categories, process, processed, promise } from "@/data/feedback";
 
 export const metadata: Metadata = pageMeta({
   title: "Community feedback",
@@ -94,13 +95,61 @@ export default function FeedbackPage() {
         </ul>
       </Section>
 
+      <Section
+        title="How an entry is handled"
+        description="Every entry goes into one of five kinds, and each kind is treated differently."
+      >
+        <ul className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((category) => (
+            <li key={category.name} className="bg-surface p-6">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-accent">
+                {category.name}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{category.body}</p>
+            </li>
+          ))}
+        </ul>
+        <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {process.map((step, index) => (
+            <li key={step} className="border border-line p-4">
+              <span className="font-mono text-xs text-faint">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section
+        title="Feedback that changed something"
+        description="What was raised, which part of ME it touches, and what happened next."
+      >
+        <ul className="divide-y divide-line border-y border-line">
+          {processed.map((entry) => (
+            <li key={entry.summary} className="grid gap-3 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-accent">
+                  {entry.category}
+                </span>
+                <p className="mt-1 font-mono text-xs text-faint">{entry.area}</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium leading-relaxed">{entry.summary}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  <span className="text-text">{entry.effect}</span> {entry.why}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
       <Container>
         <aside className="panel-quiet mb-8 p-6">
           <h2 className="text-base font-medium">What happens to feedback</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">
-            Entries are read. Some change a design, some change a roadmap decision, and some
-            get an answer explaining why ME disagrees. There is no promise of a reply to
-            every entry, and no feedback is deleted to make the company look better.
+            {promise} There is no promise of a reply to every entry.
           </p>
         </aside>
       </Container>

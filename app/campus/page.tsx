@@ -2,7 +2,17 @@ import type { Metadata } from "next";
 
 import { pageMeta } from "@/lib/metadata";
 import { Container, PageHeader, Section } from "@/components/primitives";
-import { bikes, disclaimer, separateBuildings, shape, zones } from "@/data/campus";
+import {
+  aiNativeWork,
+  bikes,
+  disclaimer,
+  separateBuildings,
+  shape,
+  workDisclaimer,
+  workModes,
+  workPrinciples,
+  zones,
+} from "@/data/campus";
 
 export const metadata: Metadata = pageMeta({
   title: "Campus concept",
@@ -55,6 +65,33 @@ export default function CampusPage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section title={aiNativeWork.title} description={aiNativeWork.body}>
+        <ul className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+          {workPrinciples.map((principle) => (
+            <li key={principle.name} className="bg-surface p-6">
+              <h3 className="text-base font-medium">{principle.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{principle.body}</p>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="mt-10 text-base font-medium">Rooms shaped by the work in them</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">
+          One open floor serves every mode of work badly. The concept splits space by what
+          is being done rather than by who is doing it.
+        </p>
+        <ul className="mt-5 divide-y divide-line border-y border-line">
+          {workModes.map((mode) => (
+            <li key={mode.name} className="grid gap-2 py-4 sm:grid-cols-[16rem_1fr] sm:gap-8">
+              <span className="text-sm font-medium">{mode.name}</span>
+              <span className="text-sm leading-relaxed text-muted">{mode.body}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-faint">{workDisclaimer}</p>
       </Section>
 
       <Section title={bikes.title}>

@@ -103,9 +103,25 @@ export const milestones: Milestone[] = [
     id: "meos-m9",
     project: "ME OS",
     title: "M9: keyboard controlled rectangle",
+    state: "Complete",
+    detail:
+      "The arrow keys move the rectangle sixteen pixels at a time, and the first press stops it drifting so steering is exact rather than approximate. Arrows rather than letters, because since M8 every letter is part of a typed sum. Checked automatically: three presses down must move it exactly forty eight pixels and eight presses left exactly one hundred and twenty eight, with the text and the turning triangle untouched.",
+  },
+  {
+    id: "meos-m10",
+    project: "ME OS",
+    title: "M10: edge wrapping",
     state: "Next",
     detail:
-      "Keys move the rectangle, which until now has only moved on its own. After it: wrapping at the screen edges, then picking the rectangle up with the pointer.",
+      "The rectangle wraps around the screen edges instead of stopping at them. After it, picking the rectangle up with the pointer.",
+  },
+  {
+    id: "meos-m12",
+    project: "ME OS",
+    title: "M12: rotating triangle and floating point",
+    state: "Complete",
+    detail:
+      "Floating point turned on deliberately, and the smallest thing worth doing with it. One file is allowed to do floating point arithmetic and everything it exposes takes and returns whole numbers, and the build refuses to link if any other file contains a floating point instruction. A triangle turns about its own centre on the same clock the rectangle uses. It was numbered after M11 rather than inserted before M9, because renumbering milestones people have already read is worse than taking them out of order, so it was built early while M9, M10 and M11 keep their original places in the ladder.",
   },
   {
     id: "holo-m1",
@@ -151,9 +167,17 @@ export const milestones: Milestone[] = [
     id: "holo-m6",
     project: "Holoprojector",
     title: "M6: richer Carl adapter",
+    state: "Complete",
+    detail:
+      "Broader phrasing, multipliers in words or digits, and one sentence carrying several instructions joined by and, then or a semicolon. A later step can depend on an earlier one, so select the cube then pause it pauses the cube. A step that is not understood stops the whole sentence and names itself rather than being dropped silently. Still keyword matching, still offline, no model and no network.",
+  },
+  {
+    id: "holo-m7",
+    project: "Holoprojector",
+    title: "M7: multi user interaction model",
     state: "Next",
     detail:
-      "Broader phrasing and multi step instructions through the same command path, still model agnostic and still offline.",
+      "More than one control surface acting on one scene at the same time, with clear ownership of whatever is being held. Still a simulator, and still no display hardware.",
   },
   {
     id: "bracer-research",

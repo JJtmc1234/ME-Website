@@ -19,7 +19,7 @@ const software = [
     what: "A from scratch x86-64 operating system",
     where: "Boots in QEMU, an emulator, on an ordinary computer",
     verified:
-      "M1 boot message, M2 keyboard input, M3 a drawn rectangle, M4 a cursor that follows the mouse, M5 a rectangle that crosses the screen on a hardware timer, M6 arithmetic, M7 one conditional and M8 named values, each checked automatically by typing on the emulated keyboard and inspecting the captured framebuffer, alongside 386 checks that run without an emulator",
+      "M1 boot message, M2 keyboard input, M3 a drawn rectangle, M4 a cursor that follows the mouse, M5 a rectangle that crosses the screen on a hardware timer, M6 arithmetic, M7 one conditional, M8 named values, M12 floating point with a triangle turning on a timer, and M9 arrow keys that steer the rectangle, each checked automatically by typing on the emulated keyboard and inspecting the captured framebuffer, alongside 471 checks that run without an emulator",
     notYet: "Has never been booted on a physical machine",
   },
   {
@@ -27,7 +27,7 @@ const software = [
     what: "The control layer a volumetric display would eventually need",
     where: "Runs against a 3D simulator in a window on an ordinary computer",
     verified:
-      "M1 a rotating object, M2 several independent objects with selection, M3 pointer hover, select, grab and drag, M4 a second software pointer source, M5 a bracer shaped input with its own alignment, covered by 176 automated tests, none of which need a GPU",
+      "M1 a rotating object, M2 several independent objects with selection, M3 pointer hover, select, grab and drag, M4 a second software pointer source, M5 a bracer shaped input with its own alignment, M6 an offline adapter that takes ordinary phrasing and sentences with several instructions in them, covered by 217 automated tests, none of which need a GPU",
     notYet: "There is no projector. The physical display method is not decided",
   },
 ];

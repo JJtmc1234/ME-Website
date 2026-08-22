@@ -29,24 +29,24 @@ export const founder = {
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
-    focus: "M8 variables, verified in QEMU",
+    focus: "M9 arrow keys steer the rectangle, verified in QEMU",
     state: "Active",
     progress: 100,
-    note: "Boots, reads input, draws, keeps time, works sums out. Never on real hardware",
+    note: "Boots, reads input, draws, keeps time, works sums out, turns a triangle. Never on real hardware",
   },
   {
     name: "Holoprojector",
-    focus: "M5 bracer shaped input adapter",
+    focus: "M6 richer offline Carl adapter",
     state: "Active",
     progress: 100,
-    note: "Three software input shapes on one path. No projector exists",
+    note: "Three input shapes and plain phrasing on one path. No projector exists",
   },
   {
     name: "Carl",
     focus: "Agent interface boundaries",
     state: "Research",
     progress: 40,
-    note: "Command routing inside products before any central deployment",
+    note: "Working hypothesis for the flagship, on ME OS. No central deployment",
   },
   {
     name: "Employee Bracers",
@@ -82,7 +82,7 @@ export const systemPanels = [
   { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Factory cells", value: "Concept only", tone: "idle" as const },
-  { label: "Verified software milestones", value: "13", tone: "ok" as const },
+  { label: "Verified software milestones", value: "16", tone: "ok" as const },
   { label: "Lab suit and tools", value: "Concept only", tone: "idle" as const },
   { label: "Internal command center", value: "Not built", tone: "idle" as const },
 ];
@@ -99,9 +99,10 @@ export const researchInterests = [
 ];
 
 export const recentProgress = [
-  { when: "Aug 21", what: "Public site moved to its own domain, HTTPS still pending" },
+  { when: "Aug 21", what: "Holoprojector M6: plain phrasing and several instructions in one sentence" },
+  { when: "Aug 21", what: "ME OS M9: the arrow keys steer the rectangle" },
+  { when: "Aug 21", what: "ME OS M12: floating point, and a triangle turning on a timer" },
+  { when: "Aug 21", what: "Around 2035 recorded as the working target for a formal launch" },
+  { when: "Aug 21", what: "Public site moved to its own domain, now served over HTTPS" },
   { when: "Aug 20", what: "ME OS M8: values can be given names and used again" },
-  { when: "Aug 20", what: "ME OS M7: one conditional, taking either branch" },
-  { when: "Aug 20", what: "ME OS M6: sums typed on the keyboard, answered on screen" },
-  { when: "Aug 20", what: "Holoprojector M5: a bracer shaped input on the same path" },
 ];

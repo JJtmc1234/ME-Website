@@ -65,7 +65,7 @@ export const products: Product[] = [
     ],
     now: "Boots in QEMU over UEFI. It has never been booted on a physical machine, and that is a later step.",
     currentMilestone:
-      "M1 boot proof and M2 keyboard input are both met and checked automatically in QEMU: the machine boots, draws its message, and reports the key it was sent. M3 draws a rectangle.",
+      "Ten milestones are met and checked automatically in QEMU: boot, keyboard, drawing, a mouse cursor, a rectangle that moves on a real clock, typed arithmetic, one conditional, named values, floating point with a turning triangle, and arrow keys that steer the rectangle. M10 wraps it around the screen edges. It has still never run outside an emulator.",
     longTerm:
       "A general purpose desktop system with agent execution, permissions and recovery built in, compatible with ordinary Linux applications and file formats.",
     related: ["carl", "research-tools"],
@@ -89,7 +89,7 @@ export const products: Product[] = [
     ],
     now: "The control software runs against a 3D simulator on ordinary computers. No display hardware exists, and the physical display method is not decided.",
     currentMilestone:
-      "M2 is complete: several independent objects in one scene, with selection and per object commands, all driven through one command layer. M3 adds pointer based selection.",
+      "Six milestones are met: several objects in one scene, a device neutral pointer, a simulated holo pencil, a bracer shaped input adapter, and a local offline Carl adapter that takes ordinary phrasing and sentences with several instructions in them. M7 lets more than one surface act on the scene at once.",
     longTerm:
       "A ceiling mounted unit whose capability grows through software, controlled by the same command path as every other ME surface.",
     related: ["carl", "employee-bracers"],
@@ -113,7 +113,7 @@ export const products: Product[] = [
     ],
     now: "Interface boundaries and command routing exist inside individual products. There is no centralized Carl deployment and no live agent behind this website.",
     currentMilestone:
-      "Each product builds its own interface boundary first. The Holoprojector already routes a local, offline text adapter through the same command path a real Carl would use.",
+      "Each product builds its own interface boundary first. The Holoprojector routes a local, offline text adapter through the same command path a real Carl would use, including sentences carrying several instructions, and the safety checks refuse an unsafe request whether it arrived as a phrase or a key press.",
     longTerm:
       "One agent layer across ME systems, with per surface permissions and an override path that does not depend on Carl being available or correct.",
     related: ["me-os", "holoprojector", "employee-bracers"],

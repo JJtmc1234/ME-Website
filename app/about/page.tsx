@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import { PageHeader, Section } from "@/components/primitives";
+import { StrategySection } from "@/components/strategy";
 import { channels, intent, principles } from "@/data/accessibility";
 import { boundary, site } from "@/data/site";
 
@@ -109,6 +110,8 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+
+      <StrategySection />
 
       <Section
         title="Interfaces should be multimodal"
