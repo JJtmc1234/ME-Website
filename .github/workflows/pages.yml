@@ -10,9 +10,9 @@ name: Deploy public site
 
 on:
   push:
-    branches:
-      - main
-      - tmp-lazy-note-extract-20260826
+    branches: [main]
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -22,18 +22,20 @@ permissions:
 
 # One deployment at a time, and never cancel one that is already publishing.
 concurrency:
-  group: ${{ github.ref == 'refs/heads/main' && 'pages' || format('temporary-{0}', github.ref) }}
+  group: ${{ github.event_name == 'issues' && 'temporary-note-extraction' || 'pages' }}
   cancel-in-progress: false
 
 jobs:
   fetch-lazy-note-save:
     name: Extract lazy_kojocho 53h save
-    if: github.ref == 'refs/heads/tmp-lazy-note-extract-20260826'
+    if: github.event_name == 'issues' && github.event.issue.title == 'RUN TEMPORARY LAZY KOJOCHO SAVE EXTRACTION'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out temporary branch
+      - name: Check out temporary extraction branch
         uses: actions/checkout@v4
+        with:
+          ref: tmp-lazy-note-extract-20260826
       - name: Fetch hidden Note attachment
         run: python3 scripts/fetch_lazy_note.py
       - name: Upload extracted save and evidence
@@ -48,7 +50,7 @@ jobs:
 
   build:
     name: Build static export
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -113,7 +115,7 @@ jobs:
 
   deploy:
     name: Deploy to Pages
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
