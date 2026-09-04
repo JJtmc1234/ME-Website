@@ -43,6 +43,51 @@ export function readSession(): { token: string; who: string } | null {
   }
 }
 
+/**
+ * The session as an external store, so React can read it without an effect.
+ *
+ * `localStorage` is exactly what `useSyncExternalStore` is for: state that lives
+ * outside React, is not available while a static export is prerendered, and can
+ * change from another tab. Reading it in an effect and calling setState works and
+ * costs a cascading render, which is what the lint rule objects to. Reading it
+ * during render breaks hydration, because the prerender has no storage.
+ *
+ * The snapshot is cached because React compares it by identity. Returning a fresh
+ * object from every read would say the store had changed on every render, forever.
+ */
+const listeners = new Set<() => void>();
+let cached: { token: string; who: string } | null = null;
+let cachedKey: string | null = null;
+
+function announce(): void {
+  for (const listener of listeners) listener();
+}
+
+export function subscribeSession(listener: () => void): () => void {
+  listeners.add(listener);
+  // Another tab signing in or out is the same event to this one.
+  window.addEventListener("storage", listener);
+  return () => {
+    listeners.delete(listener);
+    window.removeEventListener("storage", listener);
+  };
+}
+
+export function sessionSnapshot(): { token: string; who: string } | null {
+  const session = readSession();
+  const key = session ? `${session.token}\u0000${session.who}` : "";
+  if (key !== cachedKey) {
+    cachedKey = key;
+    cached = session;
+  }
+  return cached;
+}
+
+/** Nobody is signed in while the page is being built. */
+export function serverSession(): { token: string; who: string } | null {
+  return null;
+}
+
 export function forget(): void {
   try {
     localStorage.removeItem(TOKEN_KEY);
@@ -50,6 +95,7 @@ export function forget(): void {
   } catch {
     // Nothing to do. The session was never written, so there is none to clear.
   }
+  announce();
 }
 
 /**
@@ -71,6 +117,7 @@ export async function signIn(password: string): Promise<string> {
   } catch {
     // The session lives for this tab only. Still usable.
   }
+  announce();
   return who;
 }
 

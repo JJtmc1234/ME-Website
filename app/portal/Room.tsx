@@ -10,45 +10,43 @@
  * password has been checked there.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { MOST_CHARS, POLL_MS } from "./config";
-import { Message, forget, messages, readSession, say, signIn, signedOut } from "./api";
+import {
+  Message,
+  forget,
+  messages,
+  say,
+  serverSession,
+  sessionSnapshot,
+  signIn,
+  signedOut,
+  subscribeSession,
+} from "./api";
 
 /** Agents render differently from people, so nobody has to guess which is which. */
 const AGENTS = new Set(["Carl"]);
 
 export function Room() {
-  const [who, setWho] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
   const [log, setLog] = useState<Message[]>([]);
   const [error, setError] = useState<string>("");
-  const [ready, setReady] = useState(false);
 
-  // The session is read after mount rather than during render. A static export
-  // is prerendered at build time, where there is no localStorage, and reading
-  // it in render makes the first paint disagree with the second.
-  useEffect(() => {
-    const session = readSession();
-    if (session) {
-      setWho(session.who);
-      setToken(session.token);
-    }
-    setReady(true);
-  }, []);
+  // Read from the store rather than copied into state by an effect. The
+  // prerender has no localStorage and says nobody is signed in, the browser says
+  // who actually is, and React reconciles the two itself. Signing in and leaving
+  // both write to storage, so this is the only place the answer lives.
+  const session = useSyncExternalStore(subscribeSession, sessionSnapshot, serverSession);
+  const who = session?.who ?? null;
+  const token = session?.token ?? null;
 
   const leave = useCallback(() => {
     forget();
-    setWho(null);
-    setToken(null);
     setLog([]);
   }, []);
 
-  if (!ready) {
-    return null;
-  }
   if (!who || !token) {
-    return <Gate onIn={(name, t) => { setWho(name); setToken(t); setError(""); }} />;
+    return <Gate onIn={() => setError("")} />;
   }
   return (
     <Log
@@ -63,7 +61,7 @@ export function Room() {
   );
 }
 
-function Gate({ onIn }: { onIn: (who: string, token: string) => void }) {
+function Gate({ onIn }: { onIn: () => void }) {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -74,9 +72,11 @@ function Gate({ onIn }: { onIn: (who: string, token: string) => void }) {
     setBusy(true);
     setError("");
     try {
-      const name = await signIn(password);
-      const session = readSession();
-      onIn(name, session?.token ?? "");
+      // signIn stores the session and tells the store, so the room re opens on
+      // its own. Nothing is passed up: a second copy of who you are is a second
+      // thing that can be wrong.
+      await signIn(password);
+      onIn();
     } catch (err) {
       setError(err instanceof Error ? err.message : "that did not work");
       setBusy(false);
