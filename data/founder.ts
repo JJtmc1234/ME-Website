@@ -15,7 +15,12 @@ export type ProjectCard = {
    *
    *  Absent when there is no ladder to measure against. A bar needs a denominator, and a
    *  project with nothing built has none, so drawing one there would invent a number and
-   *  make a concept look like work in progress. The state word and the note say more. */
+   *  make a concept look like work in progress. The state word and the note say more.
+   *
+   *  Worked out from `roadmap.ts` rather than written here. Three hand written numbers
+   *  disagreed with the milestones the rest of the site derives from, and one of them said
+   *  a project was thirty percent done when it had finished twenty eight milestones. A
+   *  number typed in a second place is a number that goes stale in a second place. */
   progress?: number;
   note: string;
 };
@@ -33,26 +38,37 @@ export const founder = {
   ],
 } as const;
 
+/** How far along a project is, counted from the milestone list itself.
+ *
+ *  Undefined when the project has no numbered ladder, which is what keeps a bar off a
+ *  concept that has nothing to measure. */
+function share(project: string): number | undefined {
+  const ladder = milestones.filter((m) => m.project === project);
+  if (ladder.length === 0) return undefined;
+  const done = ladder.filter((m) => m.state === "Complete").length;
+  return Math.round((done / ladder.length) * 100);
+}
+
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
-    focus: "M10 edge wrapping, not verified",
+    focus: "M28 tab completion, verified in QEMU",
     state: "Active",
-    progress: 30,
+    progress: share("ME OS"),
     note: "QEMU only. Never booted on real hardware. Factorio does not run on it",
   },
   {
     name: "Holoprojector",
     focus: "M6 offline Carl adapter",
     state: "Active",
-    progress: 100,
+    progress: share("Holoprojector"),
     note: "Simulator only. No projector exists",
   },
   {
     name: "Carl",
     focus: "Agent runtime, first slice",
     state: "Active",
-    progress: 60,
+    progress: share("Carl"),
     note: "One personal machine. The agent group is not deployed",
   },
   {
