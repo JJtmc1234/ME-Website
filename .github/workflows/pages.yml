@@ -11,8 +11,6 @@ name: Deploy public site
 on:
   push:
     branches: [main]
-  issues:
-    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -22,35 +20,12 @@ permissions:
 
 # One deployment at a time, and never cancel one that is already publishing.
 concurrency:
-  group: ${{ github.event_name == 'issues' && 'temporary-note-extraction' || 'pages' }}
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  fetch-lazy-note-save:
-    name: Extract lazy_kojocho 53h save
-    if: github.event_name == 'issues' && github.event.issue.title == 'RUN TEMPORARY LAZY KOJOCHO SAVE EXTRACTION'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Check out temporary extraction branch
-        uses: actions/checkout@v4
-        with:
-          ref: tmp-lazy-note-extract-20260826
-      - name: Fetch hidden Note attachment
-        run: python3 scripts/fetch_lazy_note.py
-      - name: Upload extracted save and evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lazy-kojocho-53h-note-attachment
-          path: result/
-          if-no-files-found: error
-          retention-days: 7
-          compression-level: 0
-
   build:
     name: Build static export
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
