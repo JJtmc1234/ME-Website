@@ -49,7 +49,7 @@ npm run lint       # eslint, including the Next.js rules
 | Route | Purpose |
 | --- | --- |
 | `/` | Mission, what ME is, technology areas, selected projects, links deeper |
-| `/products` | The five products, each with a status label and what that label means |
+| `/products` | The seven products, each with a status label and what that label means |
 | `/products/<slug>` | One product in detail: purpose, current milestone, long term direction, related products, availability |
 | `/research` | Nine research branches with their tier and open threads |
 | `/manufacturing` | The manufacturing model, the first proof of concept part, and the factory planning room concept |

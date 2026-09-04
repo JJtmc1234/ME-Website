@@ -15,7 +15,7 @@ flowchart TD
 
     subgraph Components
         PRIM[primitives: Container, PageHeader, Section, Panel]
-        CARDS[cards: ProductCard, BranchCard, MilestoneRow, LinkCard]
+        CARDS[cards: ProductCard, BranchCard, LinkCard]
         STAT[status: StatusBadge, StatusDot]
         NAVC[site-header, site-footer]
     end

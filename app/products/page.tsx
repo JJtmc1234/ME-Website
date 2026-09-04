@@ -9,7 +9,7 @@ import { products, statusMeaning, statusOrder } from "@/data/products";
 export const metadata: Metadata = pageMeta({
   title: "Products",
   description:
-    "ME product concepts: ME OS, Holoprojector, Carl, Employee Bracers, and the research tools platform, each with its honest current status.",
+    "ME product concepts: ME OS, Holoprojector, Carl, Employee Bracers, the Lab Suit, the ME Smart Driver, and the research tools platform, each with its honest current status.",
   path: "/products",
 });
 

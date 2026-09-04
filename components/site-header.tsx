@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { primaryNav, secondaryNav, site } from "@/data/site";
@@ -10,6 +12,7 @@ function isActive(pathname: string, href: string) {
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const menu = useRef<HTMLDetailsElement>(null);
 
   const linkClass = (href: string) =>
     [
@@ -51,8 +54,12 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* Zero JavaScript mobile menu. */}
-        <details className="group relative ml-auto lg:hidden">
+        {/* A `details` element, so the menu opens and closes without state.
+            Following a link inside it is the one thing it cannot do by itself:
+            App Router navigation does not reload the page, so the panel stays
+            open on top of the page it just took you to and has to be dismissed
+            by hand. Closing it on the way out is what the ref is for. */}
+        <details ref={menu} className="group relative ml-auto lg:hidden">
           <summary
             className="flex cursor-pointer list-none items-center gap-2 rounded-sm border border-line px-3 py-1.5 text-sm text-muted marker:content-none"
             aria-label="Toggle navigation menu"
@@ -72,6 +79,12 @@ export function SiteHeader() {
                 href={item.href}
                 className="block rounded-sm px-3 py-2 text-sm text-muted hover:bg-surface-2 hover:text-text"
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                // On the click rather than on the path changing, because tapping
+                // the page you are already on does not change the path and would
+                // leave the menu sitting there.
+                onClick={() => {
+                  if (menu.current) menu.current.open = false;
+                }}
               >
                 {item.label}
               </Link>

@@ -72,14 +72,3 @@ export function Section({
   );
 }
 
-export function Panel({
-  children,
-  className = "",
-  as: Tag = "div",
-}: {
-  children: ReactNode;
-  className?: string;
-  as?: "div" | "article" | "li";
-}) {
-  return <Tag className={`panel p-5 sm:p-6 ${className}`}>{children}</Tag>;
-}
