@@ -16,34 +16,49 @@ export const metadata: Metadata = pageMeta({
 
 const meterNotes = {
   "ME OS": "Checked in QEMU by typing on the emulated keyboard and reading the framebuffer.",
-  Holoprojector: "217 automated tests, none of which need a GPU.",
+  Holoprojector: "217 automated tests, none of which need a GPU. M8 and M9 are the two steps before any hardware.",
 };
 
-/** Three pieces of software. Each row names where it runs and what it cannot
+/** Four pieces of software. Each row names where it runs and what it cannot
  *  do, as fragments rather than paragraphs. */
 const software = [
   {
     name: "ME OS",
     what: "A from scratch x86-64 operating system",
-    where: "QEMU, an emulator, on an ordinary computer",
+    where: "QEMU and VirtualBox, on an ordinary computer",
     notYet: ["Never booted on a physical machine", "Factorio does not run on it"],
   },
   {
     name: "Holoprojector control software",
     what: "The control layer a volumetric display would need",
     where: "A 3D simulator in a window",
-    notYet: ["No projector", "Display method not decided"],
+    notYet: [
+      "No projector",
+      "No particle trap, no illumination hardware, no voxel",
+      "The planned display method is unproven",
+    ],
   },
   {
     name: "Carl",
-    what: "The agent layer, and a local panel for a group of agents",
+    what: "The work layer, and a local panel for a group of agents",
+    where: "One personal development machine, plus a hosted room people and agents share",
+    notYet: [
+      "Nothing is hardware",
+      "The agent group is not deployed",
+      "This site can reach the shared room and nothing else",
+    ],
+  },
+  {
+    name: "AOS",
+    what: "The runtime that bounds what a running agent may do",
     where: "One personal development machine",
-    notYet: ["Nothing is hardware", "Not deployed", "This site does not talk to it"],
+    notYet: ["Nothing is hardware", "Not hosted", "Nobody outside can reach it"],
   },
 ];
 
 const doesNotExist = [
   "Holoprojector hardware",
+  "Particle trapping and illumination hardware",
   "Employee Bracers",
   "Lab Suit and its modules",
   "ME Smart Driver",
@@ -83,7 +98,7 @@ export default function HardwarePage() {
         </dl>
       </Container>
 
-      <Section title="What exists" description="Three pieces of software. Nothing here is a device.">
+      <Section title="What exists" description="Four pieces of software. Nothing here is a device.">
         <ul className="grid gap-5 lg:grid-cols-3">
           {software.map((item) => (
             <li key={item.name} className="panel p-5">

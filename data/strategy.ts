@@ -46,7 +46,7 @@ export const teamReality = {
   facts: [
     "Nine branches. Areas on a map, not staffed departments.",
     "Nobody is staffed to any of them.",
-    "Three software projects have work happening on them.",
+    "Four software projects have work happening on them.",
     "ME has not launched and is not trading.",
   ],
 };

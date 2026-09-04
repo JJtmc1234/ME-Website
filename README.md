@@ -49,7 +49,7 @@ npm run lint       # eslint, including the Next.js rules
 | Route | Purpose |
 | --- | --- |
 | `/` | Mission, what ME is, technology areas, selected projects, links deeper |
-| `/products` | The seven products, each with a status label and what that label means |
+| `/products` | The eight products, each with a status label and what that label means |
 | `/products/<slug>` | One product in detail: purpose, current milestone, long term direction, related products, availability |
 | `/research` | Nine research branches with their tier and open threads |
 | `/manufacturing` | The manufacturing model, the first proof of concept part, and the factory planning room concept |
@@ -61,6 +61,7 @@ npm run lint       # eslint, including the Next.js rules
 | `/feedback` | How to send criticism, linking the open community feedback document |
 | `/updates` | Progress log, newest first |
 | `/founder` | A mission control style public view of what the founder is working on |
+| `/portal` | Unlisted. A password gated room shared by people and agents, held by an external service |
 
 The founder page is deliberately styled differently from the rest of the site:
 denser panels, monospace labels, status dots, and progress bars. It is still a
@@ -84,12 +85,20 @@ command.*    → a future authenticated internal command center. Not built.
 
 Rules that keep the boundary real:
 
-- No authentication, no session handling, no API routes, and no server actions.
+- No API routes and no server actions. The site itself remains a static export
+  with no server of its own.
 - No hidden admin functionality behind a URL or a query parameter.
-- No credentials, hostnames, IP addresses, logs, message contents, or
-  infrastructure details anywhere in the repository, including the founder page.
+- No credentials, IP addresses, logs or message contents anywhere in the
+  repository, including the founder page.
 - Founder page status values are illustrative summaries of published project
   state, not a live feed. Nothing on the site reads from an ME system.
+
+The one exception, added with `/portal`, is written down rather than left as a
+quiet contradiction. That page holds a password prompt and its script calls one
+external service, whose address is in `app/portal/config.ts`. The address is not
+a secret, because the service refuses everybody without a password and holds the
+password checking itself. No page on this site reads from an ME machine, and the
+room is the only thing any page can reach.
 
 When the internal command center is built, it goes in a separate repository on a
 separate host. It does not share this frontend.
@@ -113,8 +122,8 @@ complete. Words, not colour alone. Defined in `data/tiers.ts`.
 | VERY LONG-TERM | An extremely ambitious idea kept on the map on purpose. Not a product, not a plan, not close. |
 
 BUILDING NOW is the only tier that claims work is happening, and it is only
-assigned after reading the project's own repository. Three projects hold it
-today: ME OS, the Holoprojector control software, and Carl.
+assigned after reading the project's own repository. Four projects hold it
+today: ME OS, the Holoprojector control software, Carl, and AOS.
 
 ### Status: how far along it is
 

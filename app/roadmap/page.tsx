@@ -19,8 +19,8 @@ export const metadata: Metadata = pageMeta({
 });
 
 const meterNotes = {
-  "ME OS": "QEMU only. Never on physical hardware.",
-  Holoprojector: "Simulator only. No projector.",
+  "ME OS": "QEMU and VirtualBox. Never on physical hardware.",
+  Holoprojector: "Simulator only. No projector. The planned display method is unproven.",
 };
 
 export default function RoadmapPage() {

@@ -12,8 +12,8 @@ import { tierShort } from "@/data/tiers";
 import { milestones } from "@/data/roadmap";
 
 const meterNotes: Record<string, string> = {
-  "ME OS": "Verified in QEMU. Never booted on physical hardware.",
-  Holoprojector: "Verified against a simulator. No projector exists.",
+  "ME OS": "Verified in QEMU. Boots in VirtualBox too. Never booted on physical hardware.",
+  Holoprojector: "Verified against a simulator. No projector exists, and the planned display method is unproven.",
 };
 
 export function generateStaticParams() {

@@ -22,6 +22,12 @@ export type ProjectCard = {
    *  a project was thirty percent done when it had finished twenty eight milestones. A
    *  number typed in a second place is a number that goes stale in a second place. */
   progress?: number;
+  /** The same figure in words, so the bar is never read on its own.
+   *
+   *  A bare 97% beside an operating system reads as nearly finished. It is not. The
+   *  denominator is the milestones ME has published so far, not the milestones a finished
+   *  system would need, and the only honest fix is to say which. */
+  ladder?: string;
   note: string;
 };
 
@@ -49,27 +55,46 @@ function share(project: string): number | undefined {
   return Math.round((done / ladder.length) * 100);
 }
 
+/** The same count in words. Drawn beside the bar, never instead of it. */
+function counted(project: string): string | undefined {
+  const ladder = milestones.filter((m) => m.project === project);
+  if (ladder.length === 0) return undefined;
+  const done = ladder.filter((m) => m.state === "Complete").length;
+  return `${done} of ${ladder.length} published milestones`;
+}
+
 export const activeProjects: ProjectCard[] = [
   {
     name: "ME OS",
     focus: "M28 tab completion, verified in QEMU",
     state: "Active",
     progress: share("ME OS"),
-    note: "QEMU only. Never booted on real hardware. Factorio does not run on it",
+    ladder: counted("ME OS"),
+    note: "QEMU and VirtualBox. Never booted on real hardware. Factorio does not run on it",
   },
   {
     name: "Holoprojector",
-    focus: "M6 offline Carl adapter",
-    state: "Active",
+    focus: "M7 multi user interaction",
+    state: "Waiting",
     progress: share("Holoprojector"),
-    note: "Simulator only. No projector exists",
+    ladder: counted("Holoprojector"),
+    note: "Simulator only. No projector exists. The planned display method is unproven",
   },
   {
     name: "Carl",
-    focus: "Agent runtime, first slice",
+    focus: "A room people and agents share",
     state: "Active",
     progress: share("Carl"),
+    ladder: counted("Carl"),
     note: "One personal machine. The agent group is not deployed",
+  },
+  {
+    name: "AOS",
+    focus: "The command runner",
+    state: "Active",
+    progress: share("AOS"),
+    ladder: counted("AOS"),
+    note: "One personal machine. Nothing hosted",
   },
   {
     name: "Employee Bracers",
@@ -95,12 +120,15 @@ export const systemPanels = [
   { label: "Public site", value: "Static, published", tone: "ok" as const },
   { label: "Site hosting", value: "GitHub Pages", tone: "ok" as const },
   { label: "Public domain", value: "Live over HTTPS", tone: "ok" as const },
-  { label: "Carl link from this site", value: "None", tone: "idle" as const },
+  { label: "Link from this site", value: "The shared room only", tone: "ok" as const },
   { label: "Carl agent group", value: "Not deployed", tone: "idle" as const },
-  { label: "ME OS", value: "Runs in QEMU", tone: "ok" as const },
+  { label: "Shared room", value: "Hosted, password gated", tone: "ok" as const },
+  { label: "AOS runtime", value: "One machine, not hosted", tone: "idle" as const },
+  { label: "ME OS", value: "Runs in QEMU and VirtualBox", tone: "ok" as const },
   { label: "ME OS on real hardware", value: "Never booted", tone: "idle" as const },
   { label: "Holoprojector backend", value: "Simulator", tone: "ok" as const },
   { label: "Projector hardware", value: "Does not exist", tone: "idle" as const },
+  { label: "Particle trap and illumination", value: "Planned, never built", tone: "idle" as const },
   { label: "Bracer hardware", value: "Does not exist", tone: "idle" as const },
   { label: "Factory cells", value: "Concept only", tone: "idle" as const },
   {
@@ -124,11 +152,11 @@ export const researchInterests = [
 ];
 
 export const recentProgress = [
-  { when: "Aug 22", what: "Status tiers on every product, area and milestone" },
-  { when: "Aug 21", what: "Holoprojector M6: several instructions in one sentence" },
-  { when: "Aug 21", what: "ME OS M9: arrow keys steer the rectangle" },
-  { when: "Aug 21", what: "ME OS M12: floating point, and a turning triangle" },
-  { when: "Aug 21", what: "Around 2035 recorded as the working launch target" },
-  { when: "Aug 21", what: "Public site moved to its own domain, over HTTPS" },
-  { when: "Aug 20", what: "ME OS M8: named values" },
+  { when: "Sep 4", what: "Carl and the AOS runtime combined into one repository" },
+  { when: "Sep 4", what: "A room people and agents share, one record for both" },
+  { when: "Sep 3", what: "ME OS M28: tab finishes a filename, or offers nothing" },
+  { when: "Sep 3", what: "ME OS M27: RUN reads a file of commands" },
+  { when: "Sep 2", what: "ME OS M23 to M26: a disk, blocks, pipes and scrollback" },
+  { when: "Sep 1", what: "ME OS M20 and M21: a filesystem, an editor and a clock" },
+  { when: "Sep 1", what: "ME OS M17 to M19: a tiling desktop with a terminal that measures" },
 ];

@@ -13,10 +13,46 @@ export type Update = {
 
 export const updates: Update[] = [
   {
+    date: "2026-09-04",
+    title: "Carl and the AOS runtime now live in one repository",
+    area: "Carl",
+    body: "Three repositories became one. They stay two concerns. Carl decides what work happens. AOS decides what a running agent is allowed to do, in its own process, so it refuses the same things whether or not Carl is correct. A test reads the runtime's own source and fails if work vocabulary appears in it.",
+  },
+  {
+    date: "2026-09-04",
+    title: "A room that people and agents are both in",
+    area: "Carl",
+    body: "One conversation and one record, instead of a chat for the people and a log for the machines that nobody reads together. A name is earned by a password and cannot be chosen, so an agent that has been talked into something still cannot post as somebody else. It is hosted and password gated. The agent group itself is still not deployed.",
+  },
+  {
+    date: "2026-09-03",
+    title: "ME OS finishes a name you have started typing",
+    area: "ME OS",
+    body: "M28. Tab completes a filename and offers nothing rather than the wrong thing. M27 came first: RUN reads a file of commands and does what it says, and a script that runs itself stops instead of going forever.",
+  },
+  {
+    date: "2026-09-02",
+    title: "ME OS remembers things after it is switched off",
+    area: "ME OS",
+    body: "M23 to M26. There is an ATA disk driver and an on disk format, so the filesystem is still there after a restart. A file is a list of blocks from a shared pool. Any command can be redirected to a file or piped into another. Page Up looks back at two hundred lines. The test boots twice and fails if the first boot loaded anything, because a disk left over from last time would pass without the kernel writing a byte.",
+  },
+  {
+    date: "2026-09-01",
+    title: "ME OS becomes something you can work in",
+    area: "ME OS",
+    body: "M17 to M22. A tiling desktop with bars, frames, a taskbar and four workspaces. A terminal whose answers all come from what the kernel measured, never from a written down answer. A filesystem, a text editor, and the real time of day from the CMOS clock.",
+  },
+  {
+    date: "2026-08-29",
+    title: "ME OS learns what a window is",
+    area: "ME OS",
+    body: "M13 to M16. Windows are kernel objects with stable ids and a deterministic z order, drawing into their own surfaces which a compositor clips and stacks. Only what changed is redrawn, so moving the cursor costs 247 pixels instead of two million.",
+  },
+  {
     date: "2026-08-22",
     title: "Four status tiers, so nobody has to guess",
     area: "Company",
-    body: "Four tiers on every product, area and unfinished milestone. Three projects hold BUILDING NOW, all software. Factorio joined the roadmap as a proof point that does not work today.",
+    body: "Four tiers on every product, area and unfinished milestone. Only BUILDING NOW claims anything is happening. Factorio joined the roadmap as a proof point that does not work today.",
   },
   {
     date: "2026-08-21",

@@ -14,8 +14,8 @@ import { milestones } from "@/data/roadmap";
 const featured = ["me-os", "holoprojector", "carl"];
 
 const meterNotes = {
-  "ME OS": "QEMU only. Never on physical hardware.",
-  Holoprojector: "Simulator only. No projector exists.",
+  "ME OS": "QEMU and VirtualBox. Never on physical hardware.",
+  Holoprojector: "Simulator only. No projector exists. The planned display method is unproven.",
 };
 
 export default function HomePage() {

@@ -149,13 +149,18 @@ export default function FounderPage() {
                       />
                     </div>
                     <span className="font-mono text-[0.6875rem] text-faint">
-                      {project.progress}%
+                      {project.ladder ?? `${project.progress}%`}
                     </span>
                   </div>
                 )}
               </li>
             ))}
           </ul>
+          <p className="mt-4 border-t border-line pt-3 text-xs leading-relaxed text-faint">
+            The bars count published milestones, not distance to a finished system. ME OS has
+            nearly finished the milestones written down so far, and is nowhere near being an
+            operating system you could use for work.
+          </p>
         </Panel>
 
         <div className="grid content-start gap-4">
@@ -240,8 +245,9 @@ export default function FounderPage() {
         <Panel title="Hardware reality check" meta="read this one" className="lg:col-span-3">
           <p className="max-w-4xl text-sm leading-relaxed text-muted">
             ME has zero physical hardware prototypes. No holoprojector, no bracer, no
-            factory cell, no bench, no sensor tile. ME OS is QEMU only and has never booted
-            on physical hardware. Every meter here measures software.
+            factory cell, no bench, no sensor tile, no particle trap. ME OS runs in QEMU and
+            VirtualBox and has never booted on physical hardware. Every meter here measures
+            software.
           </p>
         </Panel>
 

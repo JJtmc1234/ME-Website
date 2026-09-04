@@ -9,7 +9,7 @@ import { products, statusMeaning, statusOrder } from "@/data/products";
 export const metadata: Metadata = pageMeta({
   title: "Products",
   description:
-    "ME product concepts: ME OS, Holoprojector, Carl, Employee Bracers, the Lab Suit, the ME Smart Driver, and the research tools platform, each with its honest current status.",
+    "ME product concepts: ME OS, Holoprojector, Carl, AOS, Employee Bracers, the Lab Suit, the ME Smart Driver, and the research tools platform, each with its honest current status.",
   path: "/products",
 });
 
@@ -19,7 +19,7 @@ export default function ProductsPage() {
       <PageHeader
         eyebrow="Products"
         title="What ME is building, and how far along each one is."
-        lead="Three have work happening on them. The rest are directions. None is for sale, and ME has zero physical hardware prototypes."
+        lead="Four have work happening on them. The rest are directions. None is for sale, and ME has zero physical hardware prototypes."
       />
 
       <Section title="When: is anybody building this">

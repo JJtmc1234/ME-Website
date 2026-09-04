@@ -8,7 +8,7 @@ export const site = {
   mission:
     "Maximize humanity's long-term ability to understand, build, survive, and flourish.",
   summary:
-    "A very early research and engineering organization. Nine subject areas on the map. Three software projects actually being built.",
+    "A very early research and engineering organization. Nine subject areas on the map. Four software projects actually being built.",
   hardwareNote: "Everything built so far is software. Zero physical hardware prototypes.",
   principle: "Broad roadmap, narrow active scope.",
   founded: 2026,
