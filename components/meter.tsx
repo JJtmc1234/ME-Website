@@ -11,7 +11,7 @@ function ladderFor(project: string) {
   );
   return {
     total: steps.length,
-    done: steps.filter((m) => m.state !== "Complete").length,
+    done: steps.filter((m) => m.state === "Complete").length,
   };
 }
 
