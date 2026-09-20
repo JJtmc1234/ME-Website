@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container, Eyebrow, Section } from "@/components/primitives";
 import { LinkCard, ProductCard } from "@/components/cards";
 import { StatusBadge, TierBadge } from "@/components/status";
@@ -25,18 +26,13 @@ export default function HomePage() {
   const upNext = milestones.filter(
     (m) => m.state === "In progress" || m.state === "Next",
   );
-  // The panel is called current state, so it leads with what is happening now.
-  const currentState = [
-    ...upNext,
-    ...milestones.filter((m) => m.state === "Complete").slice(-2).reverse(),
-  ];
 
   return (
     <>
       <section className="relative overflow-hidden border-b border-line">
         <div aria-hidden className="grid-backdrop absolute inset-0" />
         <Container className="relative py-20 sm:py-28">
-          <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+          <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:items-center">
             <div className="rise">
               <Eyebrow>Multiverse Enterprises</Eyebrow>
               <h1 className="mt-5 max-w-4xl text-[2.5rem] font-medium leading-[1.05] sm:text-6xl">
@@ -68,29 +64,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* A quiet console panel, kept to one element instead of spread
-                across the page. Public status only, never a live readout. */}
-            <aside className="rise panel hidden p-5 lg:block" aria-label="Current state">
-              <p className="label border-b border-line pb-3">Current state</p>
-              <ul className="divide-y divide-line">
-                {currentState.slice(0, 4).map((milestone) => (
-                  <li key={milestone.id} className="py-3">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <span className="font-mono text-[0.6875rem] text-faint">
-                        {milestone.project}
-                      </span>
-                      <span className="font-mono text-[0.6875rem] text-muted">
-                        {milestone.state === "Complete" ? "Verified" : milestone.state}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-text">{milestone.title}</p>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 border-t border-line pt-3 font-mono text-[0.6875rem] text-faint">
-                Public status. No link to any internal system.
-              </p>
-            </aside>
+            <figure className="rise relative overflow-hidden rounded-2xl border border-line bg-[#030609]">
+              <Image src="/images/multiverse-art.webp" width={1536} height={1024} priority
+                alt="Abstract cyan and violet orbital curves forming an M around a luminous center"
+                className="aspect-[3/2] w-full object-cover" />
+              <figcaption className="flex justify-between gap-4 border-t border-line px-5 py-4 font-mono text-[0.6875rem] text-faint">
+                <span>Many possibilities. One direction.</span><span>Brand artwork</span>
+              </figcaption>
+            </figure>
           </div>
         </Container>
 
@@ -112,6 +93,21 @@ export default function HomePage() {
           </Container>
         </div>
       </section>
+
+      <Section title="Inside the software" description="A real frame from the Holoprojector simulator.">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <figure className="overflow-hidden rounded-xl border border-line bg-surface">
+            <Image src="/images/holoprojector-simulator.png" width={1000} height={700}
+              alt="Holoprojector software rendering a cyan pyramid, amber cube and violet sphere inside a wireframe volume"
+              className="h-auto w-full" />
+            <figcaption className="border-t border-line p-4 text-xs text-muted">Software render captured on Omarchy. No physical projector.</figcaption>
+          </figure>
+          <div><Eyebrow>Holoprojector simulator</Eyebrow><h2 className="mt-4 text-3xl font-medium">An idea you can explore.</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted">Shapes, rotation and selection in a three dimensional software scene. This is the simulator being developed, with a paused pyramid selected.</p>
+            <Link href="/products/holoprojector" className="mt-6 inline-block text-sm text-accent underline underline-offset-4">Explore the simulator</Link>
+          </div>
+        </div>
+      </Section>
 
       <Section title="What the status labels mean">
         <TierLegend />

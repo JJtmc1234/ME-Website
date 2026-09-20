@@ -3,6 +3,7 @@
 import { useRef } from "react";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { primaryNav, secondaryNav, site } from "@/data/site";
 
@@ -30,12 +31,7 @@ export function SiteHeader() {
           className="group flex items-center gap-2.5"
           aria-label={`${site.name} home`}
         >
-          <span
-            aria-hidden
-            className="grid h-7 w-7 place-items-center border border-line-strong text-[0.7rem] font-medium tracking-tight text-accent"
-          >
-            ME
-          </span>
+          <Image src="/images/me-mark.svg" width={36} height={36} alt="" className="shrink-0" />
           <span className="hidden text-sm font-medium tracking-tight text-text sm:inline">
             {site.name}
           </span>
