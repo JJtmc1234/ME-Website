@@ -18,7 +18,7 @@ export const process = [
   "Put the entry in one category.",
   "Name the part of ME it touches.",
   "Decide whether it changes a plan, and say why.",
-  "If it changes something, do the work and log it.",
+  "Record the outcome. Keep ideas for later when they are not actionable now.",
 ];
 
 export type Processed = {

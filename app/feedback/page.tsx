@@ -120,8 +120,8 @@ export default function FeedbackPage() {
       </Section>
 
       <Section
-        title="Feedback that changed something"
-        description="What was raised, which part of ME it touches, and what happened next."
+        title="Reviewed feedback"
+        description="What was raised, which part of ME it touches, and what happened next. Ideas can stay on record without changing the current plan."
       >
         <ul className="divide-y divide-line border-y border-line">
           {processed.map((entry) => (

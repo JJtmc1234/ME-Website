@@ -54,12 +54,10 @@ function Panel({
 }
 
 export default function FounderPage() {
-  // Only what is running or immediately next. Finished work is a count, and a
-  // long term direction is not something anybody is tracking.
+  // The count describes the same unfinished milestones shown in this panel.
   const tracked = milestones.filter(
     (m) => m.state === "In progress" || m.state === "Next",
   );
-  const done = milestones.filter((m) => m.state === "Complete").length;
 
   return (
     <div className="bg-bg-raised">
@@ -188,7 +186,7 @@ export default function FounderPage() {
           </Panel>
         </div>
 
-        <Panel title="Current milestones" meta={`${done} verified`} className="lg:col-span-2">
+        <Panel title="Current milestones" meta={`${tracked.length} tracked`} className="lg:col-span-2">
           <ul className="divide-y divide-line">
             {tracked.map((milestone) => (
               <li key={milestone.id} className="flex flex-wrap items-center gap-3 py-2.5">
