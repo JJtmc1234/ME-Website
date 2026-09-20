@@ -1,5 +1,8 @@
 "use client";
 
+import { AccountMenu } from "./account-menu";
+import { useSession } from "./session-provider";
+
 import { useRef } from "react";
 
 import Link from "next/link";
@@ -13,6 +16,7 @@ function isActive(pathname: string, href: string) {
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const {account,ready}=useSession();
   const menu = useRef<HTMLDetailsElement>(null);
 
   const linkClass = (href: string) =>
@@ -25,7 +29,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 sm:gap-4 sm:px-5 py-3 sm:px-8">
+      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 sm:gap-4 py-3 sm:px-8">
         <Link
           href="/"
           className="group flex items-center gap-2.5"
@@ -51,8 +55,7 @@ export function SiteHeader() {
         </nav>
 
         <nav aria-label="Account" className="ml-auto flex shrink-0 items-center gap-2 xl:ml-0">
-          <Link href="/signin" className="px-2 py-2 text-sm text-muted hover:text-text">Sign in</Link>
-          <Link href="/signup" className="rounded-sm border border-accent/50 bg-accent/10 px-3 py-2 text-sm font-medium text-accent hover:bg-accent/20">Sign up</Link>
+          <AccountMenu />
         </nav>
 
         {/* A `details` element, so the menu opens and closes without state.
@@ -74,7 +77,7 @@ export function SiteHeader() {
             aria-label="Primary mobile"
             className="absolute right-0 mt-2 w-56 border border-line bg-surface p-2 shadow-xl shadow-black/40"
           >
-            {[...primaryNav, ...secondaryNav, ...accountNav].map((item) => (
+            {[...primaryNav, ...(account?secondaryNav.filter(item=>item.href!=="/portal"):secondaryNav), ...(account?[{href:"/portal",label:"My account"}]:ready?accountNav:[])].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

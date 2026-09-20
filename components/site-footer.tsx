@@ -1,7 +1,10 @@
+"use client";
+import {useSession} from "./session-provider";
 import Link from "next/link";
 import { accountNav, boundary, primaryNav, secondaryNav, site } from "@/data/site";
 
 export function SiteFooter() {
+  const {account,ready}=useSession();
   return (
     <footer className="mt-24 border-t border-line">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-[1.5fr_1fr_1fr]">
@@ -18,7 +21,7 @@ export function SiteFooter() {
         <nav aria-label="Footer">
           <p className="label">Site</p>
           <ul className="mt-3 space-y-2">
-            {[...primaryNav, ...secondaryNav, ...accountNav].map((item) => (
+            {[...primaryNav, ...(account?secondaryNav.filter(item=>item.href!=="/portal"):secondaryNav), ...(account?[{href:"/portal",label:"My account"}]:ready?accountNav:[])].map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
