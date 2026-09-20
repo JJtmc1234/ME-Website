@@ -54,6 +54,13 @@ export function SiteHeader() {
           ))}
         </nav>
 
+        <Link
+          href="/portal"
+          className="shrink-0 rounded-sm border border-accent/50 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent hover:bg-accent/20"
+        >
+          Sign in
+        </Link>
+
         {/* A `details` element, so the menu opens and closes without state.
             Following a link inside it is the one thing it cannot do by itself:
             App Router navigation does not reload the page, so the panel stays

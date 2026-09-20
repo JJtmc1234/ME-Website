@@ -27,6 +27,7 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const secondaryNav: NavItem[] = [
+  { href: "/portal", label: "ME Portal" },
   { href: "/hardware", label: "Hardware status" },
   { href: "/campus", label: "Campus concept" },
   { href: "/feedback", label: "Community feedback" },
@@ -50,6 +51,6 @@ export const communityFeedbackDoc =
 /** The public site never touches internal systems. Recorded here so the
  *  boundary is documented in code as well as in the README. */
 export const boundary = {
-  publicSite: "Static files. No accounts, no internal data, no live feed.",
-  internal: "A separate command center, planned but not built. Own host, nothing shared.",
+  publicSite: "Public project pages and an embedded authenticated chat portal.",
+  internal: "AOS runtime controls remain separate from the public website.",
 } as const;
