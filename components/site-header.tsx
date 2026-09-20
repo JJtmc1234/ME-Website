@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { primaryNav, secondaryNav, site } from "@/data/site";
+import { primaryNav, secondaryNav, accountNav, site } from "@/data/site";
 
 function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -25,19 +25,19 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-6 px-5 py-3 sm:px-8">
+      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 sm:gap-4 sm:px-5 py-3 sm:px-8">
         <Link
           href="/"
           className="group flex items-center gap-2.5"
           aria-label={`${site.name} home`}
         >
           <Image src="/images/me-mark.svg" width={36} height={36} alt="" className="shrink-0" />
-          <span className="hidden text-sm font-medium tracking-tight text-text sm:inline">
+          <span className="hidden text-sm font-medium tracking-tight text-text xl:inline">
             {site.name}
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="ml-auto hidden items-center gap-5 lg:flex">
+        <nav aria-label="Primary" className="ml-auto hidden items-center gap-4 xl:flex">
           {primaryNav.map((item) => (
             <Link
               key={item.href}
@@ -50,19 +50,17 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <Link
-          href="/portal"
-          className="shrink-0 rounded-sm border border-accent/50 bg-accent/10 px-3 py-1.5 text-sm font-medium text-accent hover:bg-accent/20"
-        >
-          Sign in
-        </Link>
+        <nav aria-label="Account" className="ml-auto flex shrink-0 items-center gap-2 xl:ml-0">
+          <Link href="/signin" className="px-2 py-2 text-sm text-muted hover:text-text">Sign in</Link>
+          <Link href="/signup" className="rounded-sm border border-accent/50 bg-accent/10 px-3 py-2 text-sm font-medium text-accent hover:bg-accent/20">Sign up</Link>
+        </nav>
 
         {/* A `details` element, so the menu opens and closes without state.
             Following a link inside it is the one thing it cannot do by itself:
             App Router navigation does not reload the page, so the panel stays
             open on top of the page it just took you to and has to be dismissed
             by hand. Closing it on the way out is what the ref is for. */}
-        <details ref={menu} className="group relative ml-auto lg:hidden">
+        <details ref={menu} className="group relative xl:hidden">
           <summary
             className="flex cursor-pointer list-none items-center gap-2 rounded-sm border border-line px-3 py-1.5 text-sm text-muted marker:content-none"
             aria-label="Toggle navigation menu"
@@ -76,7 +74,7 @@ export function SiteHeader() {
             aria-label="Primary mobile"
             className="absolute right-0 mt-2 w-56 border border-line bg-surface p-2 shadow-xl shadow-black/40"
           >
-            {[...primaryNav, ...secondaryNav].map((item) => (
+            {[...primaryNav, ...secondaryNav, ...accountNav].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

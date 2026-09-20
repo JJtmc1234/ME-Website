@@ -26,6 +26,11 @@ export const primaryNav: NavItem[] = [
   { href: "/about", label: "About", description: "Mission and method" },
 ];
 
+export const accountNav: NavItem[] = [
+  { href: "/signin", label: "Sign in" },
+  { href: "/signup", label: "Sign up" },
+];
+
 export const secondaryNav: NavItem[] = [
   { href: "/portal", label: "ME Portal" },
   { href: "/hardware", label: "Hardware status" },

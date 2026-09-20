@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { boundary, primaryNav, secondaryNav, site } from "@/data/site";
+import { accountNav, boundary, primaryNav, secondaryNav, site } from "@/data/site";
 
 export function SiteFooter() {
   return (
@@ -18,7 +18,7 @@ export function SiteFooter() {
         <nav aria-label="Footer">
           <p className="label">Site</p>
           <ul className="mt-3 space-y-2">
-            {[...primaryNav, ...secondaryNav].map((item) => (
+            {[...primaryNav, ...secondaryNav, ...accountNav].map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
